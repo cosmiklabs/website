@@ -138,3 +138,11 @@ test('unpublished product pages and assets are absent from the complete build', 
   }
  }
 });
+
+// Phones hide heading line breaks, and screen readers skip them: a break must
+// never be the only thing separating two words.
+test('line breaks in published text are followed by a space',async()=>{
+ const pages=(await walk(path.join(projectRoot,'site'))).filter(p=>p.endsWith('.html'));
+ assert.ok(pages.length);
+ for(const page of pages)assert.doesNotMatch(await readFile(page,'utf8'),/[^\s>]<br>[^\s<]/,path.relative(projectRoot,page));
+});
