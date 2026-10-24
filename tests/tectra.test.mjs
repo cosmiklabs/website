@@ -15,7 +15,7 @@ test('Tectra has a restrained listing and minimal development page', () => {
   }
   const html = familyPage(tectra);
   assert.match(html, /<h1>Tectra<\/h1>/);
-  assert.match(html, /Create structures for<br>worlds real or imagined\./);
+  assert.match(html, /Create structures for<br> ?worlds real or imagined\./);
   assert.match(html, /Describe the space\. Shape what comes next\./);
   assert.match(html, /connected parts, relationships and rules it can check as the design evolves/);
   assert.match(html, /In development/);
