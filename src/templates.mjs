@@ -7,7 +7,7 @@ export const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'
 const arrow = '<svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
 const external = '<svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg>';
 const label = text => `<p class="eyebrow">${escape(text)}</p>`;
-const status = text => `<span class="status c-status">${escape(text)}</span>`;
+const status = (text, dense = false) => `<span class="status c-status${dense ? ' c-status--dense' : ''}">${escape(text)}</span>`;
 const pillarName = id => pillars.find(p => p.id === id)?.name ?? '';
 const familyUrl = (root, family) => `${root}projects/${family.id}/`;
 
@@ -65,7 +65,7 @@ ${stylesheets(theme).map(path => `<link rel="stylesheet" href="${assetUrl(root, 
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : family.id === 'tectra' ? `<img class="family-row-symbol" src="${root}assets/families/tectra/tectra-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : family.id === 'tectra' ? `<img class="family-row-symbol" src="${root}assets/families/tectra/tectra-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status, true)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {

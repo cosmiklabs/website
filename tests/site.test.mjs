@@ -146,3 +146,13 @@ test('line breaks in published text are followed by a space',async()=>{
  assert.ok(pages.length);
  for(const page of pages)assert.doesNotMatch(await readFile(page,'utf8'),/[^\s>]<br>[^\s<]/,path.relative(projectRoot,page));
 });
+
+test('dense project rows use the kit dense status label; other status labels keep the standard size',()=>{
+ for(const [name,html] of pages){
+  const rows=html.match(/<a class="family-row"[\s\S]*?<\/a>/g)||[];
+  for(const row of rows)assert.match(row,/class="status c-status c-status--dense"/,name);
+  const outside=rows.reduce((rest,row)=>rest.replace(row,''),html);
+  assert.doesNotMatch(outside,/c-status--dense/,name);
+ }
+ assert.ok((pages.get('index.html').match(/c-status--dense/g)||[]).length===families.length);
+});
