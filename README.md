@@ -44,9 +44,26 @@ SHA-256 of every file:
 
 Product family kits ([cosmiklabs/brand-tectra](https://github.com/cosmiklabs/brand-tectra),
 [cosmiklabs/brand-hplx](https://github.com/cosmiklabs/brand-hplx)) are not vendored or
-rendered here. Their palettes, typefaces and marks belong on the products' own
-sites. Project pages and listings name the products in Cosmik's tokens and
-type. Never edit anything under `vendor/`.
+rendered here. Their palettes and typefaces belong on the products' own sites.
+Project pages and listings name the products in Cosmik's tokens and type. Never
+edit anything under `vendor/`.
+
+### Product logos
+
+The Tectra Latch and the owner-approved HPLX Glimmer symbol (17 October 2026) appear
+as plain artwork beside the live product names (owner, 25 October 2026), with no
+family colours, fonts or theming around them. They are this site's own assets in
+`assets/projects/`, copied byte for byte from brand-tectra v0.2.6 and brand-hplx
+v0.1.2. `brand-provenance.json` (`projectLogos`) records each file's repository,
+tag, commit, source path and SHA-256, and `tests/project-logos.test.mjs` pins the
+same hashes, so a changed file fails the tests. To take a new logo from a release,
+copy the file unchanged and update both.
+
+Project rows on the home and Projects pages use each kit's monochrome white
+variant at 32 × 32. Project page headings use the approved colour variant for dark
+surfaces (`-dark`: Latch in mineral teal, Glimmer in amber) at 1.35em beside the
+name. Logos are decorative (`alt=""`) because the live name is adjacent. Do not
+recolour, crop or redraw them.
 
 `brand-provenance.json` names the lock and maps every published brand file to its
 vendored source. The build copies only those files into `site/`, unchanged: the
@@ -131,13 +148,15 @@ Add the name, pillar, heading lines, description and status in `src/projects.mjs
 Do not create a project-specific hero, generic `page-heading` fallback, per-project
 layout CSS or per-project colours.
 
-The shared pattern owns the breadcrumb, two-column hero, the live project name
-with the Cosmik endorsement below it, heading typography, description and status
+The shared pattern owns the breadcrumb, two-column hero, the logo-left/name-right
+identity with the Cosmik endorsement below the name, heading typography, description and status
 spacing, section grid and return link. At 720px it stacks into one column. Keep
 content at its natural height. Optional sections may differ, but must use the
 shared `section-grid` spacing. Do not add filler, fixed heights or project-specific
-offsets to make pages appear equal. The global header and footer are the same on
-every page.
+offsets to make pages appear equal. A project's `logo` in `src/projects.mjs`
+names its listing and heading artwork in `assets/projects/`; a project without one
+keeps the identity column without inventing artwork. The global header and footer
+are the same on every page.
 
 CSS URLs use content hashes from `src/assets.mjs`, so every CSS change invalidates
 its own cached URL automatically. Run `npm run check` and

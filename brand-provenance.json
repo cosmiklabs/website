@@ -23,5 +23,38 @@
       "assets/cosmik-512.png": { "source": "kits/cosmik/icons/cosmik-512.png", "sha256": "bc2e808cbf5ba5c7af3ebf281314bbaefa39c182bc9f197ee1d92f8d9dbc8ffd" },
       "assets/cosmik-apple-touch-180.png": { "source": "kits/cosmik/icons/cosmik-apple-touch-180.png", "sha256": "6681280562abcb9c5dfe373f40ecec2e56c6abedcfc84484716212821f1bddc3" }
     }
+  },
+  "projectLogos": {
+    "about": "Product logos shown as plain artwork beside project names (owner, 25 October 2026). They are this site's own assets, not vendored kits: each is byte-identical to `source` in the named product brand release. The `-dark` files are the approved colour variants for dark surfaces; the `-white` files are the approved monochrome variants.",
+    "files": {
+      "assets/projects/tectra-latch-dark.svg": {
+        "repository": "cosmiklabs/brand-tectra",
+        "tag": "v0.2.6",
+        "commit": "582d8cb6508527036cad908b8f3d43c4ae065965",
+        "source": "assets/tectra-latch-dark.svg",
+        "sha256": "7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67"
+      },
+      "assets/projects/tectra-latch-white.svg": {
+        "repository": "cosmiklabs/brand-tectra",
+        "tag": "v0.2.6",
+        "commit": "582d8cb6508527036cad908b8f3d43c4ae065965",
+        "source": "assets/tectra-latch-white.svg",
+        "sha256": "621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9"
+      },
+      "assets/projects/hplx-glimmer-dark.svg": {
+        "repository": "cosmiklabs/brand-hplx",
+        "tag": "v0.1.2",
+        "commit": "7d9798a0c9e0ae136c781ec219bd0f3602980d92",
+        "source": "assets/hplx-glimmer-dark.svg",
+        "sha256": "4e62f4c11e5e84ec17d7d0705aba472767596aede653f4211a4dfeca26b680d7"
+      },
+      "assets/projects/hplx-glimmer-white.svg": {
+        "repository": "cosmiklabs/brand-hplx",
+        "tag": "v0.1.2",
+        "commit": "7d9798a0c9e0ae136c781ec219bd0f3602980d92",
+        "source": "assets/hplx-glimmer-white.svg",
+        "sha256": "fd20079b4f735a8242438e095da14f4c981f25397c80343c776f9424606473b5"
+      }
+    }
   }
 }

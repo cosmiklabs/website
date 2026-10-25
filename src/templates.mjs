@@ -64,7 +64,7 @@ ${stylesheets().map(path => `<link rel="stylesheet" href="${assetUrl(root, path)
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status, true)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.logo ? `<img class="family-row-symbol" src="${root}${family.logo.listing}" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status, true)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {
@@ -97,14 +97,14 @@ export function retailLinks(id) {
 export function familyPage(family) {
   return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>
-${familyHeading(family)}</div>
+${familyHeading(family, root)}</div>
 ${family.id === 'hplx' ? hplxSections(family, root) : ''}
 <div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All projects</a>${family.legalNote ? `<p class="legal-note">${escape(family.legalNote)}</p>` : ''}</div>` });
 }
 
-/** The project's name and endorsement in Cosmik's own type and colours, without product marks. */
-export function familyHeading(family) {
-  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity"><h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br> ')}</h2><p>${escape(family.description)}</p>${family.slogan ? `<p>${escape(family.slogan)}</p>` : ''}${status(family.status)}</div></header>`;
+/** The product logo as plain artwork beside the live name, with the Cosmik endorsement below; type and colours stay Cosmik's. */
+export function familyHeading(family, root) {
+  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity">${family.logo ? `<img class="family-logo" src="${root}${family.logo.heading}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br> ')}</h2><p>${escape(family.description)}</p>${family.slogan ? `<p>${escape(family.slogan)}</p>` : ''}${status(family.status)}</div></header>`;
 }
 
 function hplxSections(family, root) {

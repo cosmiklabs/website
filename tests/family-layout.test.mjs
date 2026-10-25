@@ -11,7 +11,7 @@ test('every registered family and future baseline family use the same hero compo
  const future = {...families[1], id:'future', name:'Future', heading:['A different length heading'], description:'Short copy.'};
  for (const family of [...families, future]) {
   const html = familyPage(family);
-  assert.equal(hero(html), familyHeading(family));
+  assert.equal(hero(html), familyHeading(family, '../../'));
   assert.equal((html.match(/class="family-heading"/g)||[]).length, 1);
   assert.equal((html.match(/class="breadcrumbs"/g)||[]).length, 1);
   assert.equal((html.match(/class="family-bottom wrap"/g)||[]).length, 1);
@@ -32,7 +32,7 @@ test('shared family content requirements and escaping are enforced', () => {
 test('project pages stay in the Cosmik brand with one shared layout', async () => {
  for (const family of families) {
   const html=familyPage(family);
-  assert.doesNotMatch(html, /data-family|family-content|class="family-logo"|assets\/families\//);
+  assert.doesNotMatch(html, /data-family|family-content|assets\/families\//);
  }
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
  assert.doesNotMatch(css, /\[data-family=|tectra-heading|hplx-heading/);

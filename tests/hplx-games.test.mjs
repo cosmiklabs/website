@@ -46,7 +46,7 @@ test('stacked detail articles keep their spacing and the shared project identity
   assert.match(css, /\.game-detail\+\.game-detail,\.game-detail\+\.tool-list\{[^}]*margin-top:var\(--c-space-12\)[^}]*border-top:1px solid var\(--c-divider\)/);
   // The tool list after a game article (HPLX Engine under the retail links) keeps the same gap.
   assert.match(html, /class="retail-links"[\s\S]*?<\/article><div class="tool-list">/);
-  assert.match(html, /<div class="family-identity"><h1>HPLX<\/h1><p class="endorsement">A Cosmik project<\/p><\/div>/);
-  assert.doesNotMatch(html, /hplx-glimmer|class="family-logo"/);
+  assert.match(html, /<div class="family-identity"><img class="family-logo" src="\.\.\/\.\.\/assets\/projects\/hplx-glimmer-dark\.svg" width="64" height="64" alt=""><h1>HPLX<\/h1><p class="endorsement">A Cosmik project<\/p><\/div>/);
+  assert.match(css, /\.family-identity\{display:grid;grid-template-columns:1\.35em minmax\(0,1fr\)/);
   assert.match(html, /site\.css\?v=[a-f0-9]{12}/);
 });

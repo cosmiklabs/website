@@ -18,7 +18,7 @@ test('Tectra has a restrained listing and minimal development page', () => {
   assert.match(html, /Describe the space\. Shape what comes next\./);
   assert.match(html, /connected parts, relationships and rules it can check as the design evolves/);
   assert.match(html, /In development/);
-  assert.doesNotMatch(html, /data-family=|tectra-latch|assets\/families\//); // Cosmik's own brand, no product kit.
+  assert.doesNotMatch(html, /data-family=|assets\/families\//); // Cosmik's own brand, no product kit; the logo is plain artwork.
   const main = html.match(/<main[\s\S]*?<\/main>/)[0];
   assert.doesNotMatch(main, /agent|pipeline|MCP|SaaS|pricing|signup|beta|roadmap|Tecton|HPLX|Frictional/i);
 });
@@ -30,7 +30,7 @@ test('Tectra identity removes inherited heading margin and loads its current sty
  assert.match(css,/\.family-heading \.family-identity h1\{margin:0\}/);
  const html=familyPage(families.find(f=>f.id==='tectra'));
  assert.match(html,/site\.css\?v=[a-f0-9]{12}/);
- assert.match(html,/<div class="family-identity"><h1>Tectra<\/h1><p class="endorsement">/);
+ assert.match(html,/<div class="family-identity"><img class="family-logo" src="\.\.\/\.\.\/assets\/projects\/tectra-latch-dark\.svg"[^>]+><h1>Tectra<\/h1><p class="endorsement">/);
 });
 
 

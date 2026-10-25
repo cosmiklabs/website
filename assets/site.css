@@ -186,12 +186,15 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .legal-copy p{margin-block:var(--c-space-4);line-height:1.75}
 
 
-/* Project identity: the live name with the Cosmik endorsement below it, in
-   Cosmik's own type and colours. Product marks and palettes stay on the
-   products' own sites. */
-.family-identity{margin-top:var(--c-space-6)}
+/* Product logos are plain artwork beside live project names, never replacement
+   text; the type and colours around them stay Cosmik's. */
+.family-row-name:has(.family-row-symbol){display:flex;align-items:center;gap:var(--c-space-2)}
+.family-row-symbol{display:block;width:2rem;height:2rem;flex:none}
+.family-identity{display:grid;grid-template-columns:1.35em minmax(0,1fr);align-items:center;column-gap:var(--c-space-4);font-size:var(--c-type-display-font-size);margin-top:var(--c-space-6)}
+.family-logo{display:block;width:1.35em;height:1.35em}
 .family-heading .family-identity h1{margin:0}
-.family-identity .endorsement{margin-top:var(--c-space-2)}
+.family-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
+@media(max-width:720px){.family-identity{font-size:var(--c-type-display-small-font-size)}}
 
 .motion-preference{display:flex;align-items:center;gap:var(--c-space-2);font-size:var(--c-type-control-font-size)}
 .motion-preference[hidden]{display:none}
