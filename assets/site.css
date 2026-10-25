@@ -48,10 +48,9 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .feature-context{border-left:1px solid var(--c-divider-strong);padding-left:var(--c-space-12)}
 .feature-status{display:flex;flex-wrap:wrap;gap:var(--c-space-4);align-items:center;justify-content:space-between}
 .feature-status>.eyebrow{text-transform:none;letter-spacing:0;font-family:var(--c-type-body-font-family),sans-serif}
-/* Status labels are the kit's c-status; only wrapping is local, plus the smaller
-   label step in the dense project rows. */
+/* Status labels are the kit's c-status (c-status--dense in the dense project rows);
+   only wrapping is local. */
 .status{overflow-wrap:anywhere}
-.family-row-end .status{font-size:var(--c-type-ui-small-font-size)}
 .family-outline{margin-block:var(--c-space-8);border-top:1px solid var(--c-divider-strong)}
 .family-outline>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--c-space-4);align-items:baseline;padding-block:var(--c-space-4);border-bottom:1px solid var(--c-divider-strong)}
 .outline-label{font:var(--c-type-label-font-size)/1.5 var(--c-type-label-font-family),monospace;color:var(--c-muted)}

@@ -3,6 +3,17 @@
 The Tectra family's version is `version` in `tokens/family.json`; this repository's
 `package.json` and `asset-manifest.json` carry the same version. Newest first.
 
+## 0.2.3 · 24 October 2026
+
+- **Foundation `cosmiklabs/brand` v0.11.0** (commit
+  `1a7d5c392dd6926eaa8625c496a707de1a4b4d1b`), synced with its `vendor.mjs`. Its
+  shared controls add `c-status--dense`: the status pill, roles and `label` family,
+  tracking and case at the `ui-small` size with tighter padding, for dense rows,
+  headers and cards. `c-status` is unchanged. See the foundation's changelog.
+- No Tectra token value or mark changes. Generated tokens differ only in the
+  version and the provenance header; the baseline token version is still 0.7.0, so
+  `extends` is unchanged.
+
 ## 0.2.2 · 24 October 2026
 
 - **Foundation `cosmiklabs/brand` v0.10.0** (commit
