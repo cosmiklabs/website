@@ -2,7 +2,6 @@ import { assetUrl } from './assets.mjs';
 import { retailGames } from './retail-links.mjs';
 import { legalCopy } from './legal-copy.mjs';
 import { families, featuredWork, pillars } from './projects.mjs';
-import { resolveFamilyTheme } from './themes.mjs';
 export const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const arrow = '<svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
 const external = '<svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg>';
@@ -27,18 +26,18 @@ export function shareMetadata({title, description, route, redirect, canonical = 
 }
 
 /**
- * Brand load order: the baseline once, the family's colour roles, the shared
- * controls, then this site's CSS and the family's colour application.
+ * Brand load order: the Cosmik baseline, the shared controls, then this site's
+ * CSS. Every page, project pages included, stays in Cosmik's own brand; product
+ * family kits are not loaded.
  */
-export function stylesheets(theme) {
-  return ['assets/brand/cosmik.css', theme?.tokens, 'assets/brand/controls.css', 'assets/site.css', 'assets/family-themes.css', theme?.stylesheet].filter(Boolean);
+export function stylesheets() {
+  return ['assets/brand/cosmik.css', 'assets/brand/controls.css', 'assets/site.css'];
 }
 
-export function shell({ title, description, route, body, current = '', rootOverride = null, redirect = null, familyId = null, canonical = true }) {
+export function shell({ title, description, route, body, current = '', rootOverride = null, redirect = null, canonical = true }) {
   const depth = route.split('/').filter(Boolean).length;
   const root = rootOverride ?? (depth ? '../'.repeat(depth) : './');
   const url = path => root + path;
-  const theme = familyId ? resolveFamilyTheme(familyId) : null;
   return `<!doctype html>
 <html lang="en" data-theme="dark" data-motion="system">
 <head>
@@ -50,7 +49,7 @@ ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
-${stylesheets(theme).map(path => `<link rel="stylesheet" href="${assetUrl(root, path)}">`).join('')}
+${stylesheets().map(path => `<link rel="stylesheet" href="${assetUrl(root, path)}">`).join('')}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -58,14 +57,14 @@ ${stylesheets(theme).map(path => `<link rel="stylesheet" href="${assetUrl(root, 
 <a class="brand" href="${url('')}" aria-label="Cosmik home"><img src="${url('assets/emblem.svg')}" width="48" height="48" alt=""><span>Cosmik</span></a>
 <nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a></nav>
 </header>
-<main id="main" tabindex="-1">${theme ? `<div class="family-content" data-family="${escape(theme.id)}" data-family-theme="${theme.state}">${body(root)}</div>` : body(root)}</main>
+<main id="main" tabindex="-1">${body(root)}</main>
 <footer class="site-footer wrap"><label class="motion-preference" hidden>Motion <span class="c-select c-select--dense"><select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent software studio</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
 <script type="module" src="${assetUrl(root, 'assets/preferences.mjs')}"></script>
 </body></html>`;
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : family.id === 'tectra' ? `<img class="family-row-symbol" src="${root}assets/families/tectra/tectra-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status, true)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status, true)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {
@@ -96,16 +95,16 @@ export function retailLinks(id) {
 
 /** Every family uses this shell; only its content sections are optional. */
 export function familyPage(family) {
-  const theme = resolveFamilyTheme(family.id);
-  return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
+  return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>
-${familyHeading(family, theme, root)}</div>
+${familyHeading(family)}</div>
 ${family.id === 'hplx' ? hplxSections(family, root) : ''}
 <div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All projects</a>${family.legalNote ? `<p class="legal-note">${escape(family.legalNote)}</p>` : ''}</div>` });
 }
 
-export function familyHeading(family, theme, root) {
-  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity">${theme.logo ? `<img class="family-logo" src="${root}${theme.logo}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br> ')}</h2><p>${escape(family.description)}</p>${family.slogan ? `<p>${escape(family.slogan)}</p>` : ''}${status(family.status)}</div></header>`;
+/** The project's name and endorsement in Cosmik's own type and colours, without product marks. */
+export function familyHeading(family) {
+  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity"><h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br> ')}</h2><p>${escape(family.description)}</p>${family.slogan ? `<p>${escape(family.slogan)}</p>` : ''}${status(family.status)}</div></header>`;
 }
 
 function hplxSections(family, root) {
@@ -129,10 +128,10 @@ export function about() {
 export function legacyPage(legacy) {
   if (legacy.renamed) {
     const target = `projects/${legacy.familyId}/`;
-    return shell({title: `Continue to ${legacy.name} — Cosmik`, description: `Continue to ${legacy.name}.`, route:`projects/${legacy.id}`, redirect: target, current:'family', familyId:legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Continue to ${escape(legacy.name)}.</h1><p>This project has a new name and address.</p><a class="c-button c-button--primary button" href="${root}${target}">Visit ${escape(legacy.name)} ${arrow}</a></section>`});
+    return shell({title: `Continue to ${legacy.name} — Cosmik`, description: `Continue to ${legacy.name}.`, route:`projects/${legacy.id}`, redirect: target, current:'family', body: root => `<section class="page-heading wrap"><h1>Continue to ${escape(legacy.name)}.</h1><p>This project has a new name and address.</p><a class="c-button c-button--primary button" href="${root}${target}">Visit ${escape(legacy.name)} ${arrow}</a></section>`});
   }
   const target = `projects/${legacy.familyId}/#${legacy.fragment}`;
-  return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX project.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', familyId: legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives on the HPLX project page.</p><a class="c-button c-button--primary button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
+  return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX project.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives on the HPLX project page.</p><a class="c-button c-button--primary button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
 }
 
 export function notFound() {

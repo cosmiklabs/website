@@ -41,11 +41,12 @@ test('the existing AMFP route leads to the current editor without obsolete copy'
   assert.equal(legacyRoutes.find(route => route.id === 'amfp').name, 'HPLX story creation');
 });
 
-test('stacked detail articles keep their spacing and the horizontal Glimmer identity', async () => {
+test('stacked detail articles keep their spacing and the shared project identity', async () => {
   const css = await readFile(new URL('../assets/site.css', import.meta.url), 'utf8');
   assert.match(css, /\.game-detail\+\.game-detail,\.game-detail\+\.tool-list\{[^}]*margin-top:var\(--c-space-12\)[^}]*border-top:1px solid var\(--c-divider\)/);
   // The tool list after a game article (HPLX Engine under the retail links) keeps the same gap.
   assert.match(html, /class="retail-links"[\s\S]*?<\/article><div class="tool-list">/);
-  assert.match(css, /\.family-identity\{display:grid;grid-template-columns:1.35em minmax\(0,1fr\)/);
+  assert.match(html, /<div class="family-identity"><h1>HPLX<\/h1><p class="endorsement">A Cosmik project<\/p><\/div>/);
+  assert.doesNotMatch(html, /hplx-glimmer|class="family-logo"/);
   assert.match(html, /site\.css\?v=[a-f0-9]{12}/);
 });

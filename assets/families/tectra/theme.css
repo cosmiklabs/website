@@ -1,6 +1,0 @@
-/* Tectra on the Cosmik website: colour application only.
- * The palette is assets/families/tectra/tokens.css, built from the vendored
- * brand-tectra tokens (see brand-provenance.json). These rules only choose
- * where the accent role appears; typography stays with the shared site CSS. */
-[data-family="tectra"] h1,
-[data-family="tectra"] .eyebrow {color:var(--c-accent)}

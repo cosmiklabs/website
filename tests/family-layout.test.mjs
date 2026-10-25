@@ -4,16 +4,14 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { families, validateContent, featuredWork } from '../src/projects.mjs';
 import { familyPage, familyHeading } from '../src/templates.mjs';
-import { resolveFamilyTheme } from '../src/themes.mjs';
 import { assetBytes } from '../src/assets.mjs';
-import { colourValue } from '../src/brand.mjs';
 
 const hero = html => html.match(/<header class="family-heading">[\s\S]*?<\/header>/)?.[0];
 test('every registered family and future baseline family use the same hero component', () => {
  const future = {...families[1], id:'future', name:'Future', heading:['A different length heading'], description:'Short copy.'};
  for (const family of [...families, future]) {
   const html = familyPage(family);
-  assert.equal(hero(html), familyHeading(family, resolveFamilyTheme(family.id), '../../'));
+  assert.equal(hero(html), familyHeading(family));
   assert.equal((html.match(/class="family-heading"/g)||[]).length, 1);
   assert.equal((html.match(/class="breadcrumbs"/g)||[]).length, 1);
   assert.equal((html.match(/class="family-bottom wrap"/g)||[]).length, 1);
@@ -31,20 +29,10 @@ test('shared family content requirements and escaping are enforced', () => {
  assert.match(html, /&lt;script&gt;/);
 });
 
-test('family themes cannot introduce typography, geometry or layout differences', async () => {
+test('project pages stay in the Cosmik brand with one shared layout', async () => {
  for (const family of families) {
-  const theme=resolveFamilyTheme(family.id);
- for (const stylesheet of [theme.tokens, theme.stylesheet].filter(Boolean)) {
-  const css = assetBytes(stylesheet).toString('utf8').replace(/\/\*[\s\S]*?\*\//g,'');
-  assert.doesNotMatch(css, /--c-(?:type|space|layout|motion|radius|breakpoint)-|@font-face|@media|@import/);
-  for (const [,body] of css.matchAll(/\{([^{}]*)\}/g)) {
-   for (const declaration of body.split(';').map(x=>x.trim()).filter(Boolean)) {
-    const name=declaration.slice(0,declaration.indexOf(':')).trim();
-    if (name.startsWith('--c-')) assert.match(declaration.slice(declaration.indexOf(':')+1).trim(), colourValue, `${family.id}: non-color token ${name}`);
-    assert.ok(name.startsWith('--c-') || ['color','border-top-color'].includes(name), `${family.id}: ${name}`);
-   }
-  }
- }
+  const html=familyPage(family);
+  assert.doesNotMatch(html, /data-family|family-content|class="family-logo"|assets\/families\//);
  }
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
  assert.doesNotMatch(css, /\[data-family=|tectra-heading|hplx-heading/);
@@ -55,13 +43,13 @@ test('family themes cannot introduce typography, geometry or layout differences'
  assert.doesNotMatch(css, /\.family-heading[^{}]*\{[^}]*\b(?:height|min-height):/);
 });
 
-test('all CSS links have content-derived cache keys, including family overrides', async () => {
+test('all CSS links have content-derived cache keys', async () => {
  for (const family of families) {
   const html=familyPage(family);
   for (const [,path,hash] of html.matchAll(/href="\.\.\/\.\.\/(assets\/[^"?]+\.css)\?v=([a-f0-9]{12})"/g)) {
    const bytes=assetBytes(path);
    assert.equal(hash,createHash('sha256').update(bytes).digest('hex').slice(0,12));
   }
-  assert.equal((html.match(/\.css\?v=[a-f0-9]{12}/g)||[]).length,resolveFamilyTheme(family.id).stylesheet ? 6 : 4);
+  assert.equal((html.match(/\.css\?v=[a-f0-9]{12}/g)||[]).length,3);
  }
 });

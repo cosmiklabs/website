@@ -8,7 +8,9 @@ body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--c-typ
 [data-theme]{background:var(--c-bg);color:var(--c-text)}
 a{color:var(--c-link);text-underline-offset:.22em;text-decoration-thickness:1px}
 /* Zero-specificity link states, so shared control classes keep their own colours. */
-a:where(:hover){color:var(--c-link-hover)}
+/* Hover treatments apply only where a pointer can hover, as the kit's controls do,
+   so a tap never leaves a link looking hovered. */
+@media (hover:hover){a:where(:hover){color:var(--c-link-hover)}}
 a:where(:active){color:var(--c-link-active)}
 a,summary{-webkit-tap-highlight-color:var(--c-scrim)}
 :focus-visible{outline:var(--c-layout-focus-width) solid var(--c-focus);outline-offset:var(--c-layout-focus-offset)}
@@ -34,7 +36,8 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .brand span{font:var(--c-type-identity-label-font-weight) var(--c-type-identity-label-font-size)/var(--c-type-identity-label-line-height) var(--c-type-identity-label-font-family),sans-serif;letter-spacing:var(--c-type-identity-label-letter-spacing)}
 .site-header nav{display:flex;flex-wrap:wrap;align-items:center;gap:var(--c-space-6)}
 .site-header nav a,.site-footer a{display:inline-flex;align-items:center;gap:var(--c-space-base);min-height:var(--c-layout-control-min);text-decoration:none;font-size:var(--c-type-control-font-size);font-weight:var(--c-type-control-font-weight)}
-.site-header nav a[aria-current],.site-header nav a:hover,.site-footer a:hover{text-decoration:underline}
+.site-header nav a[aria-current]{text-decoration:underline}
+@media (hover:hover){.site-header nav a:hover,.site-footer a:hover{text-decoration:underline}}
 .home-intro{padding-block:var(--c-space-16)}
 .home-intro>.eyebrow{margin-bottom:var(--c-space-6)}
 .home-intro>div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:end;gap:var(--c-space-16)}
@@ -59,11 +62,11 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .family-section{padding-top:var(--c-space-16)}
 .section-heading{display:flex;align-items:center;justify-content:space-between;gap:var(--c-space-6);margin-bottom:var(--c-space-6)}
 .text-link{display:inline-flex;align-items:center;gap:var(--c-space-2);min-height:var(--c-layout-control-min);font-weight:500;font-size:var(--c-type-control-font-size);text-decoration:none}
-.text-link:hover{text-decoration:underline}
+@media (hover:hover){.text-link:hover{text-decoration:underline}}
 .family-list{padding:0;list-style:none;border-top:1px solid var(--c-divider)}
 .family-list>li{border-bottom:1px solid var(--c-divider)}
 .family-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr) minmax(0,1.5fr);gap:var(--c-space-6);align-items:center;padding-block:var(--c-space-8);text-decoration:none}
-.family-row:hover .family-row-name{text-decoration:underline;text-underline-offset:.2em}
+@media (hover:hover){.family-row:hover .family-row-name{text-decoration:underline;text-underline-offset:.2em}}
 .family-row-name{font-size:var(--c-type-card-font-size);font-weight:600}
 .family-row-summary{font-size:var(--c-type-control-font-size)}
 .family-row-summary>span{display:block;color:var(--c-muted);margin-top:var(--c-space-base)}
@@ -94,7 +97,7 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .family-heading .status{margin-top:var(--c-space-6)}
 .family-nav{display:flex;flex-wrap:wrap;gap:var(--c-space-8);border-top:1px solid var(--c-divider);padding-block:var(--c-space-2)}
 .family-nav a{display:inline-flex;min-height:var(--c-layout-control-min);align-items:center;font-size:var(--c-type-control-font-size);font-weight:500;text-decoration:none}
-.family-nav a:hover{text-decoration:underline}
+@media (hover:hover){.family-nav a:hover{text-decoration:underline}}
 .section-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--c-space-16);padding-block:var(--c-space-16)}
 .section-grid .eyebrow{margin-bottom:var(--c-space-6)}
 .game-detail+.game-detail,.game-detail+.tool-list{margin-top:var(--c-space-12);padding-top:var(--c-space-12);border-top:1px solid var(--c-divider)}
@@ -183,17 +186,12 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .legal-copy p{margin-block:var(--c-space-4);line-height:1.75}
 
 
-/* Symbols are decorative beside live product names, never replacement text. */
-.family-row-name:has(.family-row-symbol){display:flex;align-items:center;gap:var(--c-space-2)}
-.family-row-symbol{display:block;width:2rem;height:2rem;flex:none}
-.family-identity{display:grid;grid-template-columns:1.35em minmax(0,1fr);align-items:center;column-gap:var(--c-space-4);font-size:var(--c-type-display-font-size);margin-top:var(--c-space-6)}
-.family-logo{display:block;width:1.35em;height:1.35em}
+/* Project identity: the live name with the Cosmik endorsement below it, in
+   Cosmik's own type and colours. Product marks and palettes stay on the
+   products' own sites. */
+.family-identity{margin-top:var(--c-space-6)}
 .family-heading .family-identity h1{margin:0}
-.family-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
-@media(max-width:720px){.family-identity{font-size:var(--c-type-display-small-font-size)}}
-
-/* Compact Glimmer uses a square listing symbol. */
-.family-row-symbol-hplx{width:2rem;height:2rem}
+.family-identity .endorsement{margin-top:var(--c-space-2)}
 
 .motion-preference{display:flex;align-items:center;gap:var(--c-space-2);font-size:var(--c-type-control-font-size)}
 .motion-preference[hidden]{display:none}

@@ -1,47 +1,29 @@
-// Sync or verify the three vendored brand releases with the brand vendor tool.
+// Sync or verify the vendored Cosmik brand release with the brand vendor tool.
 //
-//   npm run brand:sync -- --brand <checkout> --brand-tectra <checkout> --brand-hplx <checkout>
-//   npm run brand:verify [-- --brand <checkout> --brand-tectra <checkout> --brand-hplx <checkout>]
+//   npm run brand:sync -- --brand <checkout>
+//   npm run brand:verify [-- --brand <checkout>]
 //
-// Each checkout must be clean and exactly at its vX.Y.Z tag. `sync` runs each release's own
-// vendor tool, as the product brands' READMEs describe. `verify` checks every file against the
-// locks; given checkouts, it also proves each lock against its release tag. Both confirm that the
-// product brands carry the same foundation release as vendor/brand.
+// The checkout must be clean and exactly at its vX.Y.Z tag. `sync` runs the release's own
+// vendor tool. `verify` checks every file against the lock; given the checkout, it also proves
+// the lock against its release tag. The website uses only the Cosmik brand: product family
+// kits (brand-tectra, brand-hplx) are not vendored here.
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const releases = ['brand', 'brand-tectra', 'brand-hplx'];
 const [command, ...args] = process.argv.slice(2);
-const checkouts = {};
+let checkout;
 for (let i = 0; i < args.length; i += 2) {
-  const name = args[i]?.replace(/^--/, '');
-  if (!releases.includes(name) || !args[i + 1]) usage(`Unknown or incomplete option ${args[i]}.`);
-  checkouts[name] = path.resolve(args[i + 1]);
+  if (args[i] !== '--brand' || !args[i + 1]) usage(`Unknown or incomplete option ${args[i]}.`);
+  checkout = path.resolve(args[i + 1]);
 }
-if (command === 'sync' && releases.some(name => !checkouts[name])) usage('sync needs all three checkouts.');
 if (!['sync', 'verify'].includes(command)) usage('Choose sync or verify.');
+if (command === 'sync' && !checkout) usage('sync needs the brand checkout.');
 
-// The foundation syncs with its own tool; a product brand with the foundation it vendored.
-const toolIn = (name, base) => name === 'brand' ? path.join(base, 'scripts/vendor.mjs') : path.join(base, 'vendor/brand/scripts/vendor.mjs');
-for (const name of releases) {
-  const into = `vendor/${name}`;
-  if (command === 'sync') run(toolIn(name, checkouts[name]), 'sync', '--from', checkouts[name], '--into', into);
-  run(toolIn(name, path.join(root, into)), 'verify', into, ...(checkouts[name] ? ['--release', checkouts[name]] : []));
-}
-
-const lock = dir => JSON.parse(readFileSync(path.join(root, dir, 'brand.lock.json'), 'utf8'));
-const foundation = lock('vendor/brand');
-for (const product of ['brand-tectra', 'brand-hplx']) {
-  const nested = lock(`vendor/${product}/vendor/brand`);
-  if (nested.commit !== foundation.commit || JSON.stringify(nested.files) !== JSON.stringify(foundation.files)) {
-    console.error(`vendor/${product} was built on ${nested.repository} ${nested.tag}, but vendor/brand is ${foundation.tag}. Sync releases built on the same foundation.`);
-    process.exit(1);
-  }
-}
-console.log(`All three releases share ${foundation.repository} ${foundation.tag}; pages load its baseline once, from vendor/brand.`);
+const into = 'vendor/brand';
+if (command === 'sync') run(path.join(checkout, 'scripts/vendor.mjs'), 'sync', '--from', checkout, '--into', into);
+run(path.join(root, into, 'scripts/vendor.mjs'), 'verify', into, ...(checkout ? ['--release', checkout] : []));
 
 function run(...argv) {
   const result = spawnSync(process.execPath, argv, { cwd: root, stdio: 'inherit' });
@@ -49,6 +31,6 @@ function run(...argv) {
 }
 
 function usage(message) {
-  console.error(`${message}\nUsage: node scripts/brand.mjs sync|verify --brand <checkout> --brand-tectra <checkout> --brand-hplx <checkout>`);
+  console.error(`${message}\nUsage: node scripts/brand.mjs sync|verify [--brand <checkout>]`);
   process.exit(2);
 }

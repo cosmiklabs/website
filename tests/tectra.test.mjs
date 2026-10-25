@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { families, featuredWork } from '../src/projects.mjs';
 import { home, catalog, familyPage } from '../src/templates.mjs';
-import { assetBytes } from '../src/assets.mjs';
 
 test('Tectra has a restrained listing and minimal development page', () => {
   const tectra = families.find(family => family.id === 'tectra');
@@ -19,30 +18,19 @@ test('Tectra has a restrained listing and minimal development page', () => {
   assert.match(html, /Describe the space\. Shape what comes next\./);
   assert.match(html, /connected parts, relationships and rules it can check as the design evolves/);
   assert.match(html, /In development/);
-  assert.match(html, /data-family="tectra" data-family-theme="approved-for-website"/);
+  assert.doesNotMatch(html, /data-family=|tectra-latch|assets\/families\//); // Cosmik's own brand, no product kit.
   const main = html.match(/<main[\s\S]*?<\/main>/)[0];
-  assert.match(main, /assets\/families\/tectra\/tectra-latch-dark\.svg/);
   assert.doesNotMatch(main, /agent|pipeline|MCP|SaaS|pricing|signup|beta|roadmap|Tecton|HPLX|Frictional/i);
 });
 
-test('Tectra preserves the approved two-path Latch geometry and colors', async () => {
-  const { readFile } = await import('node:fs/promises');
-  for (const [variant, color] of [['dark', '#71D6C3'], ['white', '#FFFFFF']]) {
-    const svg = assetBytes(`assets/families/tectra/tectra-latch-${variant}.svg`).toString('utf8');
-    assert.match(svg, /viewBox="0 0 64 64"/);
-    assert.match(svg, /d="M8 12H36L24 24H20V40L8 52Z"/);
-    assert.match(svg, /d="M56 12L44 24V40H40L28 52H56Z"/);
-    assert.equal((svg.match(new RegExp(`fill="${color}"`, 'g')) || []).length, 2);
-  }
-});
 
-test('Tectra lockup removes inherited heading margin and loads its current stylesheet', async () => {
+test('Tectra identity removes inherited heading margin and loads its current stylesheet', async () => {
  const {readFile}=await import('node:fs/promises');
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
  assert.match(css,/\.family-heading \.family-identity h1\{margin:0\}/);
  const html=familyPage(families.find(f=>f.id==='tectra'));
  assert.match(html,/site\.css\?v=[a-f0-9]{12}/);
- assert.match(html,/<div class="family-identity"><img[^>]+><h1>Tectra<\/h1><p class="endorsement">/);
+ assert.match(html,/<div class="family-identity"><h1>Tectra<\/h1><p class="endorsement">/);
 });
 
 
@@ -59,16 +47,6 @@ test('deprecated Volsyn address redirects to Tectra without obsolete product con
  for(const page of [home(),catalog(),familyPage(families.find(f=>f.id==='tectra'))]) assert.doesNotMatch(page,/volsyn/i);
 });
 
-
-test('Tectra symbols are byte-identical to the approved Latch masters', async () => {
- const {readFile}=await import('node:fs/promises');
- const {createHash}=await import('node:crypto');
- const expected={"dark": "7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67", "white": "621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9"};
- for(const [variant, hash] of Object.entries(expected)) {
-  const data=assetBytes(`assets/families/tectra/tectra-latch-${variant}.svg`);
-  assert.equal(createHash('sha256').update(data).digest('hex'),hash);
- }
-});
 
 
 test('the studio homepage features Tectra first without hiding HPLX or overstating availability', () => {

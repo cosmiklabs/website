@@ -6,58 +6,48 @@ import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {provenance,lockFor,colourRoles} from '../src/brand.mjs';
+import {readdirSync} from 'node:fs';
+import {provenance,lockFor} from '../src/brand.mjs';
 import {assetBytes} from '../src/assets.mjs';
 import {families} from '../src/projects.mjs';
 import {home,catalog,about,notFound,familyPage} from '../src/templates.mjs';
 const read=p=>readFile(new URL(`../${p}`,import.meta.url),'utf8');
-const vendorTool=p=>fileURLToPath(new URL(`../${p}/vendor/brand/scripts/vendor.mjs`,import.meta.url));
 const cwd=fileURLToPath(new URL('..',import.meta.url));
 const verify=(tool,dir)=>spawnSync(process.execPath,[tool,'verify',dir],{cwd,encoding:'utf8'});
 
-test('all three vendored releases verify with their own vendored tool',()=>{
- for(const [dir,tool] of [['vendor/brand','vendor/brand/scripts/vendor.mjs'],['vendor/brand-tectra',vendorTool('vendor/brand-tectra')],['vendor/brand-hplx',vendorTool('vendor/brand-hplx')]]){
-  const run=verify(tool,dir);
-  assert.equal(run.status,0,`${dir}: ${run.stderr}${run.stdout}`);
-  assert.match(run.stdout,new RegExp(`${dir} matches`));
- }
- const {locks}=provenance;
- assert.deepEqual(Object.keys(locks),['brand','brand-tectra','brand-hplx']);
- for(const [name,path] of Object.entries(locks))assert.equal(JSON.parse(readFileSync(new URL(`../${path}`,import.meta.url))).repository,`cosmiklabs/${name}`);
+test('the vendored Cosmik brand verifies with its own vendored tool',()=>{
+ const run=verify('vendor/brand/scripts/vendor.mjs','vendor/brand');
+ assert.equal(run.status,0,`vendor/brand: ${run.stderr}${run.stdout}`);
+ assert.match(run.stdout,/vendor\/brand matches cosmiklabs\/brand v\d+\.\d+\.\d+/);
+ assert.deepEqual(provenance.locks,{brand:'vendor/brand/brand.lock.json'});
+ assert.equal(JSON.parse(readFileSync(new URL('../vendor/brand/brand.lock.json',import.meta.url))).repository,'cosmiklabs/brand');
 });
 
-test('the three copies of the foundation are one release, byte for byte',()=>{
- const brand=JSON.parse(readFileSync(new URL('../vendor/brand/brand.lock.json',import.meta.url)));
- for(const product of ['brand-tectra','brand-hplx']){
-  const nested=JSON.parse(readFileSync(new URL(`../vendor/${product}/vendor/brand/brand.lock.json`,import.meta.url)));
-  assert.equal(nested.commit,brand.commit,product);assert.deepEqual(nested.files,brand.files,product);
+test('the website vendors and publishes only the Cosmik brand, no product family kits',()=>{
+ assert.deepEqual(readdirSync(new URL('../vendor/',import.meta.url)),['brand']);
+ for(const {from} of Object.values(provenance.published))assert.match(from,/^vendor\/brand\//);
+ for(const html of [home(),catalog(),about(),notFound(),...families.map(familyPage)]){
+  assert.doesNotMatch(html,/data-family=|assets\/families\/|family-themes\.css|brand-(?:tectra|hplx)/);
  }
 });
 
-test('every published brand file comes from a lock, unchanged or reduced to colour roles',()=>{
+test('every published brand file comes from the lock, unchanged',()=>{
  const sha=b=>createHash('sha256').update(b).digest('hex');
  for(const [target,{from,derive}] of Object.entries(provenance.published)){
   const {lock,file}=lockFor(from);
   const vendored=readFileSync(new URL(`../${from}`,import.meta.url));
   assert.equal(sha(vendored),lock.files[file],`${from} differs from ${lock.repository} ${lock.tag}`);
-  const published=assetBytes(target);
-  if(!derive){assert.ok(published.equals(vendored),target);continue;}
-  // Derived: the published lines are the vendored lines minus non-colour roles, plus one provenance header.
-  const kept=published.toString('utf8').split('\n').slice(1),source=vendored.toString('utf8').split('\n');
-  const removed=source.filter(line=>!kept.includes(line));
-  assert.deepEqual(kept,source.filter(line=>!removed.includes(line)),target);
-  for(const line of removed)assert.match(line,/^\s*--c-(?:type-[a-z0-9-]+|elevation-\d+-shadow):/,`${target} dropped ${line}`);
+  assert.equal(derive,undefined,target);
+  assert.ok(assetBytes(target).equals(vendored),target);
  }
- assert.throws(()=>colourRoles('[data-family="x"] {\n  --c-space-4: 2rem;\n}','vendor/brand-hplx/tokens/hplx.css'),/neither a colour role/);
  for(const [target,{sha256}] of Object.entries(provenance.outsideDistribution.files))assert.equal(sha(readFileSync(new URL(`../${target}`,import.meta.url))),sha256,target);
 });
 
-test('pages load the baseline once, then family colours, controls and site CSS in order',async()=>{
+test('pages load the baseline once, then the controls and site CSS, in order',async()=>{
  const pages=[home(),catalog(),about(),notFound(),...families.map(familyPage)];
  for(const html of pages){
   const sheets=[...html.matchAll(/<link rel="stylesheet" href="(?:\.\.\/|\.\/|\/)*([^"?]+)\?v=/g)].map(m=>m[1]);
-  const family=html.match(/data-family="([a-z0-9-]+)"/)?.[1];
-  assert.deepEqual(sheets,['assets/brand/cosmik.css',...(family?[`assets/families/${family}/tokens.css`]:[]),'assets/brand/controls.css','assets/site.css','assets/family-themes.css',...(family?[`assets/families/${family}/theme.css`]:[])]);
+  assert.deepEqual(sheets,['assets/brand/cosmik.css','assets/brand/controls.css','assets/site.css']);
   assert.doesNotMatch(html,/vendor\//);
  }
 });

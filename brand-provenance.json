@@ -1,9 +1,7 @@
 {
-  "about": "Where every published brand file comes from. The locks are the authority: each names its release (repository, tag, commit) and the SHA-256 of every vendored file. `published` maps each site URL path to a file inside a lock; the build copies only these. Run `npm run brand:verify`.",
+  "about": "Where every published brand file comes from. The lock is the authority: it names the brand release (repository, tag, commit) and the SHA-256 of every vendored file. `published` maps each site URL path to a file inside the lock; the build copies only these. Run `npm run brand:verify`.",
   "locks": {
-    "brand": "vendor/brand/brand.lock.json",
-    "brand-tectra": "vendor/brand-tectra/brand-tectra.lock.json",
-    "brand-hplx": "vendor/brand-hplx/brand-hplx.lock.json"
+    "brand": "vendor/brand/brand.lock.json"
   },
   "baseline": "vendor/brand",
   "published": {
@@ -15,13 +13,7 @@
     "assets/fonts/IBMPlexMono-Regular.woff2": { "from": "vendor/brand/fonts/web/IBMPlexMono-Regular.woff2" },
     "assets/fonts/IBMPlexMono-Regular.ttf": { "from": "vendor/brand/fonts/web/IBMPlexMono-Regular.ttf" },
     "assets/fonts/Inter-OFL.txt": { "from": "vendor/brand/fonts/licenses/Inter-OFL.txt" },
-    "assets/fonts/IBM-Plex-OFL.txt": { "from": "vendor/brand/fonts/licenses/IBM-Plex-OFL.txt" },
-    "assets/families/tectra/tokens.css": { "from": "vendor/brand-tectra/tokens/tectra.css", "derive": "colour-roles" },
-    "assets/families/tectra/tectra-latch-dark.svg": { "from": "vendor/brand-tectra/assets/tectra-latch-dark.svg" },
-    "assets/families/tectra/tectra-latch-white.svg": { "from": "vendor/brand-tectra/assets/tectra-latch-white.svg" },
-    "assets/families/hplx/tokens.css": { "from": "vendor/brand-hplx/tokens/hplx.css", "derive": "colour-roles" },
-    "assets/families/hplx/hplx-glimmer-dark.svg": { "from": "vendor/brand-hplx/assets/hplx-glimmer-dark.svg" },
-    "assets/families/hplx/hplx-glimmer-white.svg": { "from": "vendor/brand-hplx/assets/hplx-glimmer-white.svg" }
+    "assets/fonts/IBM-Plex-OFL.txt": { "from": "vendor/brand/fonts/licenses/IBM-Plex-OFL.txt" }
   },
   "outsideDistribution": {
     "about": "The Cosmik emblem and icons are not in the brand distribution, so they stay committed under assets/. Each is byte-identical to the named file at the brand release in locks.brand.",
