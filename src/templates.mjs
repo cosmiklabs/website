@@ -58,7 +58,7 @@ ${stylesheets().map(path => `<link rel="stylesheet" href="${assetUrl(root, path)
 <nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a></nav>
 </header>
 <main id="main" tabindex="-1">${body(root)}</main>
-<footer class="site-footer wrap"><label class="motion-preference" hidden>Motion <span class="c-select c-select--dense"><select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent software studio</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
+<footer class="site-footer wrap"><label class="motion-preference" hidden>Motion <span class="c-select c-select--dense"><select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Tectra and HPLX</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
 <script type="module" src="${assetUrl(root, 'assets/preferences.mjs')}"></script>
 </body></html>`;
 }
@@ -70,19 +70,19 @@ export function familyList(root, catalog = families) {
 export function home(catalog = families, feature = featuredWork) {
   const family = catalog.find(item => item.id === feature.familyId);
   if (!family) throw new Error('Featured family not found.');
-  return shell({ title: 'Cosmik — Independent software studio', description: 'Cosmik is an independent software studio. Explore Tectra for creating 3D structures and HPLX for creating custom stories.', route: '', body: root => `
-<section class="home-intro wrap">${label('Independent software studio')}<div><h1>Independent projects.<br> Room to create.</h1><p>Cosmik is an independent software studio, home to projects with their own purpose and direction. Explore Tectra for creating structures and HPLX for creating custom stories.</p></div></section>
+  return shell({ title: 'Cosmik — Tectra & HPLX', description: 'Tectra and HPLX. Explore Tectra for creating 3D structures and HPLX for creating custom stories for Amnesia: The Dark Descent.', route: '', body: root => `
+<section class="home-intro wrap" aria-labelledby="cosmik-title"><div class="intro-meta">${label('Projects in development')}<a class="text-link" href="#projects">Explore the projects ${arrow}</a></div><h1 id="cosmik-title"><span class="sr-only">Cosmik</span><img class="hero-lockup" src="${root}assets/cosmik-lockup-offwhite.svg" width="2172" height="724" alt=""></h1><div class="intro-caption"><p>Home to Tectra and HPLX.</p><p>Creating 3D structures with AI assistance.<br> Making custom stories for The Dark Descent.</p></div></section>
 <section class="featured-work" data-theme="light" aria-labelledby="featured-title" data-featured-family="${escape(family.id)}"><div class="wrap feature-layout">
 <div class="feature-main">${label(`Featured work · ${pillarName(family.pillar)}`)}<h2 id="featured-title">${escape(family.name)}</h2><p class="feature-heading">${escape(feature.heading)}</p><p class="feature-description">${escape(feature.description)}</p><a class="c-button c-button--primary button" href="${familyUrl(root, family)}">Explore ${escape(family.name)} ${arrow}</a></div>
-<div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} project overview">${(family.groups ?? []).map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><div class="current-focus">${label(feature.focusLabel)}<h3>${escape(feature.focusTitle)}</h3><p>${escape(feature.focusDescription)}</p></div></div>
+<div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} project overview">${(family.groups ?? []).map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><p class="feature-footnote">A project in active development. Explore its current direction and capabilities.</p></div>
 </div></section>
 <section class="family-section wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Projects</h2><a class="text-link" href="${root}projects/">View all projects ${arrow}</a></div>${familyList(root, [family, ...catalog.filter(item => item.id !== family.id)])}</section>
-<section class="home-about wrap"><p>An independent studio.<br> Different tools, each with a purpose.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></section>` });
+<section class="home-about wrap"><p>Two projects, developed independently.<br> Get to know the work behind the projects.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></section>` });
 }
 
 export function catalog(catalog = families) {
   return shell({ title: 'Projects — Cosmik', description: 'Explore Tectra for creating 3D structures and HPLX for creating custom stories for the original Amnesia: The Dark Descent.', route: 'projects', current: 'projects', body: root => `
-<section class="page-heading wrap">${label('Projects')}<h1>Find your way in.</h1><p>Each project has its own purpose, tools and direction.</p></section>
+<section class="page-heading wrap">${label('Projects')}<h1>Tectra &amp; HPLX.</h1><p>Two projects, each with a different way to create. Explore what they do and where development stands.</p></section>
 <section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Projects</h2>${familyList(root, catalog)}</section>
 <section class="directory-note wrap"><p>Tectra and HPLX are in development. Their project pages explain the direction of each project and where it stands.</p></section>` });
 }
@@ -98,7 +98,7 @@ export function familyPage(family) {
   return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>
 ${familyHeading(family, root)}</div>
-${family.id === 'hplx' ? hplxSections(family, root) : ''}
+${family.id === 'hplx' ? hplxSections(family, root) : family.id === 'tectra' ? tectraSections() : ''}
 <div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All projects</a>${family.legalNote ? `<p class="legal-note">${escape(family.legalNote)}</p>` : ''}</div>` });
 }
 
@@ -119,11 +119,17 @@ function hplxSections(family, root) {
 
 
 export function about() {
-  return shell({ title: 'About — Cosmik', description: 'Cosmik is an independent software studio making creative tools.', route: 'about', current: 'about', body: root => `
-<section class="page-heading wrap">${label('About Cosmik')}<h1>An independent<br> software studio.</h1><p>Creative tools, with room for different approaches.</p></section>
-<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>Each project has a purpose.</h2><div><p class="about-lead">Cosmik develops creative software that helps people make things.</p><p>Tectra helps people develop 3D structures with AI assistance. HPLX is an editor for Amnesia: The Dark Descent’s custom stories, intended to be open source.</p><p>Both projects are in development. Their project pages explain the direction of the work and where it stands.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
-<section class="about-links wrap"><p>Public work and brand resources.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
+  return shell({ title: 'About — Cosmik', description: 'Cosmik is home to Tectra and HPLX, projects by Matthew Downs.', route: 'about', current: 'about', body: root => `
+<section class="page-heading wrap">${label('About Cosmik')}<h1>One home.<br> Two projects.</h1><p>Cosmik is home to Tectra and HPLX. Each develops around the things it helps people make.</p></section>
+<section class="about-content" data-theme="light"><div class="wrap section-grid"><div>${label('The work')}<h2>Two different<br> starting points.</h2></div><div><p class="about-lead">Tectra begins with an idea for a structure. HPLX begins with a story you want someone to play.</p><p>Tectra develops constructed 3D structures through authoring with AI assistance, review and revision. HPLX is an editor for Amnesia: The Dark Descent’s custom stories, with playtesting built in.</p><p>Both are in development. Their project pages describe what is being built, without promising a release date.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
+<section class="wrap section-grid"><div>${label('The connection')}<h2>A shared foundation.</h2></div><div><p>Each project has its own identity and purpose. Cosmik’s brand kit supplies the shared typography, controls and interaction principles.</p><p>Software licenses and availability are specific to each project. HPLX is intended to be open source; that commitment does not apply to every Cosmik project.</p><a class="text-link" href="https://github.com/cosmiklabs/brand">Explore the brand kit ${external}</a></div></section>
+<section class="about-links wrap"><p>Find public repositories and follow the work.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
 }
+
+function tectraSections() {
+  return `<section class="product-process" data-theme="light" aria-labelledby="process-title"><div class="wrap section-grid"><div>${label('Authoring with Tectra')}<h2 id="process-title">Describe. Review.<br> Revise.</h2></div><div><p class="about-lead">Direct the structure as it develops.</p><ol class="process-list"><li><h3>Start with an idea</h3><p>Describe the space you want to create. Tectra’s AI develops a construction from connected parts and relationships.</p></li><li><h3>Review the proposal</h3><p>Inspect the geometry and proposed changes before accepting a revision. Checks evaluate the construction’s declared rules.</p></li><li><h3>Keep developing it</h3><p>Give feedback, revise the structure and develop its materials. Revision history keeps earlier accepted states available.</p></li></ol></div></div></section><section class="wrap section-grid"><div>${label('Output and development')}<h2>A structure you<br> can take further.</h2></div><div><p>Export an accepted revision as a GLB with portable materials, or use the unbaked export with a compatible integration to retain its material shaders.</p><p>Tectra is in development. Authoring conversations, proposal review, revision history, material-library editing and geometry inspection are implemented. This page does not announce public availability.</p></div></section>`;
+}
+
 
 export function legacyPage(legacy) {
   if (legacy.renamed) {

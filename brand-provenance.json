@@ -5,23 +5,57 @@
   },
   "baseline": "vendor/brand",
   "published": {
-    "assets/brand/cosmik.css": { "from": "vendor/brand/kits/cosmik/tokens/cosmik.css" },
-    "assets/brand/controls.css": { "from": "vendor/brand/kits/cosmik/components/controls.css" },
-    "assets/fonts/Inter-Regular.woff2": { "from": "vendor/brand/fonts/web/Inter-Regular.woff2" },
-    "assets/fonts/Inter-Medium.woff2": { "from": "vendor/brand/fonts/web/Inter-Medium.woff2" },
-    "assets/fonts/Inter-SemiBold.woff2": { "from": "vendor/brand/fonts/web/Inter-SemiBold.woff2" },
-    "assets/fonts/IBMPlexMono-Regular.woff2": { "from": "vendor/brand/fonts/web/IBMPlexMono-Regular.woff2" },
-    "assets/fonts/IBMPlexMono-Regular.ttf": { "from": "vendor/brand/fonts/web/IBMPlexMono-Regular.ttf" },
-    "assets/fonts/Inter-OFL.txt": { "from": "vendor/brand/fonts/licenses/Inter-OFL.txt" },
-    "assets/fonts/IBM-Plex-OFL.txt": { "from": "vendor/brand/fonts/licenses/IBM-Plex-OFL.txt" }
+    "assets/brand/cosmik.css": {
+      "from": "vendor/brand/kits/cosmik/tokens/cosmik.css"
+    },
+    "assets/brand/controls.css": {
+      "from": "vendor/brand/kits/cosmik/components/controls.css"
+    },
+    "assets/fonts/Inter-Regular.woff2": {
+      "from": "vendor/brand/fonts/web/Inter-Regular.woff2"
+    },
+    "assets/fonts/Inter-Medium.woff2": {
+      "from": "vendor/brand/fonts/web/Inter-Medium.woff2"
+    },
+    "assets/fonts/Inter-SemiBold.woff2": {
+      "from": "vendor/brand/fonts/web/Inter-SemiBold.woff2"
+    },
+    "assets/fonts/IBMPlexMono-Regular.woff2": {
+      "from": "vendor/brand/fonts/web/IBMPlexMono-Regular.woff2"
+    },
+    "assets/fonts/IBMPlexMono-Regular.ttf": {
+      "from": "vendor/brand/fonts/web/IBMPlexMono-Regular.ttf"
+    },
+    "assets/fonts/Inter-OFL.txt": {
+      "from": "vendor/brand/fonts/licenses/Inter-OFL.txt"
+    },
+    "assets/fonts/IBM-Plex-OFL.txt": {
+      "from": "vendor/brand/fonts/licenses/IBM-Plex-OFL.txt"
+    }
   },
   "outsideDistribution": {
     "about": "The Cosmik emblem and icons are not in the brand distribution, so they stay committed under assets/. Each is byte-identical to the named file at the brand release in locks.brand.",
     "files": {
-      "assets/emblem.svg": { "source": "kits/cosmik/assets/vector/cosmik-emblem-master-offwhite.svg", "sha256": "01b6525b9f05cee1ddb9d9fc30c3cc590b0bfc35a864b114d389e8d314013a45" },
-      "assets/cosmik.ico": { "source": "kits/cosmik/icons/cosmik.ico", "sha256": "ff71098b9f73f51666501d2ae0c420259d953ccc8df819682d048843fcda26d4" },
-      "assets/cosmik-512.png": { "source": "kits/cosmik/icons/cosmik-512.png", "sha256": "bc2e808cbf5ba5c7af3ebf281314bbaefa39c182bc9f197ee1d92f8d9dbc8ffd" },
-      "assets/cosmik-apple-touch-180.png": { "source": "kits/cosmik/icons/cosmik-apple-touch-180.png", "sha256": "6681280562abcb9c5dfe373f40ecec2e56c6abedcfc84484716212821f1bddc3" }
+      "assets/emblem.svg": {
+        "source": "kits/cosmik/assets/vector/cosmik-emblem-master-offwhite.svg",
+        "sha256": "01b6525b9f05cee1ddb9d9fc30c3cc590b0bfc35a864b114d389e8d314013a45"
+      },
+      "assets/cosmik.ico": {
+        "source": "kits/cosmik/icons/cosmik.ico",
+        "sha256": "ff71098b9f73f51666501d2ae0c420259d953ccc8df819682d048843fcda26d4"
+      },
+      "assets/cosmik-512.png": {
+        "source": "kits/cosmik/icons/cosmik-512.png",
+        "sha256": "bc2e808cbf5ba5c7af3ebf281314bbaefa39c182bc9f197ee1d92f8d9dbc8ffd"
+      },
+      "assets/cosmik-apple-touch-180.png": {
+        "source": "kits/cosmik/icons/cosmik-apple-touch-180.png",
+        "sha256": "6681280562abcb9c5dfe373f40ecec2e56c6abedcfc84484716212821f1bddc3"
+      },
+      "assets/cosmik-lockup-offwhite.svg": {
+        "source": "kits/cosmik/assets/vector/cosmik-lockup-offwhite.svg",
+        "sha256": "356956d8a8fa5259a36b55de47d8dff8f213b823be48ff73266d30062c9a415c"
+      }
     }
   },
   "projectLogos": {

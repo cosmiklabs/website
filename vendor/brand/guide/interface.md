@@ -32,14 +32,15 @@ for transitions and their lifecycle.
   the standard minimum and leave space between independent actions.
 - Use the radius tokens and semantic surface roles. Family elevation tokens may
   distinguish an overlay from its surroundings; shadows are not decoration and
-  must not be the only boundary on a busy canvas.
+  must not be the only boundary on a busy canvas. Controls floating over such a
+  canvas may use [glass](#shared-controls); everything else stays solid.
 
 ## Controls and feedback
 
 | State | Required treatment |
 | --- | --- |
 | Default | A specific action label; no unexplained icon or ambiguous “OK” |
-| Hover / pressed | Immediate feedback without shifting nearby controls; retain text contrast |
+| Hover / pressed | Immediate feedback without shifting nearby controls; retain text contrast. Pressed is a deeper step of hover in the same direction, never a return towards rest |
 | Focus | Visible `focus` outline and offset, including inside scrolling panels and overlays |
 | Selected | A persistent indicator plus the appropriate selected semantics |
 | Disabled | Prevent activation and use disabled roles; explain the prerequisite when it is not apparent |
@@ -74,6 +75,11 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   treatments apply only where the pointer can hover (`(hover: hover)`): a tap
   on touch leaves the browser's hover state on what was tapped, and it must not
   look hovered or selected afterwards. Pressed feedback applies everywhere.
+  From rest, hover and pressed move the same way in lightness, pressed further:
+  at least 1.25:1 from rest and 1.08:1 beyond hover, so pressing reads as
+  pressing harder rather than letting go. On glass, hover and pressed tint the
+  glass (`glass-hover`, then `glass-active`) instead of swapping to an opaque
+  fill; selected and disabled controls keep their own treatment.
 - **Quiet buttons** have no fill or boundary until hover, for actions inside a
   toolbar or another bounded group whose surface supplies the boundary. Use the
   secondary emphasis for a button that stands alone.
@@ -92,6 +98,42 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   shadow may add depth. Give the group `role="toolbar"` with arrow-key focus, or
   `role="group"`, and an accessible name. Keep one toolbar per task and leave
   space between independent groups; placement is the product's.
+- **Glass** is an opt-in surface for controls that float over busy or moving
+  content: a 3D canvas, video or an image the user is working on. Use it for the
+  toolbars, triggers, hints and the menus and popovers opened from them, and keep
+  it consistent across one such region. Never use it for reading content, forms,
+  dense lists, dialogs, navigation or panels beside the content: those stay on
+  solid surfaces. It is a mechanism, not a default; the product chooses where it
+  applies. Glass paints the `glass` tint over a blurred, saturated copy of the
+  content behind it, clear enough that the content visibly shows through. It has
+  no solid border: its edge is a sheen, a 1px gradient where the rim catches light
+  from the top left (`glass-sheen`), fading along the sides to a fainter return at
+  the bottom right (`glass-sheen-low`). The sheen is decorative and gives the
+  shape; what identifies a control on glass is its label, icon, selection and
+  focus, which carry the contrast requirements. The solid fallbacks replace the
+  sheen with a plain, subtle `glass-border`.
+- **Glass tone.** Glass has a dark and a light tone, and a tone is that theme for
+  the surface and its contents: text, muted text (`glass-muted`), selection,
+  hover and focus all follow it. Each tone keeps AA text, icons and selection only
+  over content on its side of the published threshold (`--c-glass-tone-threshold`,
+  a relative luminance) and a little past it (`--c-glass-tone-hysteresis`); the
+  wrong tone does not. A surface without `data-glass-tone` takes the page's
+  theme, which is right only over content whose brightness the product knows,
+  such as a fixed image. Over content whose brightness varies (a 3D canvas,
+  video, a photograph the user changes) the product must choose the tone from
+  what is behind each surface: measure the backdrop's relative luminance, take
+  the light tone at or above the threshold and the dark tone below it, and switch
+  with hysteresis so the tone does not flicker. A menu or popover takes the tone
+  of the content it opens over. A tone change crossfades with the motion tokens.
+  Selection stays opaque (the selected roles and bar), and hover and pressed use
+  the usual action roles. Where the browser cannot blur, the user asks for
+  reduced transparency or forced colours are on, the same controls are solid.
+  Keep glass calm: one layer deep where possible, no glow, gradient or tinted
+  accent, and no glass on large panels, where the blur costs the most and adds
+  the least. Backdrop blur redraws with every frame of moving content; measure it
+  in the product and drop the blur first if it costs frames: `data-glass="flat"`
+  on a region keeps the tint without the blur (contrast holds, because blurring
+  only averages the content), and `data-glass="solid"` makes it solid.
 - **Segmented controls** choose one of a few mutually exclusive options: a
   `radiogroup` of `radio` options with a roving tab stop and arrow keys, or a
   group of `aria-pressed` buttons. Every option takes the widest option's width,
@@ -132,7 +174,8 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   motion preference removes them.
 - **Forced colours** keep every boundary, the chevron, the selection check, the
   selection bar and the focus ring, because they are borders and outlines rather
-  than fills.
+  than fills. Glass surfaces become opaque system surfaces with a solid system
+  border in place of the sheen.
 
 ## Forms and settings
 

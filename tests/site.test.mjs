@@ -101,7 +101,8 @@ test('published brand files, emblems and fonts match their releases, with notice
  for(const [target,{sha256}] of Object.entries(provenance.outsideDistribution.files))assert.equal(createHash('sha256').update(await readFile(path.join(root,target))).digest('hex'),sha256,target);
  for(const name of ['Inter-OFL.txt','IBM-Plex-OFL.txt'])assert.match(await readFile(path.join(root,'assets/fonts',name),'utf8'),/SIL OPEN FONT LICENSE/);
  const tokens=await readFile(path.join(root,'assets/brand/cosmik.css'),'utf8');assert.match(tokens,/APPROVED/);assert.doesNotMatch(tokens,/Spectral|hplx-amber/);
- assert.ok(!files.some(f=>/Spectral|ember|lockup|\.lock\.json|vendor/i.test(path.relative(root,f))),'only files pages use are published');
+ assert.ok(!files.some(f=>/Spectral|ember|\.lock\.json|vendor/i.test(path.relative(root,f))),'only files pages use are published');
+ assert.ok(pages.get('index.html').includes('assets/cosmik-lockup-offwhite.svg'));
  for(const html of pages.values()){assert.match(html,/width="48" height="48" alt=""><span>Cosmik<\/span>/);assert.doesNotMatch(html,/<span>COSMIK<\/span>/);}
 });
 
