@@ -12,10 +12,10 @@ const read = path => readFileSync(new URL(`../${path}`, import.meta.url));
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 // Pinned here as well as in brand-provenance.json, so neither can drift silently.
 const approved = {
-  'assets/projects/tectra-latch-dark.svg': ['cosmiklabs/brand-tectra', 'v0.2.6', '7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67'],
-  'assets/projects/tectra-latch-white.svg': ['cosmiklabs/brand-tectra', 'v0.2.6', '621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9'],
-  'assets/projects/hplx-glimmer-dark.svg': ['cosmiklabs/brand-hplx', 'v0.1.2', '4e62f4c11e5e84ec17d7d0705aba472767596aede653f4211a4dfeca26b680d7'],
-  'assets/projects/hplx-glimmer-white.svg': ['cosmiklabs/brand-hplx', 'v0.1.2', 'fd20079b4f735a8242438e095da14f4c981f25397c80343c776f9424606473b5'],
+  'assets/projects/tectra-latch-dark.svg': ['cosmiklabs/brand-tectra', 'v0.6.1', '7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67'],
+  'assets/projects/tectra-latch-white.svg': ['cosmiklabs/brand-tectra', 'v0.6.1', '621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9'],
+  'assets/projects/hplx-glimmer-dark.svg': ['cosmiklabs/brand-hplx', 'v0.2.0', '4e62f4c11e5e84ec17d7d0705aba472767596aede653f4211a4dfeca26b680d7'],
+  'assets/projects/hplx-glimmer-white.svg': ['cosmiklabs/brand-hplx', 'v0.2.0', 'fd20079b4f735a8242438e095da14f4c981f25397c80343c776f9424606473b5'],
 };
 
 test('product logos are the approved release files, byte for byte, with recorded provenance', () => {

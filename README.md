@@ -17,7 +17,7 @@ Edit project data in `src/projects.mjs`, page content in `src/templates.mjs`, an
 
 ## Identity and content
 
-The enclosing website uses only Cosmik’s monochrome baseline, Inter, IBM Plex Mono and shared controls. It vendors `cosmiklabs/brand` **v0.15.1**, unchanged, under `vendor/brand/`. The lock records the tag, commit and hashes. `brand-provenance.json` maps the exact files published into the generated site. The accepted Cosmik lockup, emblem and icons are copied unchanged from the pinned release; original font licenses travel with the fonts.
+The enclosing website uses only Cosmik’s monochrome baseline, Inter, IBM Plex Mono and shared controls. It vendors `cosmiklabs/brand` **v0.16.1**, unchanged, under `vendor/brand/`. The lock records the tag, commit and hashes. `brand-provenance.json` maps the exact files published into the generated site. The accepted Cosmik lockup, emblem and icons are copied unchanged from the pinned release; original font licenses travel with the fonts.
 
 Product marks remain plain artwork. Project rows use approved monochrome variants, and project headings use approved on-dark variants. Their pinned releases and SHA-256 values are in `brand-provenance.json`; family palettes and fonts are not loaded. Product kits belong to `brand-tectra` and `brand-hplx`; the Tectra product website belongs to `website-tectra`.
 

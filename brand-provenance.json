@@ -63,29 +63,29 @@
     "files": {
       "assets/projects/tectra-latch-dark.svg": {
         "repository": "cosmiklabs/brand-tectra",
-        "tag": "v0.2.6",
-        "commit": "582d8cb6508527036cad908b8f3d43c4ae065965",
+        "tag": "v0.6.1",
+        "commit": "06144dc12c7db0f6485a8317df943d23858a97ab",
         "source": "assets/tectra-latch-dark.svg",
         "sha256": "7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67"
       },
       "assets/projects/tectra-latch-white.svg": {
         "repository": "cosmiklabs/brand-tectra",
-        "tag": "v0.2.6",
-        "commit": "582d8cb6508527036cad908b8f3d43c4ae065965",
+        "tag": "v0.6.1",
+        "commit": "06144dc12c7db0f6485a8317df943d23858a97ab",
         "source": "assets/tectra-latch-white.svg",
         "sha256": "621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9"
       },
       "assets/projects/hplx-glimmer-dark.svg": {
         "repository": "cosmiklabs/brand-hplx",
-        "tag": "v0.1.2",
-        "commit": "7d9798a0c9e0ae136c781ec219bd0f3602980d92",
+        "tag": "v0.2.0",
+        "commit": "e15171dc7a82c7d46fdcc0366a54146779888c53",
         "source": "assets/hplx-glimmer-dark.svg",
         "sha256": "4e62f4c11e5e84ec17d7d0705aba472767596aede653f4211a4dfeca26b680d7"
       },
       "assets/projects/hplx-glimmer-white.svg": {
         "repository": "cosmiklabs/brand-hplx",
-        "tag": "v0.1.2",
-        "commit": "7d9798a0c9e0ae136c781ec219bd0f3602980d92",
+        "tag": "v0.2.0",
+        "commit": "e15171dc7a82c7d46fdcc0366a54146779888c53",
         "source": "assets/hplx-glimmer-white.svg",
         "sha256": "fd20079b4f735a8242438e095da14f4c981f25397c80343c776f9424606473b5"
       }
