@@ -52,6 +52,11 @@ configuration before publishing. Set `HPLX_URL=https://hplx.app/` and
 `TECTRA_URL=https://tectra.app/` on a production build only when those sites are
 available; until then parent pages keep useful contact actions. The standalone
 marketing sites intentionally offer no download or platform access link yet.
+The root Pages workflow currently passes only `SITE_URL`; wire the product URL
+variables into that workflow's build environment when enabling those links.
+Neither standalone marketing repository has a deployment workflow yet; selecting
+and configuring their hosting remains a later publication step. No hosting
+configuration was changed during this local review.
 
 Family brand references pin a local commit of the shared reference tooling. If
 publishing later, push the shared `brand` commit before those family commits.
