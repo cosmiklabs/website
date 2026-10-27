@@ -3,12 +3,12 @@ export const legalCopy = {
   "Privacy": [
     {
       "style": "Normal",
-      "text": "Last updated: 8 October 2026",
+      "text": "Last updated: 26 October 2026",
       "links": []
     },
     {
       "style": "Normal",
-      "text": "Cosmik is an independent gaming workshop. This notice explains how information is handled when you visit cosmiklabs.org or contact Cosmik. The site currently provides project information and does not offer user accounts, payments, or file uploads.",
+      "text": "Cosmik is an independent software company operated by COSMIK LABS, LLC. This notice explains how information is handled when you visit cosmiklabs.org or contact Cosmik. The site currently provides project information and does not offer user accounts, payments, or file uploads.",
       "links": []
     },
     {
@@ -83,12 +83,12 @@ export const legalCopy = {
     },
     {
       "style": "Normal",
-      "text": "If you email legal@cosmiklabs.org, Cosmik receives your address and the information you choose to send. Cloudflare Email Routing forwards these messages to a personal mailbox. This information is used to respond to your inquiry and address the matter you raise, and is handled through the services used to forward, receive, and reply to messages. Correspondence may be retained indefinitely; there is no routine deletion schedule.",
+      "text": "If you email hello@cosmiklabs.org or legal@cosmiklabs.org, Cosmik receives your address and the information you choose to send. Cloudflare Email Routing forwards these messages to a personal mailbox. This information is used to respond to your inquiry and address the matter you raise, and is handled through the services used to forward, receive, and reply to messages. Correspondence may be retained indefinitely; there is no routine deletion schedule.",
       "links": []
     },
     {
       "style": "Normal",
-      "text": "You can use the same address for privacy questions or requests concerning your information. The response will depend on the information held and the rights that apply to your request.",
+      "text": "You can use legal@cosmiklabs.org for privacy questions or requests concerning your information. The response will depend on the information held and the rights that apply to your request.",
       "links": []
     },
     {
@@ -105,7 +105,7 @@ export const legalCopy = {
   "Legal and Licenses": [
     {
       "style": "Normal",
-      "text": "Last updated: 19 October 2026",
+      "text": "Last updated: 26 October 2026",
       "links": []
     },
     {
@@ -115,7 +115,7 @@ export const legalCopy = {
     },
     {
       "style": "Normal",
-      "text": "Cosmik is an independent gaming workshop. This website introduces its games, mods, tools, and engine reimplementations.",
+      "text": "Cosmik is an independent software company operated by COSMIK LABS, LLC. This website introduces Tectra, for creating 3D structures, and HPLX, for creating custom stories for Amnesia: The Dark Descent.",
       "links": []
     },
     {

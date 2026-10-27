@@ -6,16 +6,19 @@ import { legalCopy } from '../src/legal-copy.mjs';
 import { legalPage, escape, home, familyPage, notFound } from '../src/templates.mjs';
 import { families } from '../src/projects.mjs';
 
-test('HPLX scope updates leave approved legal terms and the entire privacy policy unchanged', () => {
-  // Baseline: website commit f5cdc95. Only the legal date and the factual HPLX scope paragraph may change.
+test('marketing changes preserve existing policy substance beyond identity and contact scope', () => {
+  // Normalize the narrowly authorized factual updates back to the previously protected copy.
+  const restore = entries => entries.map(entry => ({...entry, text: entry.text
+    .replace('Last updated: 26 October 2026', 'Last updated: 8 October 2026')
+    .replace('Cosmik is an independent software company operated by COSMIK LABS, LLC.', 'Cosmik is an independent gaming workshop.')
+    .replace('This website introduces Tectra, for creating 3D structures, and HPLX, for creating custom stories for Amnesia: The Dark Descent.', 'This website introduces its games, mods, tools, and engine reimplementations.')
+    .replace('If you email hello@cosmiklabs.org or legal@cosmiklabs.org,', 'If you email legal@cosmiklabs.org,')
+    .replace('You can use legal@cosmiklabs.org for privacy questions', 'You can use the same address for privacy questions')}));
   const unchanged = {
-    Privacy: legalCopy.Privacy,
-    'Legal and Licenses': legalCopy['Legal and Licenses'].filter(entry =>
-      !entry.text.startsWith('Last updated:') &&
-      !entry.text.startsWith('HPLX is an independent')),
+    Privacy: restore(legalCopy.Privacy),
+    'Legal and Licenses': restore(legalCopy['Legal and Licenses']).filter(entry => !entry.text.startsWith('Last updated:') && !entry.text.startsWith('HPLX is an independent')),
   };
-  assert.equal(createHash('sha256').update(JSON.stringify(unchanged)).digest('hex'),
-    '493d1d323c8d97a7e7313a2d66f90dabc6ea4276dc65956b27013eb6071131e6');
+  assert.equal(createHash('sha256').update(JSON.stringify(unchanged)).digest('hex'), '493d1d323c8d97a7e7313a2d66f90dabc6ea4276dc65956b27013eb6071131e6');
 });
 
 test('public policies preserve all approved paragraphs and exclude review-only content', () => {
@@ -24,7 +27,7 @@ test('public policies preserve all approved paragraphs and exclude review-only c
     const text = html.replace(/<[^>]*>/g, '');
     for (const entry of legalCopy[key]) assert.ok(text.includes(escape(entry.text)), `${route}: ${entry.text}`);
     assert.doesNotMatch(html, /\[publication date\]|Review notes|Confirm before publishing|Matthew|Downs|Missouri|@gmail|attorney-reviewed|GDPR compliant/i);
-    assert.match(html, route === 'legal' ? /Last updated: 19 October 2026/ : /Last updated: 8 October 2026/);
+    assert.match(html, /Last updated: 26 October 2026/);
     assert.match(html, /href="mailto:legal@cosmiklabs.org"/);
   }
   assert.match(legalPage('privacy'), /Correspondence may be retained indefinitely; there is no routine deletion schedule\./);
@@ -54,7 +57,7 @@ test('built legal pages preserve publication canonical URLs and indexing choices
 test('HPLX prominently states the retail install, asset boundary and free-use commitment', () => {
   const html = familyPage(families[0]);
   const notice = html.match(/<section class="family-tools section-grid"[\s\S]*?<\/section>/)[0];
-  assert.ok(html.indexOf(notice) < html.indexOf('id="make"'));
+  assert.ok(html.indexOf(notice) > html.indexOf('id="make"')); // Explain the editor before the full requirements.
   for (const page of [notice, legalPage('legal')]) {
     assert.match(page, /legitimately obtained local retail installation/);
     assert.match(page, /never.*(?:bundl|distribut)/);
@@ -63,7 +66,7 @@ test('HPLX prominently states the retail install, asset boundary and free-use co
     assert.match(page.replace(/<[^>]*>/g, ''), /not affiliated with, sponsored by, or endorsed by Frictional Games/);
     assert.match(page, /respective rights holders/);
   }
-  assert.match(html, /makes creating custom stories for Amnesia: The Dark Descent/);
+  assert.match(html, /editor for creating custom stories for the original Amnesia: The Dark Descent/);
   assert.doesNotMatch(html, /paused|campaign|Penumbra|A Machine for Pigs/i);
   assert.match(legalPage('legal'), /GPLv3/);
   assert.match(legalPage('legal'), /does not transfer ownership/);

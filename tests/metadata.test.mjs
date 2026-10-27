@@ -9,7 +9,7 @@ test('share metadata escapes content and uses only an explicit publication addre
   assert.doesNotMatch(privateTags, /canonical|og:url|og:image/);
   const published = shareMetadata(page, 'https://example.com/base/');
   assert.match(published, /https:\/\/example.com\/base\/projects\/example\//);
-  assert.match(published, /https:\/\/example.com\/base\/assets\/cosmik-512.png/);
+  assert.match(published, /https:\/\/example.com\/base\/assets\/social-card.jpg/);
   const redirect = shareMetadata({...page,redirect:'projects/family/#game'}, 'https://example.com/');
   assert.match(redirect, /href="https:\/\/example.com\/projects\/family\/"/);
   assert.doesNotMatch(redirect, /#game/);

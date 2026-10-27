@@ -10,6 +10,6 @@ test('public copy, metadata and accessibility labels call work projects, not fam
     const labels = [...html.matchAll(/(?:aria-label|alt|title|content)="([^"]*)"/g)].map(match => match[1]).join(' ');
     assert.doesNotMatch(visibleText + labels, /\bfamil(?:y|ies)\b/i);
   }
-  assert.match(home(), /<h2 id="families-title">Projects<\/h2>/);
+  assert.match(home(), /<h2 id="families-title">Tectra &amp; HPLX<\/h2>/);
   assert.match(familyPage(families[0]), /All projects/);
 });

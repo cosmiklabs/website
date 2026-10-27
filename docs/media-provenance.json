@@ -1,0 +1,28 @@
+{
+  "files": {
+    "assets/media/tectra-revision.png": {
+      "source": "tectra/apps/web/src/auth/hero/media/revisions-dark.png",
+      "commit": "c79e3f702c5971c892279db90e1f4716365b844b",
+      "role": "Prepared geometry; illustrative revision, not a live session",
+      "sha256": "a590a9bc5c70c7551704b0c16bc1ba90b26341e3882a5571fe683cb6a8d92ebb"
+    },
+    "assets/media/hplx-story-plan.svg": {
+      "source": "website-hplx/assets/media/story-plan.svg",
+      "commit": "908c391a794bbf7450ac9b3fa440e558bee2049d",
+      "role": "Original workflow illustration; no game content or screenshot",
+      "sha256": "dc06aac32694292cfcce04fcb65861a498ee1a940515a7649df8b02ed43c3af4"
+    },
+    "assets/media/hplx-social-card.jpg": {
+      "source": "website-hplx/assets/media/social-card.jpg",
+      "commit": "908c391a794bbf7450ac9b3fa440e558bee2049d",
+      "role": "Rendered marketing artwork",
+      "sha256": "9734ff10441d87df61c91e66e639d319b89f0b17c9d05103695cab32c1f6f410"
+    },
+    "assets/media/tectra-social-card.jpg": {
+      "source": "website-tectra/assets/social-card.jpg",
+      "commit": "b3b2f192400f060a853e9257cf843da12a2a42d8",
+      "role": "Rendered marketing artwork",
+      "sha256": "58a3c2066f690f637e7a3e5ec4078ad58502f3f35b796a51f425c860a74d4259"
+    }
+  }
+}

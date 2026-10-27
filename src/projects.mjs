@@ -11,9 +11,9 @@ export const families = [
     legalNote: 'An independent editor and reimplementation, unaffiliated with the original creators. Original game content is not distributed here. Game names, assets and credits belong to their respective owners; code and assets retain their own licenses.',
     id: 'hplx', name: 'HPLX', pillar: 'stories', status: 'In development',
     logo: { heading: 'assets/projects/hplx-glimmer-dark.svg', listing: 'assets/projects/hplx-glimmer-white.svg' },
-    summary: 'An easier way to create custom stories for the original Amnesia: The Dark Descent.',
+    summary: 'Create custom stories for Amnesia: The Dark Descent, with playtesting built in.',
     scope: 'An editor for Amnesia: The Dark Descent’s custom stories',
-    description: 'HPLX makes creating custom stories for Amnesia: The Dark Descent easier and better. The editor and its built-in reimplementation are being developed around one goal: a better way to make and playtest your own stories for the original game.',
+    description: 'HPLX is an editor for creating custom stories for the original Amnesia: The Dark Descent. Build a scene, playtest it inside the editor, then return to your work and refine it.',
     groups: [
       { title: 'Build', items: 'Your story, in the editor' },
       { title: 'Play', items: 'Your story, without leaving the editor' },
@@ -46,14 +46,8 @@ export const families = [
   },
 ];
 
-export const featuredWork = {
-  familyId: 'tectra',
-  heading: 'Create structures for worlds real or imagined.',
-  description: 'Bring an idea and develop it with Tectra’s AI. Shape a structure through connected parts, relationships and rules it can check as the design evolves.',
-  focusLabel: 'The idea',
-  focusTitle: 'Describe the space. Shape what comes next.',
-  focusDescription: 'A tool for developing 3D structures, from the first idea through each revision.',
-};
+// The first product can change without changing its canonical destination.
+export const featuredWork = { familyId: 'tectra' };
 
 /** Old individual-project URLs retain a route into their context in the family. */
 const hplx = families.find(family => family.id === 'hplx');

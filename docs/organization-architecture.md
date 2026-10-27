@@ -1,6 +1,6 @@
 # Cosmik workspace architecture
 
-Local repository and documentation review, 25 October 2026. This map describes the workspace, not an exhaustive account of repositories that might exist remotely. Repository names express scope and role; they do not imply separate companies, a product release or public source availability.
+Local repository and documentation review, 26 October 2026. This map describes the workspace, not an exhaustive account of repositories that might exist remotely. Repository names express scope and role; they do not imply separate companies, a product release or public source availability.
 
 ## Organization scope
 
@@ -18,7 +18,7 @@ These three repositories represent Cosmik itself. They must not acquire one prod
 | --- | --- |
 | `<product>` | The product implementation. Currently `tectra` and `hplx`. |
 | `brand-<product>` | The product’s independent identity, wording and generated token extension, consuming a pinned `brand` release. Currently `brand-tectra` and `brand-hplx`. |
-| `website-<product>` | A dedicated product website, using the product brand rather than the parent palette. `website-tectra` exists; no `website-hplx` checkout is present. |
+| `website-<product>` | A dedicated product website, using the product brand rather than the parent palette. `website-tectra` and the local `website-hplx` checkout exist. Each owns its product marketing presentation; public availability must be verified separately. |
 | `<product>-<host>` | A product integration for another host: `tectra-bevy` loads Tectra exports into Bevy. It shares Tectra’s identity, not a separate brand. |
 | `bevy` | Cosmik’s engine fork, supporting product and integration work. Not an original Cosmik product. |
 
@@ -58,4 +58,9 @@ Per the owner’s direction, `cybersimulator` and `volsyn` / `volsyn-*` are refe
 
 ## Change boundary
 
-This revamp changes only `.github` and `website`. Product repositories, family brand kits, the Bevy fork, reference repositories and existing uncommitted changes are outside the implementation scope. Product sites retain their own identity and publishing decisions. No public product-site URL is assumed live from a repository name or domain mentioned in a README.
+The current marketing work covers `.github`, `brand`, `brand-hplx`, `brand-tectra`,
+`website`, `website-tectra` and the new local `website-hplx` repository. Product
+implementations, integrations, the engine fork and reference repositories are
+read-only inputs. Commits remain local for owner review; no domains, remote
+repository settings or deployments are changed. A repository or configured URL
+alone is not evidence of public product availability.

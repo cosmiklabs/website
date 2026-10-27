@@ -20,9 +20,9 @@ export function shareMetadata({title, description, route, redirect, canonical = 
     if (!base.pathname.endsWith('/')) base.pathname += '/';
     const page = new URL(redirect ? redirect.split('#')[0] : route ? `${route}/` : '', base);
     if (canonical) urls += `<link rel="canonical" href="${escape(page.href)}"><meta property="og:url" content="${escape(page.href)}">`;
-    urls += `<meta property="og:image" content="${escape(new URL('assets/cosmik-512.png', base).href)}"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta property="og:image:alt" content="Cosmik emblem">`;
+    urls += `<meta property="og:image" content="${escape(new URL(route === 'projects/hplx' ? 'assets/media/hplx-social-card.jpg' : route === 'projects/tectra' ? 'assets/media/tectra-social-card.jpg' : 'assets/social-card.jpg', base).href)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="${escape(route === 'projects/hplx' ? 'HPLX: build your story, step inside it' : route === 'projects/tectra' ? 'Tectra: 3D structures, directed by you' : 'Cosmik: software for structures and stories')}">`;
   }
-  return `<meta property="og:type" content="website"><meta property="og:site_name" content="Cosmik"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#000000">${urls}`;
+  return `<meta property="og:type" content="website"><meta property="og:site_name" content="Cosmik"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#000000">${urls}`;
 }
 
 /**
@@ -54,11 +54,11 @@ ${stylesheets().map(path => `<link rel="stylesheet" href="${assetUrl(root, path)
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header wrap">
-<a class="brand" href="${url('')}" aria-label="Cosmik home"><img src="${url('assets/emblem.svg')}" width="48" height="48" alt=""><span>Cosmik</span></a>
-<nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a></nav>
+<a class="brand" href="${url('')}" aria-label="Cosmik home"><span class="brand-mark"><img src="${url('assets/emblem.svg')}" width="48" height="48" alt=""></span><span>Cosmik</span></a>
+<nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="${url('contact/')}"${current === 'contact' ? ' aria-current="page"' : ''}>Contact</a></nav>
 </header>
 <main id="main" tabindex="-1">${body(root)}</main>
-<footer class="site-footer wrap"><label class="motion-preference" hidden>Motion <span class="c-select c-select--dense"><select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Tectra and HPLX</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
+<footer class="site-footer wrap"><div class="footer-identity"><img src="${url('assets/cosmik-lockup-offwhite.svg')}" width="2172" height="724" alt="Cosmik"><p>Independent software. Made with care.</p></div><div class="footer-links"><a href="${url('about/')}">About</a><a href="${url('contact/')}">Contact</a><a href="https://cosmiklabs.github.io/brand/">Brand guide ${external}</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a></div><label class="motion-preference" hidden>Motion <span class="c-select c-select--dense"><select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label><p class="ownership">© 2026 COSMIK LABS, LLC</p></footer>
 <script type="module" src="${assetUrl(root, 'assets/preferences.mjs')}"></script>
 </body></html>`;
 }
@@ -67,17 +67,47 @@ export function familyList(root, catalog = families) {
   return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.logo ? `<img class="family-row-symbol" src="${root}${family.logo.listing}" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="family-row-tags"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status, true)}</span>${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
+/** Independent destinations share an organization frame, with equal visibility. */
 export function home(catalog = families, feature = featuredWork) {
-  const family = catalog.find(item => item.id === feature.familyId);
-  if (!family) throw new Error('Featured family not found.');
-  return shell({ title: 'Cosmik — Tectra & HPLX', description: 'Tectra and HPLX. Explore Tectra for creating 3D structures and HPLX for creating custom stories for Amnesia: The Dark Descent.', route: '', body: root => `
-<section class="home-intro wrap" aria-labelledby="cosmik-title"><div class="intro-meta">${label('Projects in development')}<a class="text-link" href="#projects">Explore the projects ${arrow}</a></div><h1 id="cosmik-title"><span class="sr-only">Cosmik</span><img class="hero-lockup" src="${root}assets/cosmik-lockup-offwhite.svg" width="2172" height="724" alt=""></h1><div class="intro-caption"><p>Home to Tectra and HPLX.</p><p>Creating 3D structures with AI assistance.<br> Making custom stories for The Dark Descent.</p></div></section>
-<section class="featured-work" data-theme="light" aria-labelledby="featured-title" data-featured-family="${escape(family.id)}"><div class="wrap feature-layout">
-<div class="feature-main">${label(`Featured work · ${pillarName(family.pillar)}`)}<h2 id="featured-title">${escape(family.name)}</h2><p class="feature-heading">${escape(feature.heading)}</p><p class="feature-description">${escape(feature.description)}</p><a class="c-button c-button--primary button" href="${familyUrl(root, family)}">Explore ${escape(family.name)} ${arrow}</a></div>
-<div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} project overview">${(family.groups ?? []).map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><p class="feature-footnote">A project in active development. Explore its current direction and capabilities.</p></div>
-</div></section>
-<section class="family-section wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Projects</h2><a class="text-link" href="${root}projects/">View all projects ${arrow}</a></div>${familyList(root, [family, ...catalog.filter(item => item.id !== family.id)])}</section>
-<section class="home-about wrap"><p>Two projects, developed independently.<br> Get to know the work behind the projects.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></section>` });
+  if (!catalog.some(family => family.id === feature.familyId)) throw new Error('Featured family not found.');
+  const ordered = [catalog.find(f => f.id === feature.familyId), ...catalog.filter(f => f.id !== feature.familyId)];
+  return shell({ title: 'Cosmik — Independent software for structures and stories', description: 'Independent software by Matthew Downs. Meet Tectra for creating 3D structures and HPLX for making Amnesia: The Dark Descent custom stories.', route: '', body: root => `
+<section class="home-intro wrap" aria-labelledby="cosmik-title">
+ ${label('Independent software by Matthew Downs')}
+ <h1 id="cosmik-title">Software for<br> <span>structures and stories.</span></h1>
+ <div class="intro-caption"><p>Different tools. A shared care for the things you make.</p><p>Shape a 3D structure with Tectra. Build and playtest a custom story with HPLX. Explore two projects in development at Cosmik.</p></div>
+ <a class="text-link" href="#projects">Meet the projects ${arrow}</a>
+</section>
+<section class="portfolio wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Tectra &amp; HPLX</h2><span class="eyebrow">Two projects in development</span></div>
+<div class="showcase-grid">${ordered.map(f => productShowcase(root, f)).join('')}</div>
+</section>
+<section class="about-band" data-theme="light"><div class="wrap section-grid"><div>${label('The person behind the work')}<h2>Independent by design.<br> Personal in practice.</h2></div><div><p class="about-lead">Cosmik is an independent software company run by Matthew Downs.</p><p>Each product has its own purpose and identity. The connection is the way it is made: clear tools, considered details, and room for the person using it to decide what comes next.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></div></div></section>
+${contactBand(root)}
+` });
+}
+
+function productShowcase(root, family) {
+ const tectra = family.id === 'tectra';
+ return `<article class="product-showcase" aria-labelledby="${escape(family.id)}-title">${tectra ? `<figure class="showcase-art showcase-proof"><img src="${root}assets/media/tectra-revision.png" width="1200" height="900" alt="A cottage structure with a wide front door and two chimneys, prepared with Tectra." loading="lazy"><figcaption>Tectra geometry · illustrative revision</figcaption></figure>` : `<figure class="showcase-art showcase-proof"><img class="diagram" src="${root}assets/media/hplx-story-plan.svg" alt="Illustrative room plan with a light, script area and player route." width="920" height="560" loading="lazy"><figcaption>HPLX workflow illustration · not an app screenshot</figcaption></figure>`}<div class="showcase-copy">${label(pillarName(family.pillar))}<h3 id="${escape(family.id)}-title">${escape(family.name)}</h3><p class="showcase-heading">${family.heading.map(escape).join(' ')}</p><p>${escape(family.summary)}</p><p class="showcase-detail">${tectra ? 'Develop connected parts, review proposed changes, and take an accepted design into your own tools.' : 'Place the scene, play from where you are looking, then return to the editor and keep building.'}</p><div class="showcase-actions"><a class="c-button c-button--primary button" href="${familyUrl(root,family)}">Explore ${escape(family.name)} ${arrow}</a>${status(family.status)}</div></div></article>`;
+}
+
+function contactBand(root) {
+ return `<section class="contact-band wrap"><div>${label('A conversation starts here')}<h2>What are you making?</h2><p>Questions about a project, ideas from your own workflow, or something you would like to share are welcome.</p></div><a class="text-link" href="${root}contact/">Get in touch ${arrow}</a></section>`;
+}
+
+/** Enable standalone links only once their destinations are available, or for local review. */
+export function productWebsite(family, env = process.env) {
+ const value = env[`${family.id.toUpperCase()}_URL`];
+ if (!value) return '';
+ const url = new URL(value);
+ if (url.username || url.password || url.search || url.hash || !(url.protocol === 'https:' || (url.protocol === 'http:' && ['localhost','127.0.0.1'].includes(url.hostname)))) throw new Error('Product URLs must use HTTPS, or loopback HTTP for local review.');
+ if (env.SITE_URL && url.protocol !== 'https:') throw new Error('Published pages cannot link to local product previews.');
+ return url.href;
+}
+
+function productAction(family) {
+ const destination = productWebsite(family);
+ return destination ? `<a class="c-button c-button--primary button" href="${escape(destination)}">Visit ${escape(family.name)} ${external}</a>` : `<a class="c-button c-button--primary button" href="mailto:hello@cosmiklabs.org?subject=${encodeURIComponent(family.name + ' — a question')}">Talk about ${escape(family.name)} ${arrow}</a>`;
 }
 
 export function catalog(catalog = families) {
@@ -104,26 +134,34 @@ ${family.id === 'hplx' ? hplxSections(family, root) : family.id === 'tectra' ? t
 
 /** The product logo as plain artwork beside the live name, with the Cosmik endorsement below; type and colours stay Cosmik's. */
 export function familyHeading(family, root) {
-  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity">${family.logo ? `<img class="family-logo" src="${root}${family.logo.heading}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br> ')}</h2><p>${escape(family.description)}</p>${family.slogan ? `<p>${escape(family.slogan)}</p>` : ''}${status(family.status)}</div></header>`;
+  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity">${family.logo ? `<img class="family-logo" src="${root}${family.logo.heading}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br> ')}</h2><p>${escape(family.description)}</p>${family.slogan ? `<p>${escape(family.slogan)}</p>` : ''}${status(family.status)}<div>${productAction(family)}</div></div></header>`;
 }
 
 function hplxSections(family, root) {
  return `<div class="wrap">
-<section class="family-tools section-grid" aria-labelledby="requirements-title"><div>${label('Before you start')}<h2 id="requirements-title">Your game.<br> Your story.</h2></div><div class="legal-copy"><p>HPLX requires a legitimately obtained local retail installation of the original game. Original game assets are never bundled or distributed with HPLX.</p><p>Cosmik Labs does not, and never will, require payment to use HPLX. The original retail game is separate and may cost money.</p><p>The storefront links below are for the original PC game. HPLX needs local PC game files; a console copy does not provide them. Individual store builds have not all been tested with HPLX.</p><p>Cosmik Labs and HPLX are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by <a class="c-link" href="https://frictionalgames.com/">Frictional Games</a>. The original engines, games, source code and assets remain the property of Frictional Games and their respective rights holders. <a class="c-link" href="${root}legal/">Read Legal &amp; Licenses</a>.</p></div></section>
+
 <nav class="family-nav" aria-label="On this page"><a href="#make">The editor</a><a href="#game">Built-in playtesting</a><a href="#development">Development</a></nav></div>
 <section class="family-games" data-theme="light" id="make" aria-labelledby="make-title"><div class="wrap section-grid"><div>${label('01 / The editor')}<h2 id="make-title">Build it.<br> Playtest it.<br> Keep creating.</h2></div><div>${family.tools.filter(tool => tool.progress).map(tool => `<article class="game-detail" id="${escape(tool.id)}">${status(tool.status)}<h3>${escape(tool.name)}</h3><p>${escape(tool.description)}</p><details><summary>Where it stands ${arrow}</summary><div class="disclosure-body"><p>${escape(tool.progress)}</p></div></details></article>`).join('')}</div></div></section>
 <section class="family-tools wrap section-grid" id="game" aria-labelledby="game-title"><div>${label('02 / Built-in playtesting')}<h2 id="game-title">The Dark Descent,<br> underneath.</h2></div><div>${family.games.map(game => `<article class="game-detail" id="${escape(game.id)}">${status(game.status)}<h3>${escape(game.name)}</h3><p>${escape(game.description)}</p>${retailLinks(game.id)}</article>`).join('')}<div class="tool-list">${family.tools.filter(tool => !tool.progress).map(tool => `<article class="tool-row" id="${escape(tool.id)}"><div class="tool-title"><h3>${escape(tool.name)}</h3>${status(tool.status)}</div><p>${escape(tool.description)}</p></article>`).join('')}</div></div></section>
+<div class="wrap"><section class="family-tools section-grid" aria-labelledby="requirements-title"><div>${label('Before you start')}<h2 id="requirements-title">Your game.<br> Your story.</h2></div><div class="legal-copy"><p>HPLX requires a legitimately obtained local retail installation of the original game. Original game assets are never bundled or distributed with HPLX.</p><p>Cosmik Labs does not, and never will, require payment to use HPLX. The original retail game is separate and may cost money.</p><p>The storefront links on this page are for the original PC game. HPLX needs local PC game files; a console copy does not provide them. Individual store builds have not all been tested with HPLX.</p><p>Cosmik Labs and HPLX are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by <a class="c-link" href="https://frictionalgames.com/">Frictional Games</a>. The original engines, games, source code and assets remain the property of Frictional Games and their respective rights holders. <a class="c-link" href="${root}legal/">Read Legal &amp; Licenses</a>.</p></div></section></div>
 <section class="family-development" data-theme="light" id="development" aria-labelledby="development-title"><div class="wrap section-grid"><div>${label('03 / Development')}<h2 id="development-title">Where things stand.</h2></div><div class="development-copy"><p class="development-lead">HPLX is in active development. There’s no public release or download yet.</p><p>The editor and its reimplementation are being developed together, entirely around creating custom stories for the original Amnesia: The Dark Descent. The focus is making that process easier and better.</p><p>HPLX is intended to be open source. Its product repositories are not public yet.</p><p>No release date has been announced.</p></div></div></section>
 `;
 }
 
 
 export function about() {
-  return shell({ title: 'About — Cosmik', description: 'Cosmik is home to Tectra and HPLX, projects by Matthew Downs.', route: 'about', current: 'about', body: root => `
-<section class="page-heading wrap">${label('About Cosmik')}<h1>One home.<br> Two projects.</h1><p>Cosmik is home to Tectra and HPLX. Each develops around the things it helps people make.</p></section>
-<section class="about-content" data-theme="light"><div class="wrap section-grid"><div>${label('The work')}<h2>Two different<br> starting points.</h2></div><div><p class="about-lead">Tectra begins with an idea for a structure. HPLX begins with a story you want someone to play.</p><p>Tectra develops constructed 3D structures through authoring with AI assistance, review and revision. HPLX is an editor for Amnesia: The Dark Descent’s custom stories, with playtesting built in.</p><p>Both are in development. Their project pages describe what is being built, without promising a release date.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
-<section class="wrap section-grid"><div>${label('The connection')}<h2>A shared foundation.</h2></div><div><p>Each project has its own identity and purpose. Cosmik’s brand kit supplies the shared typography, controls and interaction principles.</p><p>Software licenses and availability are specific to each project. HPLX is intended to be open source; that commitment does not apply to every Cosmik project.</p><a class="text-link" href="https://github.com/cosmiklabs/brand">Explore the brand kit ${external}</a></div></section>
-<section class="about-links wrap"><p>Find public repositories and follow the work.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
+ return shell({title:'About Cosmik — Independent software by Matthew Downs', description:'Meet Matthew Downs, the independent developer behind Cosmik, Tectra and HPLX.',route:'about',current:'about',body:root=>`
+ <section class="page-heading wrap">${label('About Cosmik')}<h1>One maker.<br> Different ways to create.</h1><p>Cosmik is an independent software company run by Matthew Downs. It is the home of Tectra and HPLX.</p></section>
+ <section class="about-content" data-theme="light"><div class="wrap section-grid"><div>${label('The work')}<h2>Make the idea.<br> Keep shaping it.</h2></div><div><p class="about-lead">A structure you can revise. A story you can play while you build it.</p><p>Tectra develops 3D structures through connected parts, AI-assisted revision and review. HPLX is an editor for Amnesia: The Dark Descent’s custom stories, with playtesting built in.</p><p>They serve different creators. Each has its own identity, with a shared attention to tools that explain themselves and leave decisions in your hands.</p><a class="text-link" href="${root}projects/">Meet the projects ${arrow}</a></div></div></section>
+ <section class="wrap section-grid"><div>${label('Independent, and in development')}<h2>A person behind<br> the products.</h2></div><div><p>I’m Matthew, the developer behind Cosmik. I’m building Tectra and HPLX independently, and both are still in development.</p><p>If you make 3D structures or custom stories, I would like to hear how you work, what gets in your way, and what you want these tools to help you do.</p><a class="text-link" href="${root}contact/">Say hello ${arrow}</a><p class="signed-note">Matthew Downs · Founder and developer</p></div></section>
+ <section class="wrap section-grid about-details"><div>${label('Clear boundaries')}<h2>Each product has<br> its own commitments.</h2></div><div><p>HPLX is intended to be open source and free to use; the original game is obtained separately. Tectra is proprietary software, with access and pricing still undecided.</p><p>Neither has a public release date. Current project descriptions distinguish working capabilities from what is still being developed.</p><a class="text-link" href="${root}legal/">Legal &amp; Licenses ${arrow}</a></div></section>`});
+}
+
+export function contact() {
+ return shell({title:'Contact Cosmik',description:'Contact Matthew Downs about Cosmik, Tectra or HPLX. Questions, feedback and thoughtful introductions are welcome.',route:'contact',current:'contact',body:root=>`
+ <section class="page-heading wrap">${label('Contact')}<h1>Let’s talk<br> about what you’re making.</h1><p>Reach Matthew directly with a question, feedback from your workflow, or a press inquiry.</p><a class="c-button c-button--primary button" href="mailto:hello@cosmiklabs.org">hello@cosmiklabs.org ${arrow}</a></section>
+ <section class="contact-options wrap" aria-label="Choose a topic"><article><h2>Tectra</h2><p>Tell me what you want to create in 3D, or ask about the project.</p><a class="text-link" href="mailto:hello@cosmiklabs.org?subject=Tectra%20%E2%80%94%20a%20question">Talk about Tectra ${arrow}</a></article><article><h2>HPLX</h2><p>Share your custom-story workflow, or ask about the editor.</p><a class="text-link" href="mailto:hello@cosmiklabs.org?subject=HPLX%20%E2%80%94%20a%20question">Talk about HPLX ${arrow}</a></article><article><h2>Press &amp; general</h2><p>For an introduction, an interview, or a question about Cosmik.</p><a class="text-link" href="mailto:hello@cosmiklabs.org?subject=Cosmik%20%E2%80%94%20an%20introduction">Introduce yourself ${arrow}</a></article></section>
+ <section class="wrap contact-note"><p>These links open your email app. Sending a message does not create an account or subscribe you to updates.</p><p>For privacy, attribution, or licensing questions, use <a href="mailto:legal@cosmiklabs.org">legal@cosmiklabs.org</a>. Read how correspondence is handled in the <a href="${root}privacy/">privacy notice</a>.</p></section>`});
 }
 
 function tectraSections() {
@@ -154,6 +192,7 @@ export function legalPage(kind) {
     if (entry.style === 'Heading 2') return `<h2>${escape(entry.text)}</h2>`;
     let text = escape(entry.text);
     for (const link of entry.links) text = text.replace(escape(link.text), `<a class="c-link" href="${escape(link.url)}">${escape(link.text)}</a>`);
+    text = text.replaceAll('hello@cosmiklabs.org', '<a class="c-link" href="mailto:hello@cosmiklabs.org">hello@cosmiklabs.org</a>');
     text = text.replaceAll('legal@cosmiklabs.org', '<a class="c-link" href="mailto:legal@cosmiklabs.org">legal@cosmiklabs.org</a>');
     return `<p>${text}</p>`;
   };

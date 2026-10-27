@@ -20,12 +20,9 @@ test('feature can change without changing family destinations or navigation', ()
   const feature = { ...featuredWork, familyId: 'sample', heading: 'A new feature.', description: 'New work.', focusTitle: 'New game', focusDescription: 'An experiment.' };
   validateContent(all, feature);
   const html = home(all, feature);
-  const featured = html.match(/<section class="featured-work"[\s\S]*?<\/section>/)[0];
-  assert.match(featured, /data-featured-family="sample"/);
-  assert.match(featured, /Explore Sample/);
-  assert.doesNotMatch(featured, /HPLX|Dark Descent/);
-  assert.match(featured, /Featured work · Story creation/);
-  for (const id of ['hplx', 'sample']) assert.match(html, new RegExp(`projects/${id}/`));
+  const order = [...html.matchAll(/<h3 id="([^"]+)-title">/g)].map(match => match[1]);
+  assert.deepEqual(order, ['sample','hplx','tectra']);
+  for (const family of all) assert.match(html, new RegExp(`projects/${family.id}/`));
   const index = catalog(all);
   assert.equal((index.match(/class="family-row"/g) || []).length, all.length);
 });

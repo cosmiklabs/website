@@ -5,6 +5,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { productWebsite } from '../src/templates.mjs';
 import { families, legacyRoutes } from '../src/projects.mjs';
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.join(projectRoot,'site');
@@ -14,7 +15,7 @@ const htmlFiles=files.filter(f=>f.endsWith('.html'));
 const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
 test('the complete build includes published projects and public policies',()=>{
- assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html','projects/tectra/index.html','projects/volsyn/index.html'].sort());
+ assert.deepEqual([...pages.keys()].sort(),['404.html','contact/index.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html','projects/tectra/index.html','projects/volsyn/index.html'].sort());
 });
 
 test('every local link, stylesheet, font and fragment resolves',async()=>{
@@ -51,15 +52,15 @@ test('all pages have a unique title, one h1, landmarks, labels and no JavaScript
  assert.equal(new Set(titles).size,titles.length);
 });
 
-test('homepage feature and stable family list are separate, without repeated project cards',()=>{
+test('homepage gives each product one complete showcase and a real next action',()=>{
  const html=pages.get('index.html');
- assert.equal((html.match(/class="featured-work"/g)||[]).length,1);
- assert.equal((html.match(/class="family-row"/g)||[]).length,families.length);
- assert.match(html,/data-featured-family="tectra"/);
- assert.doesNotMatch(html,/directory-controls|project-card|project-grid|assets\/art\//);
- const index=pages.get('projects/index.html');
- assert.equal((index.match(/class="family-row"/g)||[]).length,families.length);
- assert.doesNotMatch(index,/projects\/(tdd|amfp|hplx-editor)\//);
+ assert.equal((html.match(/class="product-showcase"/g)||[]).length,families.length);
+ for (const family of families) {
+  assert.match(html,new RegExp(`id="${family.id}-title"`));
+  assert.match(html,new RegExp(`Explore ${family.name}`));
+ }
+ assert.equal((pages.get('projects/index.html').match(/class="family-row"/g)||[]).length,families.length);
+ assert.match(pages.get('contact/index.html'), /mailto:hello@cosmiklabs.org/);
 });
 
 test('HPLX leads with the editor, then built-in playtesting and its engine',()=>{
@@ -85,7 +86,7 @@ test('old detail URLs have working redirect targets and readable fallback links'
 });
 
 test('private source, download and external service links are absent',()=>{
- const approved=new Set([...Object.values(retailGames).flatMap(game => game.stores.map(store => store.url)), 'https://frictionalgames.com/','https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand','https://github.com/cosmiklabs/brand/blob/main/LICENSE.md','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement','https://www.cloudflare.com/privacypolicy/','https://developers.cloudflare.com/speed/observatory/rum-beacon/','https://frictionalgames.com/2020-09-amnesia-is-now-open-source/']);
+ const approved=new Set([...families.map(f=>productWebsite(f)).filter(Boolean),...Object.values(retailGames).flatMap(game => game.stores.map(store => store.url)), 'https://frictionalgames.com/','https://cosmiklabs.github.io/brand/','https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand','https://github.com/cosmiklabs/brand/blob/main/LICENSE.md','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement','https://www.cloudflare.com/privacypolicy/','https://developers.cloudflare.com/speed/observatory/rum-beacon/','https://frictionalgames.com/2020-09-amnesia-is-now-open-source/']);
  for(const [name,html] of pages){
   const urls=[...html.matchAll(/(?:href|src)="(https?:[^"]+)"/g)].map(m=>m[1]);
   for(const url of urls)assert.ok(approved.has(url)||(process.env.SITE_URL && url.startsWith(new URL(process.env.SITE_URL).origin + '/')),`${name}: unexpected ${url}`);
@@ -103,7 +104,7 @@ test('published brand files, emblems and fonts match their releases, with notice
  const tokens=await readFile(path.join(root,'assets/brand/cosmik.css'),'utf8');assert.match(tokens,/APPROVED/);assert.doesNotMatch(tokens,/Spectral|hplx-amber/);
  assert.ok(!files.some(f=>/Spectral|ember|\.lock\.json|vendor/i.test(path.relative(root,f))),'only files pages use are published');
  assert.ok(pages.get('index.html').includes('assets/cosmik-lockup-offwhite.svg'));
- for(const html of pages.values()){assert.match(html,/width="48" height="48" alt=""><span>Cosmik<\/span>/);assert.doesNotMatch(html,/<span>COSMIK<\/span>/);}
+ for(const html of pages.values()){assert.match(html,/width="48" height="48" alt=""><\/span><span>Cosmik<\/span>/);assert.doesNotMatch(html,/<span>COSMIK<\/span>/);}
 });
 
 test('site CSS uses defined semantic roles, visible focus, responsive layout and reduced motion',async()=>{
@@ -155,5 +156,5 @@ test('dense project rows use the kit dense status label; other status labels kee
   const outside=rows.reduce((rest,row)=>rest.replace(row,''),html);
   assert.doesNotMatch(outside,/c-status--dense/,name);
  }
- assert.ok((pages.get('index.html').match(/c-status--dense/g)||[]).length===families.length);
+ assert.ok((pages.get('projects/index.html').match(/c-status--dense/g)||[]).length===families.length);
 });

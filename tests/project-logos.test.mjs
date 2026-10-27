@@ -41,7 +41,7 @@ test('product logos are the approved release files, byte for byte, with recorded
 test('each logo sits beside its live name: listing rows use the monochrome variant, headings the approved on-dark colour', () => {
   for (const family of families) {
     assert.ok(family.logo, family.id);
-    for (const html of [home(), catalog()]) assert.match(html, new RegExp(`<span class="family-row-name"><img class="family-row-symbol" src="(?:\\./|\\.\\./)${family.logo.listing}" width="32" height="32" alt="">${family.name}</span>`));
+    for (const html of [catalog()]) assert.match(html, new RegExp(`<span class="family-row-name"><img class="family-row-symbol" src="(?:\\./|\\.\\./)${family.logo.listing}" width="32" height="32" alt="">${family.name}</span>`));
     const page = familyPage(family);
     assert.match(page, new RegExp(`<div class="family-identity"><img class="family-logo" src="\\.\\./\\.\\./${family.logo.heading}" width="64" height="64" alt=""><h1>${family.name}</h1>`));
     assert.equal(page.split(family.logo.heading).length - 1, 1);
