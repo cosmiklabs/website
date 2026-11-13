@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-family="tectra" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tectra | 3D structures, directed by you</title>
+<meta name="description" content="Describe a structure. Refine its parts, dimensions and materials through conversation. Tectra is a creative 3D tool in development.">
+<!-- SITE_METADATA -->
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="vendor/brand-tectra/assets/tectra-latch-dark.svg" type="image/svg+xml">
+<link rel="preload" href="vendor/brand-tectra/vendor/brand/fonts/web/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/brand-tectra/vendor/brand/kits/cosmik/tokens/cosmik.css"><link rel="stylesheet" href="vendor/brand-tectra/tokens/tectra.css"><link rel="stylesheet" href="vendor/brand-tectra/vendor/brand/kits/cosmik/components/controls.css"><link rel="stylesheet" href="assets/site.css">
+<script type="module" src="assets/motion.mjs"></script>
+</head>
+<body>
+<a class="skip c-focus-ring" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner wrap">
+ <a class="identity c-focus-ring" href="./" aria-label="Tectra home"><img src="vendor/brand-tectra/assets/tectra-latch-dark.svg" width="48" height="48" alt=""><span>Tectra</span></a>
+ <nav aria-label="Main navigation"><a class="c-focus-ring" href="#product">Product</a><a class="c-focus-ring" href="#workflow">How it works</a><a class="c-focus-ring" href="#questions">Questions</a><a class="c-focus-ring" href="#contact">Contact</a></nav>
+ <span class="status c-status">In development</span>
+</div></header>
+<main id="main">
+<section class="hero wrap" aria-labelledby="hero-title">
+ <div class="hero-copy">
+  <p class="eyebrow">3D structures, directed by you</p>
+  <h1 id="hero-title">Create structures for worlds <span>real or imagined.</span></h1>
+  <p class="hero-lead">A building, a vehicle, a piece of furniture. Describe what you want to make, then develop its parts, dimensions and materials through conversation.</p>
+  <div class="hero-actions"><a class="c-button c-button--primary c-button--large" href="#workflow">See how it works <span aria-hidden="true">↓</span></a><a class="text-link c-link" href="#contact">Talk about Tectra <span aria-hidden="true">↗</span></a></div>
+  <p class="availability">A creative tool in development. Public access is not available yet.</p>
+ </div>
+ <figure class="revision-demo" aria-labelledby="demo-title" aria-describedby="demo-caption">
+  <div class="demo-heading"><span class="eyebrow" id="demo-title">One structure. Four revisions.</span><span class="demo-length">15 sec</span></div>
+  <video controls playsinline preload="none" poster="assets/media/revisions-dark.png" width="1200" height="900" aria-label="Play the cottage revision example" aria-describedby="demo-transcript">
+   <source src="assets/media/revisions-dark.mp4" type="video/mp4">
+   <source src="assets/media/revisions-dark.webm" type="video/webm">
+   <p>Your browser cannot play this video. The revision sequence is described below.</p>
+  </video>
+  <ol class="demo-requests" id="demo-transcript"><li><span>01</span> Begin with a cottage</li><li><span>02</span> Make the door wider</li><li><span>03</span> Add a second chimney</li><li><span>04</span> Raise the roof pitch</li></ol>
+  <figcaption id="demo-caption">Geometry prepared by Tectra. Illustrative revision sequence, not a live authoring session. No audio.</figcaption>
+ </figure>
+</section>
+<section class="product band" id="product" data-theme="light" aria-labelledby="product-title">
+ <div class="wrap section-grid">
+  <div class="section-head"><p class="eyebrow">Made to be revised</p><h2 id="product-title">Keep the idea.<br> Change the details.</h2><p class="section-intro">Tectra builds with connected parts and named dimensions. A door belongs to an opening. A roof meets its walls. Those relationships give the next revision something to work with.</p></div>
+  <ol class="benefits">
+   <li><span class="item-number">01</span><div><h3>Ask for the change you mean</h3><p>Widen a doorway, change a roof or adjust a chair’s proportions. Direct the result in words instead of editing individual vertices.</p></div></li>
+   <li><span class="item-number">02</span><div><h3>Make the relationships explicit</h3><p>Parts share dimensions and declared requirements. Changes can carry through the connections, with checks that show where a requirement fails.</p></div></li>
+   <li><span class="item-number">03</span><div><h3>Keep the decision yours</h3><p>Inspect a proposal before accepting it. Compare revisions, discard a change or return to an earlier accepted state.</p></div></li>
+  </ol>
+ </div>
+ <div class="wrap scope-note"><p class="eyebrow">A tool for structures</p><p>From objects and furniture to vehicles and buildings. Tectra makes the structure; your other tools supply the scene, setting and final presentation.</p></div>
+</section>
+<section class="workflow wrap" id="workflow" aria-labelledby="workflow-title">
+ <div class="section-head"><p class="eyebrow">How it works</p><h2 id="workflow-title">Describe the space.<br> Shape what comes next.</h2><p class="section-intro">A conversation moves the work forward. Review keeps you in control.</p></div>
+ <ol class="steps">
+  <li><span class="step-number">01 / Describe</span><h3>Start with an idea</h3><p>Explain what you want to make. Include dimensions, references and relationships when they matter.</p></li>
+  <li><span class="step-number">02 / Inspect</span><h3>Look at the proposal</h3><p>Explore the geometry, select a part and inspect the requirements checked against the structure.</p></li>
+  <li><span class="step-number">03 / Refine</span><h3>Ask for a revision</h3><p>Point to what should change. The agent develops the model around your next request.</p></li>
+  <li><span class="step-number">04 / Decide</span><h3>Accept it when ready</h3><p>Compare the proposed change, then accept or discard it. Earlier accepted revisions remain available.</p></li>
+ </ol>
+ <div class="check-example">
+  <div><p class="eyebrow">Checks you can inspect</p><h3>Know what was checked.</h3><p>Declared rules make requirements visible: a minimum gap, a part’s fit or a route through a structure. Findings identify the rule, its measured result and where to look.</p><p class="small-note">A rule passing means that declared requirement passed. It is not a certification of real-world safety or suitability.</p></div>
+  <figure class="rules" aria-labelledby="rules-caption"><table><caption id="rules-caption">Illustrative requirements</caption><thead><tr><th scope="col">Requirement</th><th scope="col">Measured</th><th scope="col">Result</th></tr></thead><tbody><tr><th scope="row">Opening ≥ 1.00 m</th><td class="measure">1.10 m</td><td>Passes</td></tr><tr><th scope="row">Clearance ≥ 2.00 m</th><td class="measure">1.92 m</td><td>Fails</td></tr></tbody></table><figcaption>Hypothetical values to explain a finding.</figcaption></figure>
+ </div>
+</section>
+<section class="output band" id="output" data-theme="light" aria-labelledby="output-title">
+ <div class="wrap section-grid">
+  <div><p class="eyebrow">Beyond the viewport</p><h2 id="output-title">Take the structure<br> into your work.</h2><p class="section-intro">Develop materials with the structure, then export an accepted revision for the next stage of your process.</p></div>
+  <div class="export-list">
+   <article><span class="format-label">GLB</span><div><h3>Portable geometry and materials</h3><p>Export geometry on its own or with baked material textures. Appearance in another application depends on its format support and lighting.</p></div></article>
+   <article><span class="format-label">GLB + shaders</span><div><h3>Materials for compatible renderers</h3><p>A <span class="file-type">.tectra.zip</span> package pairs geometry with its original material shaders for integrations that support them.</p></div></article>
+   <article><span class="format-label">Tectra bundle</span><div><h3>The authored structure</h3><p>Keep the source structure and its pinned materials together in a separate bundle. In-app reimport is not available yet.</p></div></article>
+  </div>
+ </div>
+</section>
+<section class="questions wrap" id="questions" aria-labelledby="questions-title">
+ <div><p class="eyebrow">Questions</p><h2 id="questions-title">Before you begin.</h2></div>
+ <div class="faq-list">
+  <details><summary class="c-focus-ring">Can I use Tectra today?</summary><p>Tectra is in active development. Authoring conversations, proposal review, revision history, materials and export are being developed together. Public access is not available yet, and no launch date or price has been announced.</p></details>
+  <details><summary class="c-focus-ring">What can I make with it?</summary><p>Tectra is for constructed 3D forms: objects, furniture, vehicles, machines, interiors and buildings. It makes individual structures rather than complete environments. The examples on this page explain that workflow; they do not establish compatibility with a particular production pipeline.</p></details>
+  <details><summary class="c-focus-ring">Do I edit the model by hand?</summary><p>You direct the work through conversation and inspection. Select a part, describe a change and review the resulting proposal. Tectra’s workflow is not a traditional mesh editor.</p></details>
+  <details><summary class="c-focus-ring">What do the checks mean?</summary><p>Checks evaluate requirements declared in the structure, such as dimensions, clearances and relationships. They help you inspect an intended design. They do not establish building-code compliance, fabrication readiness or physical safety.</p></details>
+  <details><summary class="c-focus-ring">Will the exports work with my tools?</summary><p>GLB is the portable export path. The result depends on the receiving application’s support for the included materials and extensions. The shader package requires a compatible integration. Tell Cosmik which tools you use so that the requirements are understood.</p></details>
+  <details><summary class="c-focus-ring">Who makes Tectra?</summary><p>Tectra is developed by Matthew Downs at <a class="c-link" href="https://cosmiklabs.org/about/">Cosmik</a>, an independent software company. Tectra has its own identity and product direction.</p></details>
+ </div>
+</section>
+<section class="contact band" id="contact" data-theme="light" aria-labelledby="contact-title">
+ <div class="wrap section-grid">
+  <div><p class="eyebrow">Help shape what comes next</p><h2 id="contact-title">What would you<br> make with Tectra?</h2></div>
+  <div class="contact-copy"><p>Describe the structures you work on, the changes that take the most time and the tools you need them to reach. A specific example is a useful place to start.</p><a class="c-button c-button--primary c-button--large" href="mailto:hello@cosmiklabs.org?subject=About%20Tectra">Talk about Tectra <span aria-hidden="true">↗</span></a><p class="contact-note">Email hello@cosmiklabs.org. Your message goes to Matthew at Cosmik.</p></div>
+ </div>
+</section>
+</main>
+<footer class="site-footer wrap"><div class="footer-identity"><a class="identity c-focus-ring" href="./" aria-label="Tectra home"><img src="vendor/brand-tectra/assets/tectra-latch-dark.svg" width="48" height="48" alt=""><span>Tectra</span></a><p>By <a class="c-link" href="https://cosmiklabs.org/">Cosmik</a>.</p></div><nav aria-label="Footer navigation"><a class="c-link" href="https://github.com/cosmiklabs/brand/tree/main/kits/tectra">Brand guide</a><a class="c-link" href="privacy.html">Privacy</a><a class="c-link" href="#contact">Contact</a></nav><label class="motion-control" hidden>Motion <span class="c-select c-select--dense"><select id="motion-preference" aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label></footer>
+</body></html>

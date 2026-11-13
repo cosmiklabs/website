@@ -10,7 +10,7 @@ import { families, legacyRoutes } from '../src/projects.mjs';
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.join(projectRoot,'site');
 async function walk(dir) { const out=[]; for(const e of await readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);out.push(...e.isDirectory()?await walk(p):[p]);} return out; }
-const files=await walk(root);
+const files=(await walk(root)).filter(file => !/^(arcfield|hplx|tectra)[\\/]/.test(path.relative(root,file)));
 const htmlFiles=files.filter(f=>f.endsWith('.html'));
 const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
@@ -26,7 +26,7 @@ test('every local link, stylesheet, font and fragment resolves',async()=>{
    const pathname=resource.split('?')[0];
    let target=pathname.startsWith('/')?path.join(root,pathname):path.resolve(path.dirname(path.join(root,name)),pathname||path.basename(name));
    if((await stat(target)).isDirectory())target=path.join(target,'index.html');
-   assert.ok(files.includes(target),`${name}: ${href}`);
+   assert.ok((await stat(target)).isFile(),`${name}: ${href}`);
    if(fragment)assert.match(await readFile(target,'utf8'),new RegExp(`id="${fragment}"`));
   }
  }
@@ -144,7 +144,7 @@ test('unpublished product pages and assets are absent from the complete build', 
 // Phones hide heading line breaks, and screen readers skip them: a break must
 // never be the only thing separating two words.
 test('line breaks in published text are followed by a space',async()=>{
- const pages=(await walk(path.join(projectRoot,'site'))).filter(p=>p.endsWith('.html'));
+ const pages=htmlFiles;
  assert.ok(pages.length);
  for(const page of pages)assert.doesNotMatch(await readFile(page,'utf8'),/[^\s>]<br>[^\s<]/,path.relative(projectRoot,page));
 });

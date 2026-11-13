@@ -9,12 +9,12 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/*.test.mjs products/*/tests/*.test.mjs",
     "check": "npm run build && npm test",
     "dev": "npm run build && node scripts/serve.mjs",
     "preview": "node scripts/serve.mjs",
     "brand:sync": "node scripts/brand.mjs sync",
     "brand:verify": "node scripts/brand.mjs verify",
-    "review": "node scripts/review.mjs"
+    "review": "npm run dev"
   }
 }

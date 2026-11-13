@@ -2,37 +2,13 @@
 
 Local repository and documentation review, 26 October 2026. This map describes the workspace, not an exhaustive account of repositories that might exist remotely. Repository names express scope and role; they do not imply separate companies, a product release or public source availability.
 
-## Organization scope
+## Shared repositories
 
-| Repository | Responsibility |
-| --- | --- |
-| `.github` | GitHub organization profile; `profile/README.md` is the public entry point. |
-| `website` | Parent organization website at cosmiklabs.org; shared project directory, context and public policies. GitHub Pages publishes generated `site/` only. |
-| `brand` | Parent identity and shared design foundation: monochrome semantic tokens, Cosmik marks, Inter, IBM Plex Mono, shared controls, guidance and family-generation tooling. |
+- `brand` owns the shared Cosmik foundation and the product kits under `kits/<product>/`.
+- `website` owns the organization site and each independent marketing site under `products/<product>/`. GitHub Pages serves a single build at `cosmiklabs.org`, with products mounted at `/<product>/`.
+- `.github` owns the GitHub organization profile.
 
-These three repositories represent Cosmik itself. They must not acquire one product’s colors, heading typeface or product-specific commercial commitments. Product identities can appear as artwork inside the parent scope.
-
-## Product scopes and naming
-
-| Pattern / repository | Meaning |
-| --- | --- |
-| `<product>` | The product implementation. Currently `tectra` and `hplx`. |
-| `brand-<product>` | The product’s independent identity, wording and generated token extension, consuming a pinned `brand` release. Currently `brand-tectra` and `brand-hplx`. |
-| `website-<product>` | A dedicated product website, using the product brand rather than the parent palette. `website-tectra` and the local `website-hplx` checkout exist. Each owns its product marketing presentation; public availability must be verified separately. |
-| `<product>-<host>` | A product integration for another host: `tectra-bevy` loads Tectra exports into Bevy. It shares Tectra’s identity, not a separate brand. |
-| `bevy` | Cosmik’s engine fork, supporting product and integration work. Not an original Cosmik product. |
-
-The current spelling `website-tectra` is deliberate: role first for websites and brands, product first for integrations. Historical `tectra-website` references do not define the current convention.
-
-## Dependency and identity flow
-
-`brand` → `brand-tectra` → Tectra app / product website / integrations.
-
-`brand` → `brand-hplx` → HPLX interfaces and documents.
-
-`brand` → organization `website` / `.github` profile.
-
-Family kits vendor an immutable tagged baseline plus its hash lock and run that release’s generator and checks. Product consumers vendor a tagged family kit including its nested baseline; they should not introduce a second independent baseline alongside it. Root organization surfaces consume the baseline directly. A brand approval says nothing about product release readiness.
+Product pages use the shared baseline followed by their own family CSS. The company site uses the baseline and can show product marks as artwork. Products keep their own navigation, claims, and content.
 
 ## Tectra implementation
 
@@ -50,17 +26,8 @@ One Git repository and Cargo workspace hold the editor, engine, shared game laye
 
 The purpose is easier custom-story creation with built-in playtesting for the original Amnesia: The Dark Descent. Original game content is read from the user’s installation, never bundled. The implementation declares GPL-3.0-or-later; this does not license all Cosmik products or brand artwork. Source licensing, remote repository visibility and release availability are distinct facts. Existing root-site copy describes product source as not yet public; this local review does not independently establish current remote visibility.
 
-Sources: `hplx/README.md`, `hplx/docs/ARCHITECTURE.md`, and `brand-hplx/README.md`.
+Sources: `hplx/README.md`, `hplx/docs/ARCHITECTURE.md`, and `brand/kits/hplx/README.md`.
 
 ## Reference and historical repositories
 
 Per the owner’s direction, `cybersimulator` and `volsyn` / `volsyn-*` are references for Tectra, not additional current product entries. `cybersimulator` has a `visolar6` remote rather than a `cosmiklabs` remote. `volsyn-adapters` has no checked-out commit. The old `/projects/volsyn/` website address remains a compatibility redirect; its existence does not make Volsyn a third current product.
-
-## Change boundary
-
-The current marketing work covers `.github`, `brand`, `brand-hplx`, `brand-tectra`,
-`website`, `website-tectra` and the new local `website-hplx` repository. Product
-implementations, integrations, the engine fork and reference repositories are
-read-only inputs. Commits remain local for owner review; no domains, remote
-repository settings or deployments are changed. A repository or configured URL
-alone is not evidence of public product availability.

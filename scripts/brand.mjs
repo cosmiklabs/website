@@ -5,8 +5,7 @@
 //
 // The checkout must be clean and exactly at its vX.Y.Z tag. `sync` runs the release's own
 // vendor tool. `verify` checks every file against the lock; given the checkout, it also proves
-// the lock against its release tag. The website uses only the Cosmik brand: product family
-// kits (brand-tectra, brand-hplx) are not vendored here.
+// the lock against its release tag. Product families use the snapshot under vendor/product-brand.
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

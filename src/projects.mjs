@@ -9,7 +9,7 @@ export const families = [
   {
     heading: ['Build a story.', 'Play it as you build.'],
     legalNote: 'An independent editor and reimplementation, unaffiliated with the original creators. Original game content is not distributed here. Game names, assets and credits belong to their respective owners; code and assets retain their own licenses.',
-    id: 'hplx', name: 'HPLX', pillar: 'stories', status: 'In development',
+    id: 'hplx', website: '/hplx/', name: 'HPLX', pillar: 'stories', status: 'In development',
     logo: { heading: 'assets/projects/hplx-glimmer-dark.svg', listing: 'assets/projects/hplx-glimmer-white.svg' },
     summary: 'Create custom stories for Amnesia: The Dark Descent, with playtesting built in.',
     scope: 'An editor for Amnesia: The Dark Descent’s custom stories',
@@ -33,7 +33,7 @@ export const families = [
   {
     heading: ['Create structures for', 'worlds real or imagined.'],
     slogan: 'Describe the space. Shape what comes next.',
-    id: 'tectra', name: 'Tectra', pillar: 'structures', status: 'In development',
+    id: 'tectra', website: '/tectra/', name: 'Tectra', pillar: 'structures', status: 'In development',
     logo: { heading: 'assets/projects/tectra-latch-dark.svg', listing: 'assets/projects/tectra-latch-white.svg' },
     scope: '3D structures',
     summary: 'Design and refine 3D structures with AI assistance.',

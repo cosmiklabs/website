@@ -35,7 +35,7 @@ test('product logos are the approved release files, byte for byte, with recorded
     assert.equal((svg.match(/<path /g) || []).length, 2);
     assert.doesNotMatch(svg, /<image|<filter|<script|href=/);
   }
-  assert.deepEqual(readdirSync(new URL('../vendor/', import.meta.url)), ['brand']); // Logos are site assets, not vendored kits.
+  assert.deepEqual(readdirSync(new URL('../vendor/', import.meta.url)), ['brand', 'product-brand']); // Logos are site assets, not vendored kits.
 });
 
 test('each logo sits beside its live name: listing rows use the monochrome variant, headings the approved on-dark colour', () => {

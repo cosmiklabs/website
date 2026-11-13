@@ -23,8 +23,8 @@ test('the vendored Cosmik brand verifies with its own vendored tool',()=>{
  assert.equal(JSON.parse(readFileSync(new URL('../vendor/brand/brand.lock.json',import.meta.url))).repository,'cosmiklabs/brand');
 });
 
-test('the website vendors and publishes only the Cosmik brand, no product family kits',()=>{
- assert.deepEqual(readdirSync(new URL('../vendor/',import.meta.url)),['brand']);
+test('organization pages use only the Cosmik baseline',()=>{
+ assert.deepEqual(readdirSync(new URL('../vendor/',import.meta.url)),['brand', 'product-brand']);
  for(const {from} of Object.values(provenance.published))assert.match(from,/^vendor\/brand\//);
  for(const html of [home(),catalog(),about(),notFound(),...families.map(familyPage)]){
   assert.doesNotMatch(html,/data-family=|assets\/families\/|family-themes\.css|brand-(?:tectra|hplx)/);

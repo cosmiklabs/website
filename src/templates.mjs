@@ -98,7 +98,7 @@ function contactBand(root) {
 /** Enable standalone links only once their destinations are available, or for local review. */
 export function productWebsite(family, env = process.env) {
  const value = env[`${family.id.toUpperCase()}_URL`];
- if (!value) return '';
+ if (!value) return family.website || '';
  const url = new URL(value);
  if (url.username || url.password || url.search || url.hash || !(url.protocol === 'https:' || (url.protocol === 'http:' && ['localhost','127.0.0.1'].includes(url.hostname)))) throw new Error('Product URLs must use HTTPS, or loopback HTTP for local review.');
  if (env.SITE_URL && url.protocol !== 'https:') throw new Error('Published pages cannot link to local product previews.');
@@ -107,13 +107,13 @@ export function productWebsite(family, env = process.env) {
 
 function productAction(family) {
  const destination = productWebsite(family);
- return destination ? `<a class="c-button c-button--primary button" href="${escape(destination)}">Visit ${escape(family.name)} ${external}</a>` : `<a class="c-button c-button--primary button" href="mailto:hello@cosmiklabs.org?subject=${encodeURIComponent(family.name + ' — a question')}">Talk about ${escape(family.name)} ${arrow}</a>`;
+ return destination ? `<a class="c-button c-button--primary button" href="${escape(destination)}">Visit ${escape(family.name)} ${destination.startsWith('/') ? arrow : external}</a>` : `<a class="c-button c-button--primary button" href="mailto:hello@cosmiklabs.org?subject=${encodeURIComponent(family.name + ' — a question')}">Talk about ${escape(family.name)} ${arrow}</a>`;
 }
 
 export function catalog(catalog = families) {
   return shell({ title: 'Projects — Cosmik', description: 'Explore Tectra for creating 3D structures and HPLX for creating custom stories for the original Amnesia: The Dark Descent.', route: 'projects', current: 'projects', body: root => `
 <section class="page-heading wrap">${label('Projects')}<h1>Tectra &amp; HPLX.</h1><p>Two projects, each with a different way to create. Explore what they do and where development stands.</p></section>
-<section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Projects</h2>${familyList(root, catalog)}</section>
+<section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Projects</h2>${familyList(root, catalog)}<p><a class="c-link" href="${root}arcfield/">Explore Arcfield</a></p></section>
 <section class="directory-note wrap"><p>Tectra and HPLX are in development. Their project pages explain the direction of each project and where it stands.</p></section>` });
 }
 

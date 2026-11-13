@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" fill="none" role="img" aria-labelledby="plan-title plan-desc">
+  <title id="plan-title">An illustrative custom-story room</title>
+  <desc id="plan-desc">A top-down schematic connects a player start, a doorway, a light and a script area. These are a workflow illustration, not a screenshot or game assets.</desc>
+  <defs><pattern id="plan-grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" stroke="#2E3339" stroke-width="1"/></pattern></defs>
+  <rect width="920" height="560" fill="#0E0F11"/>
+  <rect x="32" y="32" width="856" height="496" fill="url(#plan-grid)"/>
+  <g class="room" stroke="#A7A196" stroke-width="3">
+    <path d="M245 124H696V424H245V310M245 242V124"/>
+    <path d="M256 135H685V413H256V310M256 242V135" stroke-width="1"/>
+    <path d="M245 242h-68v68" stroke-width="2"/>
+    <path d="M177 242a68 68 0 0 1 68 68" stroke-width="1" stroke-dasharray="4 6"/>
+    <path d="M685 216h-74v116h74M611 254h74M611 294h74" stroke-width="1.5"/>
+    <path d="M327 135v34h150v-34M374 135v34M426 135v34" stroke-width="1.5"/>
+  </g>
+  <g class="script-area">
+    <rect x="344" y="284" width="138" height="98" fill="#E0A53A" fill-opacity=".07" stroke="#E0A53A" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <path d="m396 316-12 12 12 12m33-24 12 12-12 12m-12-28-11 32" stroke="#E0A53A" stroke-width="1.5"/>
+  </g>
+  <g class="story-light">
+    <circle cx="551" cy="227" r="90" fill="#E0A53A" fill-opacity=".06" stroke="#E0A53A" stroke-opacity=".35" stroke-dasharray="3 7"/>
+    <circle cx="551" cy="227" r="59" fill="#E0A53A" fill-opacity=".06" stroke="#E0A53A" stroke-opacity=".35"/>
+    <circle cx="551" cy="227" r="9" fill="#E0A53A"/>
+    <path d="M551 205v-8m0 60v-8m22-22h8m-60 0h8m6-16-6-6m38 38-6-6m0-26 6-6m-38 38 6-6" stroke="#E0A53A" stroke-width="1.5"/>
+  </g>
+  <g class="player-route" stroke="#ECE7DD" stroke-width="2">
+    <path d="M292 274H416V333H540" stroke-dasharray="5 8"/>
+    <path d="m530 326 10 7-10 7"/>
+    <circle cx="292" cy="274" r="7" fill="#0E0F11"/>
+  </g>
+  <g class="selection" stroke="#E0A53A" stroke-width="2">
+    <path d="M530 214v-8h8m26 0h8v8m0 26v8h-8m-26 0h-8v-8"/>
+  </g>
+  <g class="annotations" stroke="#7E786E" stroke-width="1">
+    <path d="M292 274H127V369"/><path d="M551 197V81h196"/><path d="M482 366h279v71"/>
+    <circle cx="127" cy="369" r="3" fill="#A7A196"/><circle cx="747" cy="81" r="3" fill="#A7A196"/><circle cx="761" cy="437" r="3" fill="#A7A196"/>
+  </g>
+  <g fill="#A7A196" font-family="monospace" font-size="13" letter-spacing="1.2">
+    <text x="80" y="398">PLAYER START</text><text x="691" y="65">LIGHT</text><text x="715" y="463">SCRIPT AREA</text>
+    <text x="56" y="67">STORY / FIRST ROOM</text>
+  </g>
+</svg>

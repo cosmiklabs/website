@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-family="hplx" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HPLX — Build and playtest Amnesia custom stories</title>
+<meta name="description" content="An editor for Amnesia: The Dark Descent custom stories, with playtesting built in. Build a room, step inside it, and keep creating. In development.">
+@@METADATA@@
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="vendor/brand-hplx/assets/hplx-glimmer-light.svg" type="image/svg+xml">
+<link rel="preload" href="vendor/brand-hplx/fonts/web/Spectral-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/brand-hplx/vendor/brand/kits/cosmik/tokens/cosmik.css">
+<link rel="stylesheet" href="vendor/brand-hplx/tokens/hplx.css">
+<link rel="stylesheet" href="vendor/brand-hplx/vendor/brand/kits/cosmik/components/controls.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="module" src="assets/site.mjs"></script>
+</head>
+<body>
+<a class="skip c-focus-ring" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner wrap">
+  <a class="identity c-focus-ring" href="./" aria-label="HPLX home"><img src="vendor/brand-hplx/assets/hplx-glimmer-light.svg" width="40" height="40" alt=""><span>HPLX</span></a>
+  <nav aria-label="Main navigation"><a href="#product">Product</a><a href="#workflow">How it works</a><a href="#questions">Questions</a><a href="#contact">Contact</a></nav>
+</div></header>
+<main id="main">
+<section class="hero wrap" id="product" aria-labelledby="hero-title">
+  <p class="eyebrow">For Amnesia: The Dark Descent</p>
+  <div class="hero-grid">
+    <h1 id="hero-title">Build your story.<br> <em>Step inside it.</em></h1>
+    <div class="hero-copy"><p class="lead">An editor for custom stories, with playtesting built in. Place a light, set a scene, then play from where you’re looking—without leaving the editor.</p>
+      <div class="actions"><a class="c-button c-button--primary" href="#workflow">See how it works <span aria-hidden="true">↓</span></a><a class="text-link" href="#development">Where it stands</a></div>
+    </div>
+  </div>
+  <p class="availability"><span class="status-dot" aria-hidden="true"></span>In development <span aria-hidden="true">·</span> No public download yet</p>
+  <p class="hero-requirement">Requires your own local PC copy of Amnesia: The Dark Descent. Independent of Frictional Games.</p>
+</section>
+
+<section class="workflow" id="workflow" data-theme="dark" aria-labelledby="workflow-title">
+  <div class="wrap">
+    <div class="section-heading"><p class="eyebrow">The creative loop</p><h2 id="workflow-title">Make a change.<br> Feel the difference.</h2><p>Move between making the scene and experiencing it. HPLX keeps the editor and playtest in the same place.</p></div>
+    <div class="workflow-grid">
+      <figure class="scene" data-stage="build" aria-labelledby="scene-caption">
+        @@STORY_PLAN@@
+        <figcaption id="scene-caption"><span>Workflow illustration</span><span>Not an app screenshot</span></figcaption>
+      </figure>
+      <div class="workflow-steps">
+        <article><p class="step-number">01 / Build</p><h3>Give the room its character.</h3><p>Place props, lights, sounds and script areas. Search the game’s assets and your story’s own files as you build.</p><button type="button" class="diagram-step" data-stage="build" aria-pressed="true" hidden>Show building <span aria-hidden="true">↗</span></button></article>
+        <article><p class="step-number">02 / Playtest</p><h3>Step into the scene.</h3><p>Press <kbd>F5</kbd> to play from the camera’s position. Test the route, the lighting and the moment you’re trying to create.</p><button type="button" class="diagram-step" data-stage="play" aria-pressed="false" hidden>Show playtesting <span aria-hidden="true">↗</span></button></article>
+        <article><p class="step-number">03 / Refine</p><h3>Keep the idea moving.</h3><p>Press <kbd>Esc</kbd> to return to editing. Adjust the scene and try it again—or pause play to tune a light while you see the result.</p><button type="button" class="diagram-step" data-stage="refine" aria-pressed="false" hidden>Show refining <span aria-hidden="true">↗</span></button></article>
+      </div>
+    </div>
+    <p class="scene-state" aria-live="polite" hidden>Building: the light and script area are part of the scene you create.</p>
+  </div>
+</section>
+
+<section class="craft wrap" aria-labelledby="craft-title">
+  <div class="section-heading"><p class="eyebrow">More room for the story</p><h2 id="craft-title">The details belong<br> together.</h2><p>A custom story is more than a map. HPLX brings the pieces of making one into a connected editing workflow.</p></div>
+  <div class="feature-list">
+    <article><span class="feature-index" aria-hidden="true">01</span><div><h3>See where the story leads.</h3><p>A story map shows how your maps connect. Find missing destinations and disconnected maps before they interrupt the player.</p></div><span class="feature-label">Story map</span></article>
+    <article><span class="feature-index" aria-hidden="true">02</span><div><h3>Work with light and darkness.</h3><p>Use a work light while building. Switch to game lighting, then inspect where darkness would drain the player’s sanity.</p></div><span class="feature-label">Lighting tools</span></article>
+    <article><span class="feature-index" aria-hidden="true">03</span><div><h3>Keep the words in view.</h3><p>Edit your story’s text in one table, with a column for each language file. Find the line you need without hunting through files.</p></div><span class="feature-label">Story text</span></article>
+    <article><span class="feature-index" aria-hidden="true">04</span><div><h3>Find the problem. Keep creating.</h3><p>Inspect script errors, missing files and story connections. Checks help you prepare the story before handing it to someone else.</p></div><span class="feature-label">Story checks</span></article>
+  </div>
+  <p class="section-note">These tools are implemented in the development build. HPLX is still being tested and is not publicly released.</p>
+</section>
+
+<section class="development" id="development" aria-labelledby="development-title">
+  <div class="wrap section-grid"><div><p class="eyebrow">Where it stands</p><h2 id="development-title">Being built<br> for story makers.</h2></div>
+    <div class="prose"><p class="large-copy">HPLX is in active development. The editor and its built-in playtesting are being developed together, around making custom stories for the original game.</p><p>There is no public release, download or announced release date yet. The first release is planned as a single download containing the editor and its playtesting engine.</p><p>Have a workflow you wish were easier, or a question about making stories with HPLX? That’s a useful conversation to have now.</p><a class="text-link" href="mailto:hello@cosmiklabs.org?subject=HPLX%20%E2%80%94%20story%20creation">Talk about your workflow <span aria-hidden="true">↗</span></a></div>
+  </div>
+</section>
+
+<section class="questions wrap" id="questions" aria-labelledby="questions-title">
+  <div><p class="eyebrow">Before you start</p><h2 id="questions-title">A few things<br> to know.</h2></div>
+  <div class="faq-list">
+    <details><summary>Can I download HPLX yet?</summary><div><p>Not yet. HPLX is in development, with no public release or announced release date. This page describes the work in progress.</p></div></details>
+    <details><summary>Do I need to own Amnesia?</summary><div><p>Yes. HPLX reads the maps, models, textures, audio and other content from your own local PC installation of <em>Amnesia: The Dark Descent</em>. No original game content is included with HPLX. A console copy does not provide the local PC files it needs.</p><p>Store-build compatibility is still being tested; owning a particular version is not a compatibility guarantee.</p></div></details>
+    <details><summary>Will HPLX cost money?</summary><div><p>HPLX will be free to use. Cosmik does not, and never will, require payment to use HPLX. The original game is separate and may cost money.</p></div></details>
+    <details><summary>Is this an official Amnesia editor?</summary><div><p>No. HPLX is independent and is not affiliated with, sponsored by or endorsed by Frictional Games. <em>Amnesia</em> and its game content belong to their respective owners.</p></div></details>
+    <details><summary>How does built-in playtesting work?</summary><div><p>HPLX includes a reimplementation that reads the game files from your installation. That makes it possible to play a story inside the editor. Compatibility is still being developed and tested; built-in playtesting does not establish identical behavior to the original game.</p><p>The editor also provides a way to save and test a custom story in the original game.</p></div></details>
+    <details><summary>What about other games and platforms?</summary><div><p>The current focus is custom-story creation for the original <em>Amnesia: The Dark Descent</em>. Windows, Linux and Apple Silicon macOS packages are planned; there are no public packages yet. Tested requirements and limitations will accompany a release.</p></div></details>
+    <details><summary>Will the source be available?</summary><div><p>HPLX is intended to be open source under GPL-3.0-or-later. Its product source is not currently offered publicly. That license does not apply to the original game content or HPLX’s brand artwork.</p></div></details>
+  </div>
+</section>
+
+<section class="contact" id="contact" data-theme="dark" aria-labelledby="contact-title"><div class="wrap contact-inner">
+  <p class="eyebrow">Keep the conversation going</p><h2 id="contact-title">What do you<br> want to make?</h2><div><p>Questions, rough ideas, and the parts of story creation that get in your way. Send them to the person building HPLX.</p><a class="c-button c-button--primary" href="mailto:hello@cosmiklabs.org?subject=HPLX%20%E2%80%94%20a%20question%20or%20idea">Email about HPLX <span aria-hidden="true">↗</span></a><p class="contact-address">hello@cosmiklabs.org</p></div>
+</div></section>
+</main>
+<footer class="site-footer wrap"><div class="footer-top"><a class="identity" href="./" aria-label="HPLX home"><img src="vendor/brand-hplx/assets/hplx-glimmer-light.svg" width="40" height="40" alt=""><span>HPLX</span></a><p>By <a href="@@COSMIK_URL@@">Cosmik</a>. Built by Matthew Downs.</p><nav aria-label="Footer navigation"><a href="@@BRAND_URL@@">Brand guide</a><a href="privacy/">Privacy</a><a href="legal/">Legal</a><a href="#contact">Contact</a></nav></div><p class="footer-note">Independent of Frictional Games. Requires your own copy of Amnesia: The Dark Descent. No original game content is distributed here.</p></footer>
+</body></html>

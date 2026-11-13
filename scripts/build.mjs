@@ -1,3 +1,4 @@
+import { buildProducts } from './products.mjs';
 import { writeSocialPreview } from './social-preview.mjs';
 import { mkdir, writeFile, cp, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -31,11 +32,12 @@ await writeFile(path.join(output, '.nojekyll'), '');
 // Index only deliberate public pages; legacy redirects and errors stay out of discovery.
 if (process.env.SITE_URL) {
  const base = new URL(process.env.SITE_URL.endsWith('/') ? process.env.SITE_URL : process.env.SITE_URL + '/');
- const routes = ['', 'projects/', ...families.map(f => `projects/${f.id}/`), 'about/', 'contact/', 'privacy/', 'legal/'];
+ const routes = ['', 'projects/', ...families.map(f => `projects/${f.id}/`), 'about/', 'contact/', 'privacy/', 'legal/', 'arcfield/', 'hplx/', 'hplx/privacy/', 'hplx/legal/', 'tectra/', 'tectra/privacy.html'];
  const xmlEscape = text => text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
  await writeFile(path.join(output,'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(route => `<url><loc>${xmlEscape(new URL(route,base).href)}</loc></url>`).join('')}</urlset>\n`);
  await writeFile(path.join(output,'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml',base).href}\n`);
 } else await writeFile(path.join(output,'robots.txt'),'User-agent: *\nDisallow: /\n');
+await buildProducts(output);
 await writeSocialPreview(output);
-console.log(`Built ${pages.size} static pages in site/. No deployment was performed.`);
+console.log(`Built ${pages.size} organization pages and 3 product sites in site/. No deployment was performed.`);
 

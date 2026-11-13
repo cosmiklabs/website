@@ -6,7 +6,7 @@ import {productWebsite, shareMetadata, contact, about} from '../src/templates.mj
 import {families} from '../src/projects.mjs';
 test('standalone destinations are explicit and cannot leak local review URLs into publication',()=>{
  const family=families[0];
- assert.equal(productWebsite(family,{}),'');
+ assert.equal(productWebsite(family,{}),'/hplx/');
  assert.equal(productWebsite(family,{HPLX_URL:'https://hplx.app'}),'https://hplx.app/');
  assert.equal(productWebsite(family,{HPLX_URL:'http://127.0.0.1:4193/'}),'http://127.0.0.1:4193/');
  for(const HPLX_URL of ['javascript:alert(1)','http://example.com','https://user:pass@example.com','https://hplx.app/#contact'])assert.throws(()=>productWebsite(family,{HPLX_URL}));
