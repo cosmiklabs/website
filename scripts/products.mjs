@@ -61,5 +61,12 @@ export async function buildProducts(output, siteUrl = process.env.SITE_URL) {
     ? `<link rel="canonical" href="${productUrl('arcfield')}">`
     : '<meta name="robots" content="noindex,nofollow">';
   const company = origin ? companyUrl : '../';
-  await writeFile(index, html.replace('</head>', metadata + '\n</head>').replace('href="../">By Cosmik', `href="${company}">By Cosmik`));
+  let page = html.replace('</head>', metadata + '\n</head>').replace('href="../">By Cosmik', `href="${company}">By Cosmik`);
+  // Pages and the CDN can cache HTML and assets independently across deploys.
+  for (const [, attribute, file] of html.matchAll(/(?:<link rel="stylesheet" |<script )(href|src)="([^"]+)"/g)) {
+    const bytes = await readFile(path.join(destination, file));
+    const revision = createHash('sha256').update(bytes).digest('hex').slice(0, 12);
+    page = page.replace(`${attribute}="${file}"`, `${attribute}="${file}?v=${revision}"`);
+  }
+  await writeFile(index, page);
 }
