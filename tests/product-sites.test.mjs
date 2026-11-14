@@ -11,6 +11,16 @@ const products = [
   ['tectra', 'vendor/brand-tectra/vendor/brand/kits/cosmik/tokens/cosmik.css', 'vendor/brand-tectra/tokens/tectra.css'],
 ];
 
+test('Arcfield uses Cosmik controls for the terrain demo and calls to action', async () => {
+  const html = (await read('arcfield/index.html')).toString();
+  assert.match(html, /href="assets\/arcfield\.css"[\s\S]*href="assets\/controls\.css"[\s\S]*href="site\.css"/);
+  assert.deepEqual(await read('arcfield/assets/controls.css'), await read('assets/brand/controls.css'));
+  assert.match(html, /class="c-button c-button--primary c-button--large"/);
+  assert.match(html, /role="group" aria-label="Edge shape"/);
+  assert.match(html, /data-edge="joined" aria-pressed="true"/);
+  assert.match(html, /data-edge="split" aria-pressed="false"/);
+});
+
 for (const [id, shared, family] of products) {
   test(`${id} has its own page and loads its family after the common baseline`, async () => {
     const html = (await read(id + '/index.html')).toString();

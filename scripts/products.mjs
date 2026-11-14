@@ -48,8 +48,10 @@ export async function buildProducts(output, siteUrl = process.env.SITE_URL) {
     'assets/mark.svg': 'kits/arcfield/assets/arcfield-mark-dark.svg',
     'assets/arcfield.css': 'kits/arcfield/tokens/arcfield.css',
     'assets/cosmik.css': 'kits/cosmik/tokens/cosmik.css',
+    'assets/controls.css': 'kits/cosmik/components/controls.css',
     'assets/LICENSE.md': 'kits/arcfield/LICENSE.md',
     'assets/Inter-Regular.woff2': 'fonts/web/Inter-Regular.woff2',
+    'assets/Inter-Medium.woff2': 'fonts/web/Inter-Medium.woff2',
     'assets/Inter-SemiBold.woff2': 'fonts/web/Inter-SemiBold.woff2',
     'assets/Inter-OFL.txt': 'fonts/licenses/Inter-OFL.txt',
   });
@@ -58,5 +60,6 @@ export async function buildProducts(output, siteUrl = process.env.SITE_URL) {
   const metadata = origin
     ? `<link rel="canonical" href="${productUrl('arcfield')}">`
     : '<meta name="robots" content="noindex,nofollow">';
-  await writeFile(index, html.replace('</head>', metadata + '\n</head>'));
+  const company = origin ? companyUrl : '../';
+  await writeFile(index, html.replace('</head>', metadata + '\n</head>').replace('href="../">By Cosmik', `href="${company}">By Cosmik`));
 }

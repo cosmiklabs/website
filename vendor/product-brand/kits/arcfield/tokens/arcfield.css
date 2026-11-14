@@ -2,11 +2,22 @@
 [data-family="arcfield"] {
   --c-primitive-arcfield-sky: #8AB4FF;
   --c-primitive-arcfield-blue: #24559A;
+  --c-primitive-arcfield-active: #2864CC;
+  --c-primitive-arcfield-slate: #17191D;
+  --c-primitive-arcfield-card-dark: #17191DEB;
+  --c-primitive-arcfield-card-light: #F5F7FAF5;
+  --c-primitive-arcfield-edge-dark: #66768A;
+  --c-primitive-arcfield-edge-light: #8192A8;
+  --c-primitive-arcfield-control-dark: #252C37;
+  --c-primitive-arcfield-hover-dark: #343E4D;
+  --c-primitive-arcfield-pressed-dark: #414F63;
+  --c-primitive-arcfield-shadow-dark: #080D166B;
+  --c-primitive-arcfield-shadow-light: #20375440;
 }
 
 [data-family="arcfield"], [data-family="arcfield"] [data-theme], [data-family="arcfield"] [data-glass-tone] {
   --c-bg: light-dark(var(--c-primitive-paper), var(--c-primitive-black));
-  --c-surface: light-dark(var(--c-primitive-white), var(--c-primitive-surface-dark));
+  --c-surface: light-dark(var(--c-primitive-white), var(--c-primitive-arcfield-slate));
   --c-raised: light-dark(var(--c-primitive-light-soft), var(--c-primitive-raised-dark));
   --c-text: light-dark(var(--c-primitive-black), var(--c-primitive-paper));
   --c-muted: light-dark(var(--c-primitive-muted-light), var(--c-primitive-muted-dark));
@@ -22,9 +33,9 @@
   --c-action-primary-hover: light-dark(var(--c-primitive-surface-dark), var(--c-primitive-light-soft));
   --c-action-primary-active: light-dark(var(--c-primitive-raised-dark), var(--c-primitive-pressed-light));
   --c-action-primary-fg: light-dark(var(--c-primitive-white), var(--c-primitive-black));
-  --c-action-secondary: light-dark(var(--c-primitive-white), var(--c-primitive-surface-dark));
-  --c-action-secondary-hover: light-dark(var(--c-primitive-light-soft), var(--c-primitive-raised-dark));
-  --c-action-secondary-active: light-dark(var(--c-primitive-pressed-light), var(--c-primitive-pressed-dark));
+  --c-action-secondary: light-dark(var(--c-primitive-white), var(--c-primitive-arcfield-control-dark));
+  --c-action-secondary-hover: light-dark(var(--c-primitive-light-soft), var(--c-primitive-arcfield-hover-dark));
+  --c-action-secondary-active: light-dark(var(--c-primitive-pressed-light), var(--c-primitive-arcfield-pressed-dark));
   --c-action-secondary-fg: light-dark(var(--c-primitive-black), var(--c-primitive-paper));
   --c-input-bg: light-dark(var(--c-primitive-white), var(--c-primitive-black));
   --c-input-fg: light-dark(var(--c-primitive-black), var(--c-primitive-paper));
@@ -49,4 +60,11 @@
   --c-glass-hover: light-dark(var(--c-primitive-tint-dark-hover), var(--c-primitive-tint-light-hover));
   --c-glass-active: light-dark(var(--c-primitive-tint-dark-active), var(--c-primitive-tint-light-active));
   --c-accent: light-dark(var(--c-primitive-arcfield-blue), var(--c-primitive-arcfield-sky));
+  --c-viewport-panel: light-dark(var(--c-primitive-arcfield-card-light), var(--c-primitive-arcfield-card-dark));
+  --c-viewport-edge: light-dark(var(--c-primitive-arcfield-edge-light), var(--c-primitive-arcfield-edge-dark));
+  --c-viewport-selected: light-dark(var(--c-primitive-arcfield-blue), var(--c-primitive-arcfield-active));
+  --c-viewport-on-selected: light-dark(var(--c-primitive-white), var(--c-primitive-white));
+  --c-viewport-shadow: light-dark(var(--c-primitive-arcfield-shadow-light), var(--c-primitive-arcfield-shadow-dark));
+  --c-elevation-viewport-surface: light-dark(var(--c-primitive-arcfield-card-light), var(--c-primitive-arcfield-card-dark));
+  --c-elevation-viewport-shadow: 0px 6px 20px 0px light-dark(var(--c-primitive-arcfield-shadow-light), var(--c-primitive-arcfield-shadow-dark));
 }

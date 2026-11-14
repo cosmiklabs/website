@@ -39,10 +39,18 @@ function draw(mode) {
   note.textContent = description;
 }
 
-document.querySelectorAll('input[name="edge"]').forEach(input => {
-  input.addEventListener('change', () => draw(input.value));
-});
-draw(document.querySelector('input[name="edge"]:checked').value);
+if (context) {
+  const controls = document.querySelector('#edge-controls');
+  const options = controls.querySelectorAll('button');
+  for (const option of options) {
+    option.addEventListener('click', () => {
+      for (const button of options) button.setAttribute('aria-pressed', String(button === option));
+      draw(option.dataset.edge);
+    });
+  }
+  draw(controls.querySelector('[aria-pressed="true"]').dataset.edge);
+  controls.hidden = false;
+}
 
 const copy = document.querySelector('#copy');
 if (navigator.clipboard) {

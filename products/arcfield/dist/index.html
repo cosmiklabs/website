@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-family="arcfield" data-theme="dark">
+<html lang="en" data-family="arcfield" data-theme="dark" data-motion="system">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,21 +8,22 @@
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/cosmik.css">
 <link rel="stylesheet" href="assets/arcfield.css">
+<link rel="stylesheet" href="assets/controls.css">
 <link rel="stylesheet" href="site.css">
 <script src="terrain.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="mast wrap">
+<header class="site-header"><div class="wrap header-inner">
   <a class="identity" href="./"><img src="assets/mark.svg" alt="" width="34" height="34">Arcfield</a>
-  <nav aria-label="Main"><a href="#terrain">Terrain</a><a href="#kit">Rust kit</a><a href="#studio">Studio</a></nav>
-</header>
+  <nav aria-label="Main navigation"><a href="#terrain">Terrain</a><a href="#kit">Rust kit</a><a href="#studio">Studio</a></nav>
+</div></header>
 <main id="main">
   <section class="hero wrap" aria-labelledby="title">
     <div class="intro">
       <h1 id="title">Shape terrain,<br> tile by tile.</h1>
       <p>Raise a hill, cut a cliff, or build a terrace. Arcfield is a Rust kit for editing tile-based terrain, with a desktop and browser editor in development.</p>
-      <a class="button" href="#terrain">Explore the tile model <span aria-hidden="true">↓</span></a>
+      <a class="c-button c-button--primary c-button--large" href="#terrain">Explore the tile model <span aria-hidden="true">↓</span></a>
     </div>
     <figure class="hero-image">
       <img src="assets/terrain.webp" alt="Arcfield terrain with a rounded hill, rough ground, and a ramp up to a plateau with sheer sides." width="1280" height="800" fetchpriority="high">
@@ -37,7 +38,10 @@
     <figure class="diagram">
       <div class="diagram-top">
         <h3>Shared tile edge</h3>
-        <fieldset><legend class="sr-only">Edge shape</legend><label><input type="radio" name="edge" value="joined" checked><span>Joined</span></label><label><input type="radio" name="edge" value="split"><span>Sheer face</span></label></fieldset>
+        <div class="c-segmented c-segmented--dense" role="group" aria-label="Edge shape" id="edge-controls" hidden>
+          <button class="c-segmented__option" type="button" data-edge="joined" aria-pressed="true">Joined</button>
+          <button class="c-segmented__option" type="button" data-edge="split" aria-pressed="false">Sheer face</button>
+        </div>
       </div>
       <canvas id="tiles" width="720" height="330" role="img" aria-label="Two tiles with matching heights at their shared edge."></canvas>
       <figcaption id="edge-note" aria-live="polite">The two tiles meet at the same height along the shared edge.</figcaption>
@@ -47,15 +51,15 @@
     <div class="section-copy"><h2>Build with Arcfield</h2><p>Use the parts you need to draw terrain in your app, add terrain editing, or build an editor of your own.</p></div>
     <div class="kit-list">
       <article><h3>Rust library</h3><p>Work with worlds, geometry, and editing sessions. Use Select and Sculpt, add your own tools, and undo each edit exactly.</p></article>
-      <article><h3>Bevy integration</h3><p>Draw terrain with `arcfield-terrain-bevy`. Choose materials and normals, and add the orbit camera or pointer plugin as needed.</p></article>
-      <article><h3>Try a terrain capture</h3><p>If you have access to the source repository, run this from its root with stable Rust, <code>just</code>, and a graphics driver for Bevy.</p><div class="command"><code id="capture-command">just capture --out shot.png</code><button type="button" id="copy" hidden>Copy</button></div><p class="small">Open <code>shot.png</code> to see the result.</p><a href="https://github.com/cosmiklabs/arcfield">Source repository <span class="small">(access required)</span></a><span id="copy-status" class="sr-only" role="status"></span></article>
+      <article><h3>Bevy integration</h3><p>Draw terrain with <code>arcfield-terrain-bevy</code>. Choose materials and normals, and add the orbit camera or pointer plugin as needed.</p></article>
+      <article><h3>Try a terrain capture</h3><p>If you have access to the source repository, run this from its root with stable Rust, <code>just</code>, and a graphics driver for Bevy.</p><div class="command"><code id="capture-command">just capture --out shot.png</code><button class="c-button c-button--secondary c-button--dense" type="button" id="copy" hidden>Copy</button></div><p class="small">Open <code>shot.png</code> to see the result.</p><a class="c-link" href="https://github.com/cosmiklabs/arcfield">Source repository <span class="small">(access required)</span></a><span id="copy-status" class="sr-only" role="status"></span></article>
     </div>
   </section>
   <section class="section wrap studio" id="studio">
-    <div class="section-copy"><h2>Arcfield Studio</h2><p class="status">In development</p></div>
+    <div class="section-copy"><h2>Arcfield Studio</h2><p class="c-status">In development</p></div>
     <div><p>Studio is the official editor built from the kit. The plan is to offer the full editor on desktop and in the browser. In the browser, start with a blank world or a sample, then import and export your work as files.</p></div>
   </section>
 </main>
-<footer class="wrap footer"><a class="identity" href="./"><img src="assets/mark.svg" alt="" width="27" height="27">Arcfield</a><a href="/">By Cosmik</a></footer>
+<footer class="site-footer wrap"><a class="identity" href="./"><img src="assets/mark.svg" alt="" width="34" height="34">Arcfield</a><a class="c-link" href="../">By Cosmik</a></footer>
 </body>
 </html>
