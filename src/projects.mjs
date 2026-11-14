@@ -52,8 +52,8 @@ export const families = [
     heading: ['Shape terrain,', 'tile by tile.'],
     logo: { heading: 'assets/projects/arcfield-mark-dark.svg', listing: 'assets/projects/arcfield-mark-white.svg' },
     scope: 'Tile-based terrain editing',
-    summary: 'Shape terrain or add terrain editing to your own app or game.',
-    description: 'Arcfield is a Rust kit for editing tile-based terrain. Match corner heights for continuous slopes or split them to make cliffs, walls, and terraces.',
+    summary: 'Build tools and games on a Rust tile system, with editing and interface behavior.',
+    description: 'Arcfield is a Rust tile system. Use the tiles alone, add editing, or build a whole editor on its engine-independent core. Match corner heights for continuous slopes or split them to make cliffs, walls, and terraces.',
     showcase: { image: 'arcfield/assets/terrain.webp', width: 1280, height: 800, alt: 'Terrain with a rounded hill and a ramp to a plateau with sheer sides.', caption: 'Terrain rendered with Arcfield in Bevy' },
   },
   {

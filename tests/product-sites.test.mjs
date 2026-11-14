@@ -22,11 +22,11 @@ test('Arcfield uses Cosmik controls for the terrain demo and calls to action', a
   assert.match(html, /data-edge="split" aria-pressed="false"/);
 });
 
-test('Arcfield introduces Workbench as a separate browser app', async () => {
+test('Arcfield describes Workbench and its current repository', async () => {
   const html = (await read('arcfield/index.html')).toString();
-  assert.match(html, /id="workbench"[\s\S]*Arcfield Workbench[\s\S]*In development[\s\S]*WebAssembly at <strong>arcfield\.app<\/strong>/);
-  assert.match(html, /run this from the <code>arcfield-bevy<\/code> root/);
-  assert.doesNotMatch(html, /Arcfield Studio|#studio/);
+  assert.match(html, /id="workbench"[\s\S]*Arcfield Workbench[\s\S]*In development[\s\S]*Browser hosting is planned at <strong>arcfield\.app<\/strong>/);
+  assert.match(html, /run this from the <code>arcfield<\/code> repository root/);
+  assert.doesNotMatch(html, /Arcfield Studio|#studio|arcfield-bevy/);
 });
 
 test('product homepages use the same navigation labels and section destinations', async () => {

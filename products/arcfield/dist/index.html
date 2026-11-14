@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Arcfield is a Rust kit for shaping tile-based terrain, from continuous slopes to sheer cliffs.">
-<title>Arcfield — Rust kit for tile-based terrain editing</title>
+<meta name="description" content="Arcfield is a Rust tile system with terrain editing and engine-independent interface behavior. Build on the parts you need.">
+<title>Arcfield — A Rust tile system to build on</title>
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/cosmik.css">
 <link rel="stylesheet" href="assets/arcfield.css">
@@ -22,7 +22,7 @@
   <section class="hero wrap" id="product" aria-labelledby="title">
     <div class="intro">
       <h1 id="title">Shape terrain,<br> tile by tile.</h1>
-      <p>Raise a hill, cut a cliff, or build a terrace. Arcfield is a Rust kit for adding tile-based terrain editing to your own app or game.</p>
+      <p>Raise a hill, cut a cliff, or build a terrace. Arcfield is a Rust tile system for developers building their own tools and games. Use the tiles alone, add editing, or build a whole editor.</p>
       <a class="c-button c-button--primary c-button--large" href="#terrain">Explore the tile model <span aria-hidden="true">↓</span></a>
     </div>
     <figure class="hero-image">
@@ -48,21 +48,22 @@
     </figure>
   </section>
   <section class="section kit wrap" id="kit">
-    <div class="section-copy"><h2>Build with Arcfield</h2><p>Use the parts you need to draw terrain in your app, add terrain editing, or build an editor of your own.</p></div>
+    <div class="section-copy"><h2>Build with Arcfield</h2><p>The core has three layers: tiles, editing, and interface behavior. Each works without an engine or a window. Use only the layers your program needs.</p></div>
     <div class="kit-list">
-      <article><h3>Rust library</h3><p>Work with worlds, geometry, and editing sessions. Import elevation data, shape terrain with Select and Sculpt, and export it as glTF. Add your own tools and undo each edit exactly.</p><a class="c-link" href="https://github.com/cosmiklabs/arcfield">Arcfield source <span class="small">(access required)</span></a></article>
-      <article><h3>Bevy integrations</h3><p>Draw terrain with <code>arcfield-terrain-bevy</code> and assemble an editor with <code>arcfield-interface-bevy</code>. Both live in the separate <code>arcfield-bevy</code> repository.</p><a class="c-link" href="https://github.com/cosmiklabs/arcfield-bevy">Arcfield Bevy source <span class="small">(access required)</span></a></article>
-      <article><h3>Try a terrain capture</h3><p>With access to <code>arcfield-bevy</code> and a sibling checkout of Arcfield, run this from the <code>arcfield-bevy</code> root. You’ll need stable Rust, <code>just</code>, and a graphics driver for Bevy.</p><div class="command"><code id="capture-command">just capture --out shot.png</code><button class="c-button c-button--secondary c-button--dense" type="button" id="copy" hidden>Copy</button></div><p class="small">Open <code>shot.png</code> to see the result.</p><span id="copy-status" class="sr-only" role="status"></span></article>
+      <article><h3>Rust library</h3><p>Work with tiles and geometry, import elevation data, and export terrain as glTF without opening an editor. Add a session for selection, tools, and exact undo. The interface layer describes what an editor shows and does; your host draws it and handles storage.</p><a class="c-link" href="https://github.com/cosmiklabs/arcfield">Arcfield source <span class="small">(access required)</span></a></article>
+      <article><h3>Bevy integrations</h3><p>Draw terrain with <code>arcfield-terrain-bevy</code> and assemble an editor with <code>arcfield-interface-bevy</code>. Both live under <code>adapters/bevy</code> in the Arcfield repository. Bevy is the first adapter; the core never depends on it.</p><a class="c-link" href="https://github.com/cosmiklabs/arcfield/tree/main/adapters/bevy">Arcfield Bevy source <span class="small">(access required)</span></a></article>
+      <article><h3>Try a terrain capture</h3><p>With a checkout of Arcfield, run this from the <code>arcfield</code> repository root. You’ll need stable Rust, <code>just</code>, and a graphics driver for Bevy.</p><div class="command"><code id="capture-command">just capture --out shot.png</code><button class="c-button c-button--secondary c-button--dense" type="button" id="copy" hidden>Copy</button></div><p class="small">Open <code>shot.png</code> to see the result.</p><span id="copy-status" class="sr-only" role="status"></span></article>
     </div>
   </section>
   <section class="section wrap workbench" id="workbench">
     <div class="section-copy"><h2>Arcfield Workbench</h2><p class="c-status">In development</p></div>
-    <div><p>Workbench is a browser app that shows how the Arcfield kit and Bevy integrations fit together. It’s built in <code>arcfield-bevy</code> and will run as WebAssembly at <strong>arcfield.app</strong>.</p></div>
+    <div><p>Workbench is a web demonstration of Arcfield, assembled from the Bevy adapter’s components using the public API. It shows what you can build with the kit; it is not intended as a day-to-day editor. Its source lives under <code>apps/arcfield-workbench</code> in the Arcfield repository. Browser hosting is planned at <strong>arcfield.app</strong>.</p></div>
   </section>
   <section class="section wrap" id="questions" aria-labelledby="questions-title">
     <h2 id="questions-title">Questions</h2>
     <div class="faq-list">
       <details><summary>Can I use Arcfield without Bevy?</summary><p>Yes. The Rust kit is engine-independent. Use the Bevy integrations if you want to render terrain or assemble an editor in Bevy.</p></details>
+      <details><summary>Can I add my own tools and data?</summary><p>Yes. Add tools and layers through the public API, compiled into your program. Layers keep your own data beside the tiles and participate in the editing history. Arcfield supplies no game rules or built-in Paint tool; those belong to the program you build.</p></details>
       <details><summary>Where will I try Workbench?</summary><p>Workbench is in development for the browser. Its planned address is <strong>arcfield.app</strong>.</p></details>
     </div>
   </section>
