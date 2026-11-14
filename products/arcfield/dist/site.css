@@ -169,7 +169,7 @@ a:focus-visible {
 }
 code { overflow-wrap: anywhere; }
 .small, .site-footer > .c-link { font-size: var(--c-type-ui-small-font-size); }
-.studio > div:last-child { align-self: center; }
+.workbench > div:last-child { align-self: center; }
 .site-footer { padding-block: var(--c-space-8); }
 
 .sr-only, .skip:not(:focus) {
