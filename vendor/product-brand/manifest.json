@@ -33,7 +33,9 @@
     "kits/arcfield/assets/arcfield-mark-dark.svg": "6ea38cf506cd13d3d48d02d27893671c885e0a5605956dd570f29dba11d5d67a",
     "kits/arcfield/assets/arcfield-mark-light.svg": "c0db59702a723a664ac6647def2c27630df707b6cbb5fda85b29ad230f54ab34",
     "kits/arcfield/assets/arcfield-mark-white.svg": "99c0bd4b693b5b27081b2bb2384372d83c641945f7c206df5ba3af0f72f2d375",
-    "kits/arcfield/tokens/arcfield.css": "b996265b25158ac82cc19def04c189524047ca00984e100ac87c94617af8ece1"
+    "kits/arcfield/tokens/arcfield.css": "b996265b25158ac82cc19def04c189524047ca00984e100ac87c94617af8ece1",
+    "kits/vallix/assets/vallix-fosse-dark.svg": "aa28274610d9d86296504d621144373e8601308794982caa6c37102549bc3666",
+    "kits/vallix/assets/vallix-fosse-white.svg": "e18d3e46cd987c84b26413717ee547cfda0eedd2d4c0de9f0c2176b3e39c6d77"
   },
   "commit": "97b49ae12971769edc55bb52d05e5dfc84fa7dd9"
 }

@@ -230,7 +230,6 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .showcase-copy h3{font-size:clamp(2rem,4vw,3rem);margin-top:var(--c-space-4)}
 .showcase-heading{font-size:var(--c-type-card-font-size);line-height:1.4;margin-block:var(--c-space-4)}
 .showcase-copy>p:not(.eyebrow):not(.showcase-heading){color:var(--c-muted)}
-.showcase-detail{font-size:var(--c-type-ui-font-size)}
 .showcase-actions{padding-top:var(--c-space-6);margin-top:auto!important;display:flex;align-items:center;flex-wrap:wrap;gap:var(--c-space-6);margin-top:var(--c-space-6)}
 .showcase-actions .button{margin:0}
 .about-band .text-link{margin-top:var(--c-space-6)}
@@ -272,6 +271,7 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 @media(max-width:720px){.site-header{min-height:113px;padding-block:var(--c-space-2);gap:var(--c-space-base)}.brand{min-height:40px}.brand-mark{width:40px;height:40px}.brand .brand-mark img{width:48.75px;height:48.75px}.site-header nav{gap:var(--c-space-6)}}
 
 .showcase-proof img.diagram{object-fit:contain}
+.showcase-mark{aspect-ratio:16/9}
 
 .site-header{position:sticky;top:0;z-index:20;background:var(--c-bg)}
 .site-header nav a{font-size:14px;font-weight:400}

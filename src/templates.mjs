@@ -20,7 +20,7 @@ export function shareMetadata({title, description, route, redirect, canonical = 
     if (!base.pathname.endsWith('/')) base.pathname += '/';
     const page = new URL(redirect ? redirect.split('#')[0] : route ? `${route}/` : '', base);
     if (canonical) urls += `<link rel="canonical" href="${escape(page.href)}"><meta property="og:url" content="${escape(page.href)}">`;
-    urls += `<meta property="og:image" content="${escape(new URL(route === 'projects/hplx' ? 'assets/media/hplx-social-card.jpg' : route === 'projects/tectra' ? 'assets/media/tectra-social-card.jpg' : 'assets/social-card.jpg', base).href)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="${escape(route === 'projects/hplx' ? 'HPLX: build your story, step inside it' : route === 'projects/tectra' ? 'Tectra: 3D structures, directed by you' : 'Cosmik: software for structures and stories')}">`;
+    urls += `<meta property="og:image" content="${escape(new URL(route === 'projects/hplx' ? 'assets/media/hplx-social-card.jpg' : route === 'projects/tectra' ? 'assets/media/tectra-social-card.jpg' : 'assets/social-card.jpg', base).href)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="${escape(route === 'projects/hplx' ? 'HPLX: build your story, step inside it' : route === 'projects/tectra' ? 'Tectra: 3D structures, directed by you' : 'Cosmik: independent creative software')}">`;
   }
   return `<meta property="og:type" content="website"><meta property="og:site_name" content="Cosmik"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#000000">${urls}`;
 }
@@ -71,14 +71,14 @@ export function familyList(root, catalog = families) {
 export function home(catalog = families, feature = featuredWork) {
   if (!catalog.some(family => family.id === feature.familyId)) throw new Error('Featured family not found.');
   const ordered = [catalog.find(f => f.id === feature.familyId), ...catalog.filter(f => f.id !== feature.familyId)];
-  return shell({ title: 'Cosmik — Independent software for structures and stories', description: 'Independent software by Matthew Downs. Meet Tectra for creating 3D structures and HPLX for making Amnesia: The Dark Descent custom stories.', route: '', body: root => `
+  return shell({ title: 'Cosmik — Independent creative software', description: 'Independent tools for creating 3D structures, playable stories, tile-based terrain, and field defenses.', route: '', body: root => `
 <section class="home-intro wrap" aria-labelledby="cosmik-title">
  ${label('Independent software by Matthew Downs')}
- <h1 id="cosmik-title">Software for<br> <span>structures and stories.</span></h1>
- <div class="intro-caption"><p>Different tools. A shared care for the things you make.</p><p>Shape a 3D structure with Tectra. Build and playtest a custom story with HPLX. Explore two projects in development at Cosmik.</p></div>
+ <h1 id="cosmik-title">Software for<br> <span>making worlds.</span></h1>
+ <div class="intro-caption"><p>Different tools. A shared care for the things you make.</p><p>Build structures, create playable stories, shape tile-based terrain, or plan field defenses.</p></div>
  <a class="text-link" href="#projects">Meet the projects ${arrow}</a>
 </section>
-<section class="portfolio wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Tectra &amp; HPLX</h2><span class="eyebrow">Two projects in development</span></div>
+<section class="portfolio wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Projects</h2></div>
 <div class="showcase-grid">${ordered.map(f => productShowcase(root, f)).join('')}</div>
 </section>
 <section class="about-band" data-theme="light"><div class="wrap section-grid"><div>${label('The person behind the work')}<h2>Independent by design.<br> Personal in practice.</h2></div><div><p class="about-lead">Cosmik is an independent software company run by Matthew Downs.</p><p>Each product has its own purpose and identity. The connection is the way it is made: clear tools, considered details, and room for the person using it to decide what comes next.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></div></div></section>
@@ -87,8 +87,11 @@ ${contactBand(root)}
 }
 
 function productShowcase(root, family) {
- const tectra = family.id === 'tectra';
- return `<article class="product-showcase" aria-labelledby="${escape(family.id)}-title">${tectra ? `<figure class="showcase-art showcase-proof"><img src="${root}assets/media/tectra-revision.png" width="1200" height="900" alt="A cottage structure with a wide front door and two chimneys, prepared with Tectra." loading="lazy"><figcaption>Tectra geometry · illustrative revision</figcaption></figure>` : `<figure class="showcase-art showcase-proof"><img class="diagram" src="${root}assets/media/hplx-story-plan.svg" alt="Illustrative room plan with a light, script area and player route." width="920" height="560" loading="lazy"><figcaption>HPLX workflow illustration · not an app screenshot</figcaption></figure>`}<div class="showcase-copy">${label(pillarName(family.pillar))}<h3 id="${escape(family.id)}-title">${escape(family.name)}</h3><p class="showcase-heading">${family.heading.map(escape).join(' ')}</p><p>${escape(family.summary)}</p><p class="showcase-detail">${tectra ? 'Develop connected parts, review proposed changes, and take an accepted design into your own tools.' : 'Place the scene, play from where you are looking, then return to the editor and keep building.'}</p><div class="showcase-actions"><a class="c-button c-button--primary button" href="${familyUrl(root,family)}">Explore ${escape(family.name)} ${arrow}</a>${status(family.status)}</div></div></article>`;
+ const media = family.showcase;
+ const artwork = media
+   ? `<figure class="showcase-art showcase-proof"><img${media.contain ? ' class="diagram"' : ''} src="${escape(root + media.image)}" width="${media.width}" height="${media.height}" alt="${escape(media.alt)}" loading="lazy"><figcaption>${escape(media.caption)}</figcaption></figure>`
+   : `<div class="showcase-art showcase-mark" aria-hidden="true">${family.logo ? `<img src="${escape(root + family.logo.heading)}" width="144" height="144" alt="" loading="lazy">` : ''}</div>`;
+ return `<article class="product-showcase" aria-labelledby="${escape(family.id)}-title">${artwork}<div class="showcase-copy">${label(pillarName(family.pillar))}<h3 id="${escape(family.id)}-title">${escape(family.name)}</h3><p class="showcase-heading">${family.heading.map(escape).join(' ')}</p><p>${escape(family.summary)}</p><div class="showcase-actions"><a class="c-button c-button--primary button" href="${familyUrl(root,family)}">Explore ${escape(family.name)} ${arrow}</a>${status(family.status)}</div></div></article>`;
 }
 
 function contactBand(root) {
@@ -111,10 +114,9 @@ function productAction(family) {
 }
 
 export function catalog(catalog = families) {
-  return shell({ title: 'Projects — Cosmik', description: 'Explore Tectra for creating 3D structures and HPLX for creating custom stories for the original Amnesia: The Dark Descent.', route: 'projects', current: 'projects', body: root => `
-<section class="page-heading wrap">${label('Projects')}<h1>Tectra &amp; HPLX.</h1><p>Two projects, each with a different way to create. Explore what they do and where development stands.</p></section>
-<section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Projects</h2>${familyList(root, catalog)}<p><a class="c-link" href="${root}arcfield/">Explore Arcfield</a></p></section>
-<section class="directory-note wrap"><p>Tectra and HPLX are in development. Their project pages explain the direction of each project and where it stands.</p></section>` });
+  return shell({ title: 'Projects — Cosmik', description: 'Explore Arcfield, HPLX, Tectra, and Vallix and see where each project stands.', route: 'projects', current: 'projects', body: root => `
+<section class="page-heading wrap">${label('Projects')}<h1>Cosmik projects.</h1><p>Explore what each project does and where development stands.</p></section>
+<section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Projects</h2>${familyList(root, catalog)}</section>` });
 }
 
 export function retailLinks(id) {
@@ -150,10 +152,10 @@ function hplxSections(family, root) {
 
 
 export function about() {
- return shell({title:'About Cosmik — Independent software by Matthew Downs', description:'Meet Matthew Downs, the independent developer behind Cosmik, Tectra and HPLX.',route:'about',current:'about',body:root=>`
- <section class="page-heading wrap">${label('About Cosmik')}<h1>One maker.<br> Different ways to create.</h1><p>Cosmik is an independent software company run by Matthew Downs. It is the home of Tectra and HPLX.</p></section>
- <section class="about-content" data-theme="light"><div class="wrap section-grid"><div>${label('The work')}<h2>Make the idea.<br> Keep shaping it.</h2></div><div><p class="about-lead">A structure you can revise. A story you can play while you build it.</p><p>Tectra develops 3D structures through connected parts, AI-assisted revision and review. HPLX is an editor for Amnesia: The Dark Descent’s custom stories, with playtesting built in.</p><p>They serve different creators. Each has its own identity, with a shared attention to tools that explain themselves and leave decisions in your hands.</p><a class="text-link" href="${root}projects/">Meet the projects ${arrow}</a></div></div></section>
- <section class="wrap section-grid"><div>${label('Independent, and in development')}<h2>A person behind<br> the products.</h2></div><div><p>I’m Matthew, the developer behind Cosmik. I’m building Tectra and HPLX independently, and both are still in development.</p><p>If you make 3D structures or custom stories, I would like to hear how you work, what gets in your way, and what you want these tools to help you do.</p><a class="text-link" href="${root}contact/">Say hello ${arrow}</a><p class="signed-note">Matthew Downs · Founder and developer</p></div></section>
+ return shell({title:'About Cosmik — Independent software by Matthew Downs', description:'Meet Matthew Downs, the independent developer behind Cosmik.',route:'about',current:'about',body:root=>`
+ <section class="page-heading wrap">${label('About Cosmik')}<h1>One maker.<br> Different ways to create.</h1><p>Cosmik is an independent software company run by Matthew Downs. It is the home of Arcfield, HPLX, Tectra, and Vallix.</p></section>
+ <section class="about-content" data-theme="light"><div class="wrap section-grid"><div>${label('The work')}<h2>Make the idea.<br> Keep shaping it.</h2></div><div><p class="about-lead">A structure you can revise. A story you can play while you build it.</p><p>Tectra develops 3D structures through connected parts, AI-assisted revision and review. HPLX is an editor for Amnesia: The Dark Descent’s custom stories, with playtesting built in.</p><p>Arcfield helps developers add terrain editing to their own apps. Vallix is for planning trenches and field defenses. Each has its own identity, with a shared attention to tools that explain themselves and leave decisions in your hands.</p><a class="text-link" href="${root}projects/">Meet the projects ${arrow}</a></div></div></section>
+ <section class="wrap section-grid"><div>${label('Independent, and in development')}<h2>A person behind<br> the products.</h2></div><div><p>I’m Matthew, the developer behind Cosmik. I’m building these projects independently, and they’re still in development.</p><p>I’d like to hear how you work and what you want these tools to help you do.</p><a class="text-link" href="${root}contact/">Say hello ${arrow}</a><p class="signed-note">Matthew Downs · Founder and developer</p></div></section>
  <section class="wrap section-grid about-details"><div>${label('Clear boundaries')}<h2>Each product has<br> its own commitments.</h2></div><div><p>HPLX is intended to be open source and free to use; the original game is obtained separately. Tectra is proprietary software, with access and pricing still undecided.</p><p>Neither has a public release date. Current project descriptions distinguish working capabilities from what is still being developed.</p><a class="text-link" href="${root}legal/">Legal &amp; Licenses ${arrow}</a></div></section>`});
 }
 

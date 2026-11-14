@@ -24,10 +24,23 @@ test('Arcfield uses Cosmik controls for the terrain demo and calls to action', a
 
 test('Arcfield introduces Workbench as a separate browser app', async () => {
   const html = (await read('arcfield/index.html')).toString();
-  assert.match(html, /href="#workbench">Workbench/);
   assert.match(html, /id="workbench"[\s\S]*Arcfield Workbench[\s\S]*In development[\s\S]*WebAssembly at <strong>arcfield\.app<\/strong>/);
   assert.match(html, /run this from the <code>arcfield-bevy<\/code> root/);
   assert.doesNotMatch(html, /Arcfield Studio|#studio/);
+});
+
+test('product homepages use the same navigation labels and section destinations', async () => {
+  const expected = [
+    ['product', 'Product'], ['workflow', 'How it works'],
+    ['questions', 'Questions'], ['contact', 'Contact'],
+  ];
+  for (const [id] of products) {
+    const html = (await read(id + '/index.html')).toString();
+    const [, nav] = html.match(/<nav aria-label="Main navigation">([\s\S]*?)<\/nav>/);
+    const links = [...nav.matchAll(/<a[^>]+href="#([^"]+)"[^>]*>([^<]+)<\/a>/g)];
+    assert.deepEqual(links.map(([, fragment, label]) => [fragment, label]), expected, id);
+    for (const [fragment] of expected) assert.ok(html.includes(`id="${fragment}"`), `${id}: ${fragment}`);
+  }
 });
 
 test('Arcfield asset URLs are tied to the deployed bytes', async () => {

@@ -5,7 +5,7 @@ import { home, catalog, familyList, escape } from '../src/templates.mjs';
 
 test('the catalog contains families, not an equal list of games, tools and repositories', () => {
   validateContent();
-  assert.deepEqual(families.map(f => f.id), ['hplx', 'tectra']);
+  assert.deepEqual(families.map(f => f.id), ['hplx', 'tectra', 'arcfield', 'vallix']);
   const hplx = families[0];
   assert.equal(hplx.name, 'HPLX');
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
@@ -21,7 +21,7 @@ test('feature can change without changing family destinations or navigation', ()
   validateContent(all, feature);
   const html = home(all, feature);
   const order = [...html.matchAll(/<h3 id="([^"]+)-title">/g)].map(match => match[1]);
-  assert.deepEqual(order, ['sample','hplx','tectra']);
+  assert.deepEqual(order, ['sample','hplx','tectra','arcfield','vallix']);
   for (const family of all) assert.match(html, new RegExp(`projects/${family.id}/`));
   const index = catalog(all);
   assert.equal((index.match(/class="family-row"/g) || []).length, all.length);

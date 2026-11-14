@@ -32,6 +32,12 @@ export async function buildProducts(output, siteUrl = process.env.SITE_URL) {
   if (origin && !origin.pathname.endsWith('/')) origin.pathname += '/';
   const productUrl = id => origin && new URL(id + '/', origin).href;
   const companyUrl = origin?.href;
+  await brandFiles(output, {
+    'assets/projects/arcfield-mark-dark.svg': 'kits/arcfield/assets/arcfield-mark-dark.svg',
+    'assets/projects/arcfield-mark-white.svg': 'kits/arcfield/assets/arcfield-mark-white.svg',
+    'assets/projects/vallix-fosse-dark.svg': 'kits/vallix/assets/vallix-fosse-dark.svg',
+    'assets/projects/vallix-fosse-white.svg': 'kits/vallix/assets/vallix-fosse-white.svg',
+  });
   await buildHplx({ destination: path.join(output, 'hplx'), siteUrl: productUrl('hplx'), cosmikUrl: companyUrl, brandUrl: 'https://github.com/cosmiklabs/brand/tree/main/kits/hplx' });
   await buildTectra({ destination: path.join(output, 'tectra'), siteUrl: productUrl('tectra'), mount: origin ? new URL('tectra/', origin).pathname : '/tectra/', cosmikUrl: companyUrl });
 

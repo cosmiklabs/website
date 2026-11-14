@@ -171,6 +171,15 @@ code { overflow-wrap: anywhere; }
 .small, .site-footer > .c-link { font-size: var(--c-type-ui-small-font-size); }
 .workbench > div:last-child { align-self: center; }
 .site-footer { padding-block: var(--c-space-8); }
+.faq-list details { border-block-start: 1px solid var(--c-divider); }
+.faq-list details:last-child { border-block-end: 1px solid var(--c-divider); }
+.faq-list summary { padding-block: var(--c-space-4); cursor: pointer; }
+.faq-list summary:focus-visible {
+  outline: var(--c-layout-focus-width) solid var(--c-focus);
+  outline-offset: var(--c-layout-focus-offset);
+}
+.faq-list p { padding-block-end: var(--c-space-4); }
+#contact .c-button { margin-top: var(--c-space-4); }
 
 .sr-only, .skip:not(:focus) {
   position: absolute;
@@ -197,5 +206,5 @@ code { overflow-wrap: anywhere; }
 @media (max-width: 480px) {
   .wrap { width: calc(100% - 2 * var(--c-space-4)); }
   .header-inner { gap: 0; padding-top: var(--c-space-4); }
-  .header-inner nav { width: 100%; gap: var(--c-space-6); }
+  .header-inner nav { width: 100%; justify-content: space-between; gap: var(--c-space-2); }
 }

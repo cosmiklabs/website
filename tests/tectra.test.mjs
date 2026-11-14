@@ -49,13 +49,12 @@ test('deprecated Volsyn address redirects to Tectra without obsolete product con
 
 
 
-test('the organization homepage features Tectra first without hiding HPLX or overstating availability', () => {
+test('the organization homepage leads with Tectra and lists all four projects', () => {
   const html = home();
-  assert.match(html, /Software for<br> <span>structures and stories/);
   assert.doesNotMatch(html, /Independent software studio|Reimagine, extend, create/);
   assert.match(html, /id="tectra-title"/);
   const rows = [...html.matchAll(/<h3 id="([^"]+)-title">/g)].map(match => match[1]);
-  assert.deepEqual(rows, ['tectra', 'hplx']);
+  assert.deepEqual(rows, ['tectra', 'hplx', 'arcfield', 'vallix']);
   const hplx = familyPage(families.find(project => project.id === 'hplx'));
   assert.match(hplx, /intended to be open source/);
   assert.match(hplx, /product repositories are not public yet/);

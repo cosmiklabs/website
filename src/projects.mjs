@@ -2,6 +2,7 @@
 export const pillars = [
   {id:'structures', name:'3D tools', summary:'Tools for creating 3D structures.'},
   {id:'stories', name:'Story creation', summary:'Tools for making playable stories.'},
+  {id:'terrain', name:'Terrain tools', summary:'Tools for shaping terrain and planning earthworks.'},
 ];
 
 /** Family destinations are stable. Featured work is an independent editorial choice. */
@@ -13,6 +14,7 @@ export const families = [
     logo: { heading: 'assets/projects/hplx-glimmer-dark.svg', listing: 'assets/projects/hplx-glimmer-white.svg' },
     summary: 'Create custom stories for Amnesia: The Dark Descent, with playtesting built in.',
     scope: 'An editor for Amnesia: The Dark Descent’s custom stories',
+    showcase: { image: 'assets/media/hplx-story-plan.svg', width: 920, height: 560, alt: 'Illustrative room plan with a light, script area and player route.', caption: 'HPLX workflow illustration · not an app screenshot', contain: true },
     description: 'HPLX is an editor for creating custom stories for the original Amnesia: The Dark Descent. Build a scene, playtest it inside the editor, then return to your work and refine it.',
     groups: [
       { title: 'Build', items: 'Your story, in the editor' },
@@ -36,6 +38,7 @@ export const families = [
     id: 'tectra', website: '/tectra/', name: 'Tectra', pillar: 'structures', status: 'In development',
     logo: { heading: 'assets/projects/tectra-latch-dark.svg', listing: 'assets/projects/tectra-latch-white.svg' },
     scope: '3D structures',
+    showcase: { image: 'assets/media/tectra-revision.png', width: 1200, height: 900, alt: 'A cottage structure with a wide front door and two chimneys, prepared with Tectra.', caption: 'Tectra geometry · illustrative revision' },
     summary: 'Design and refine 3D structures with AI assistance.',
     description: 'Bring an idea and develop it with Tectra’s AI. Shape a structure through connected parts, relationships and rules it can check as the design evolves.',
     groups: [
@@ -43,6 +46,23 @@ export const families = [
       { title: 'Shape', items: 'Develop connected parts and relationships' },
       { title: 'Refine', items: 'Check rules as the design evolves' },
     ],
+  },
+  {
+    id: 'arcfield', website: '/arcfield/', name: 'Arcfield', pillar: 'terrain', status: 'In development',
+    heading: ['Shape terrain,', 'tile by tile.'],
+    logo: { heading: 'assets/projects/arcfield-mark-dark.svg', listing: 'assets/projects/arcfield-mark-white.svg' },
+    scope: 'Tile-based terrain editing',
+    summary: 'Shape terrain or add terrain editing to your own app or game.',
+    description: 'Arcfield is a Rust kit for editing tile-based terrain. Match corner heights for continuous slopes or split them to make cliffs, walls, and terraces.',
+    showcase: { image: 'arcfield/assets/terrain.webp', width: 1280, height: 800, alt: 'Terrain with a rounded hill and a ramp to a plateau with sheer sides.', caption: 'Terrain rendered with Arcfield in Bevy' },
+  },
+  {
+    id: 'vallix', name: 'Vallix', pillar: 'terrain', status: 'In development',
+    heading: ['Plan the line', 'before you dig it.'],
+    logo: { heading: 'assets/projects/vallix-fosse-dark.svg', listing: 'assets/projects/vallix-fosse-white.svg' },
+    scope: 'Field defense planning',
+    summary: 'Plan trenches, bunkers, and field defenses with a free camera.',
+    description: 'Vallix is a planner for trenches, bunkers, and field defenses. Lay out connected pieces and explore how they fit together before building.',
   },
 ];
 

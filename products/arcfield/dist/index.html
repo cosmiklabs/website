@@ -16,10 +16,10 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-inner">
   <a class="identity" href="./"><img src="assets/mark.svg" alt="" width="34" height="34">Arcfield</a>
-  <nav aria-label="Main navigation"><a href="#terrain">Terrain</a><a href="#kit">Rust kit</a><a href="#workbench">Workbench</a></nav>
+  <nav aria-label="Main navigation"><a href="#product">Product</a><a href="#workflow">How it works</a><a href="#questions">Questions</a><a href="#contact">Contact</a></nav>
 </div></header>
 <main id="main">
-  <section class="hero wrap" aria-labelledby="title">
+  <section class="hero wrap" id="product" aria-labelledby="title">
     <div class="intro">
       <h1 id="title">Shape terrain,<br> tile by tile.</h1>
       <p>Raise a hill, cut a cliff, or build a terrace. Arcfield is a Rust kit for adding tile-based terrain editing to your own app or game.</p>
@@ -31,7 +31,7 @@
     </figure>
   </section>
   <section class="section wrap" id="terrain">
-    <div class="section-copy">
+    <div class="section-copy" id="workflow">
       <h2>Four heights.<br>One tile.</h2>
       <p>Each tile owns its four corner heights. When corners match along a shared edge, the ground joins. When the heights differ, a sheer face fills the gap.</p>
     </div>
@@ -58,6 +58,17 @@
   <section class="section wrap workbench" id="workbench">
     <div class="section-copy"><h2>Arcfield Workbench</h2><p class="c-status">In development</p></div>
     <div><p>Workbench is a browser app that shows how the Arcfield kit and Bevy integrations fit together. It’s built in <code>arcfield-bevy</code> and will run as WebAssembly at <strong>arcfield.app</strong>.</p></div>
+  </section>
+  <section class="section wrap" id="questions" aria-labelledby="questions-title">
+    <h2 id="questions-title">Questions</h2>
+    <div class="faq-list">
+      <details><summary>Can I use Arcfield without Bevy?</summary><p>Yes. The Rust kit is engine-independent. Use the Bevy integrations if you want to render terrain or assemble an editor in Bevy.</p></details>
+      <details><summary>Where will I try Workbench?</summary><p>Workbench is in development for the browser. Its planned address is <strong>arcfield.app</strong>.</p></details>
+    </div>
+  </section>
+  <section class="section wrap" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact</h2>
+    <div><p>Tell us what you’d like to build with Arcfield.</p><a class="c-button c-button--primary" href="mailto:hello@cosmiklabs.org?subject=About%20Arcfield">Email about Arcfield</a></div>
   </section>
 </main>
 <footer class="site-footer wrap"><a class="identity" href="./"><img src="assets/mark.svg" alt="" width="34" height="34">Arcfield</a><a class="c-link" href="../">By Cosmik</a></footer>

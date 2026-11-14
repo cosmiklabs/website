@@ -19,4 +19,4 @@ Edit project data in `src/projects.mjs`, page content in `src/templates.mjs`, an
 
 Each directory under `products/` owns its content, navigation, and site styles. The root build combines them with the company site into one Pages artifact. Product pages load the same Cosmik baseline as the company site, then their own scoped family CSS. The product files come from the consolidated `cosmiklabs/brand` distribution and are checked against the snapshot manifest.
 
-The existing `/projects/` routes remain company portfolio pages and link to the independent product sites. Arcfield Workbench is built in `arcfield-bevy` and will be hosted separately at `arcfield.app`.
+The `/projects/` directory includes Arcfield, HPLX, Tectra, and Vallix. Vallix has a portfolio page there. Product homepages use Product, How it works, Questions, and Contact as their main navigation. Arcfield Workbench is built in `arcfield-bevy` and will be hosted separately at `arcfield.app`.
